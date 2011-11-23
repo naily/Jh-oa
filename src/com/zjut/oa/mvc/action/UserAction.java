@@ -192,6 +192,11 @@ public class UserAction extends ActionAdapter {
 			setAttr(req, TIP_NAME_KEY, "请选择所属部门");
 			return FAIL;
 		}
+		if (academyID == -1) {
+			setAttr(req, TIP_NAME_KEY, "请选择学院");
+			return FAIL;
+		}
+
 		if (jobID == -1) {
 			setAttr(req, TIP_NAME_KEY, "请选择职务");
 			return FAIL;
@@ -200,10 +205,7 @@ public class UserAction extends ActionAdapter {
 		// setAttr(req, TIP_NAME_KEY, "请输入手机号码");
 		// return FAIL;
 		// }
-		if (academyID == -1) {
-			setAttr(req, TIP_NAME_KEY, "请选择学院");
-			return FAIL;
-		}
+
 		//
 		// if (StringUtils.isBlank(major)) {
 		// setAttr(req, TIP_NAME_KEY, "请输入专业班级");

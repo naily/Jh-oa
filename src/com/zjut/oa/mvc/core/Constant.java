@@ -72,6 +72,8 @@ public interface Constant {
 	String PAGE_KE_DEPARTMENTLIST_KEY="departmentList";
 	String PAGE_KE_DEPARTMENTID_KEY="departmentID";
 	String PAGE_KE_KEVALUE_KEY="kevalue";
+	String PAGE_KE_DEPARTMNETNAME_KEY="departmentname";
+	String PAGE_KE_TOTAL_KEY="total";
 	
 	/** 文件 */
 	String PAGE_FFILE_USER_MODEL_KEY="user";

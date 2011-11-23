@@ -396,24 +396,40 @@ background:url(../images/sep-line.png) right 0px repeat-y;}
 .freetime-title{}
 .add-freetime{}
 
-.toggleBar{position:relative;margin:10px 0px 0px;height:30px;line-height:30px;}
+.toggleBar{margin:10px 0px 0px;height:30px;line-height:30px;}
 .tbTitle{float:left;margin-left:20px;}
 .tbOpt{float:right;}
 .tbTitle b{margin-right:10px;}
 .tbTitle span{margin:0px 5px;font-weight:bold;color:green;}
-.tbOpt a,.tbOpt a:visited,.tbOpt a:hover,.tbOpt a:active{display:block;position:absolute;right:172px;width:77px;height:30px;color:#333;background-color:#fff;border-style:solid;border-width:1px;border-color:#ccc #ccc #fff #ccc;text-decoration:none;text-align:center;}
-.tbOpt a.focus{font-weight:bold;border-bottom-color:#f3f3f3;background-color:#f3f3f3;}
+.tbOpt ul{}
+.tbOpt ul li{display:inline-block;margin-right:10px;height:30px;color:#333;
+	border-style:solid;border-width:1px 1px 0px 1px;border-color:transparent;
+	text-decoration:none;text-align:center;cursor:pointer;}
+.tbOpt ul li.focus{font-weight:bold;height:30px;border-color:#ccc;cursor:auto;}
+.tbOpt ul li.focus span{height:31px;}
+.tbOpt ul li span{display:block;padding:0px 5px;height:29px;background-color:#fff;}
 
-.freeTimeUserDisplay{border:1px #f3f3f3 solid;}
-.ftudInner{margin:5px;}
 
-.toggleArea{}
+
+.queryCondition{}
+.freePersonList{}
+.wholeState{}
+
+
+
 /*全精弘*/
 .closeConditionDisplay{text-align:right;background-color:#fefefe;}
 a.closeTable,a:visited.closeTable,a:hover.closeTable,a:active.closeTable{display:block;padding-right:20px;height:25px;line-height:25px;text-decoration:none;color:#ccc;}
 a:hover.closeTable{background-color:#f2f2f2;color:#333;}
-.ccdBottom{margin-top:-10px;}
 /*单部门*/
+.queryConditionContainer,.freePersonListContainer,.wholeStateContainer{border-top:1px #ccc solid;padding:10px 5px 5px;}
+	/*查询条件容器*/
+	.queryConditionContainer{}
+	/*空闲人员列表*/
+	.freePersonListContainer{}
+	.ftudInner{margin:5px;}
+	/*部门人员整体情况*/
+	.wholeStateContainer{}
 
 /* =================产品====================== */
 .addproduct-title{}

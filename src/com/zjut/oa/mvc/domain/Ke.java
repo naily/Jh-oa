@@ -138,8 +138,8 @@ public class Ke extends Model {
 		sql.append(" k.id, ");// 1
 		sql.append(" k.userID, ");// 2
 		sql.append(" k.kevalue, ");// 3
-		sql.append(" count(*), ");// 4
-		sql.append(" d.departmentname, ");// 5
+		sql.append(" tmp.total, ");// 4
+		sql.append(" tmp.departmentname, ");// 5
 		sql.append(" u.id, ");// 6
 		sql.append(" u.uid, ");// 7
 		sql.append(" u.username, ");// 8
@@ -167,27 +167,36 @@ public class Ke extends Model {
 		Department department = new Department();
 		Job job = new Job();
 
-		sql.append(" " + tableName() + " as k, ");
-		sql.append(user.tableName() + " as u, ");
 		sql.append(academy.tableName() + " as a, ");
-		sql.append(department.tableName() + " as d, ");
-		sql.append(job.tableName() + " as j");
-
+		sql.append(job.tableName() + " as j, ");
+		sql.append(user.tableName() + " as u, ");
+		sql.append(" " + tableName() + " as k, ");
+		sql.append(" ( select ");
+		sql.append(" count(*) as total, ");
+		sql.append(" d.id, ");
+		sql.append(" d.departmentname");
+		sql.append(" from ");
+		sql.append(user.tableName()+" as u,");
+		sql.append(tableName()+" as k, ");
+		sql.append(department.tableName()+" as d");
 		sql.append(" where ");
-		sql.append(" k.userID = u.id and ");
-		sql.append(" u.academyID = a.id and ");
-		sql.append(" u.departmentID = d.id and ");
-		sql.append(" u.jobID = j.id  ");
-
+		sql.append(" u.id = k.userID ");
 		sql.append(filter.toString());
+		sql.append(" and u.departmentID = d.id ");
 		
 		//非全精弘范围，添加部门ID
 		if(!StringUtils.equals(departmentID, "0")){
 			sql.append(" and u.departmentID="+departmentID);
 		}
-		
-		sql.append(" group by u.departmentID ");
-		
+		sql.append(" group by u.departmentID ) as tmp ");
+
+		sql.append(" where ");
+		sql.append(" u.departmentID = tmp.id and ");
+		sql.append(" u.academyID = a.id and ");
+		sql.append(" u.jobID = j.id and ");
+		sql.append(" k.userID = u.id  ");
+		sql.append(" order by u.departmentID ");
+
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		try {
@@ -257,6 +266,7 @@ public class Ke extends Model {
 			sql = null;
 		}
 
+		log.info(fktList.size());
 		return fktList;
 	}
 }

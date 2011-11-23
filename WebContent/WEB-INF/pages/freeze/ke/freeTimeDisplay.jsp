@@ -27,6 +27,8 @@
 <c:set var="fktList" value="${requestScope.fktList }"></c:set>
 <c:set var="findFreeTime_kevalue" value="${requestScope.kevalue }"></c:set>
 <c:set var="currentDepartmentID" value="${requestScope.departmentID }"></c:set>
+<c:set var="oneDepartmentname" value="${requestScope.departmentname }"></c:set>
+<c:set var="oneTotal" value="${requestScope.total }"></c:set>
 
 <div class="crumb">
 	<div class="addke-title">空课查询结果</div>
@@ -49,7 +51,7 @@
 					<%-- 当前查询条件显示区域 --%>
 					<div class="toggleArea">
 						<div class="closeConditionDisplay">
-							<a href="javascript:void(0);" class="closeTable">收起当前查询条件</a>
+							<a href="javascript:void(0);" class="closeTable">隐藏当前查询条件</a>
 						</div>
 						<table class="dataTableDisplay allJHUsers">
 							<colgroup>
@@ -128,10 +130,8 @@
 								</c:if>
 							</c:forEach>
 						</table>
-						<div class="closeConditionDisplay ccdBottom">
-							<a href="javascript:void(0);" class="closeTable">收起当前查询条件</a>
-						</div>
 					</div>
+					
 					<%-- 按部门分区域展示全精弘的成员当前条件下的空闲时间情况　 --%>
 					<c:forEach var="freeketogether" items="${fktList }">
 						<c:set var="ke" value="${freeketogether.ke }"></c:set>
@@ -142,9 +142,13 @@
 						<c:set var="job" value="${usertogether.job }"></c:set>
 						<c:set var="total" value="${freeketogether.total }"></c:set>
 						<div class="toggleBar">
-							<div class="tbTitle"><b>${department.departmentname }</b>共[<span>${total }</span>]人有空</div>
-							<div class="tbOpt"><a href="javascript" class="toggleDetail focus">空闲情况</a></div>
-							<div class="clear"></div>
+							<div id="tbOpt-${department.id }" class="tbOpt">
+								<ul>
+									<li class="queryCondition focus"><span>当前查询条件</span></li>
+									<li class="freePersonList"><span>空闲人员列表</span></li>
+									<li class="wholeState"><span>部门人员整体情况</span></li>
+								</ul>
+							</div>
 						</div>
 						<div class="freeTimeUserDisplay">
 							<div class="ftudInner">
@@ -155,27 +159,19 @@
 				</c:when>
 				<%-- 单部门数据展示 --%>
 				<c:otherwise>
-					<c:forEach var="freeketogether" items="${fktList }">
-						<c:set var="ke" value="${freeketogether.ke }"></c:set>
-						<c:set var="usertogether" value="${freeketogether.usertogether }"></c:set>
-						<c:set var="user" value="${usertogether.user }"></c:set>
-						<c:set var="academy" value="${usertogether.academy }"></c:set>
-						<c:set var="department" value="${usertogether.department }"></c:set>
-						<c:set var="job" value="${usertogether.job }"></c:set>
-						<c:set var="total" value="${freeketogether.total }"></c:set>
-						<div class="toggleBar">
-							<div class="tbTitle"><b>${department.departmentname }</b>共[<span>${total }</span>]人有空</div>
-							<div class="tbOpt"><a href="javascript" class="toggleDetail focus">空闲情况</a></div>
-							<div class="clear"></div>
+					<div class="toggleBar">
+						<div class="tbTitle"><b>${oneDepartmentname }</b>共[<span>${oneTotal }</span>]人有空</div>
+						<div id="one-tbOpt" class="tbOpt">
+							<ul>
+								<li class="queryCondition focus"><span>当前查询条件</span></li>
+								<li class="freePersonList"><span>空闲人员列表</span></li>
+								<li class="wholeState"><span>部门人员整体情况</span></li>
+							</ul>
 						</div>
-						<div class="freeTimeUserDisplay">
-							<div class="ftudInner">
-								<div class="one-person-line">${user.username }|${user.uid }<a href="action/ke/show?id=${ke.id }">查看课表情况</a></div>
-							</div>
-						</div>
-					</c:forEach>
+						<div class="clear"></div>
+					</div>
 					<%-- 当前查询条件显示区域 --%>
-					<div class="toggleArea">
+					<div id="one-queryConditionContainer" class="one-ke-module queryConditionContainer">
 						<table class="dataTableDisplay">
 							<colgroup>
 								<col width="13%" />
@@ -254,6 +250,25 @@
 							</c:forEach>
 						</table>
 					</div>
+					<%-- 空闲人员列表 --%>
+					<div id="one-freePersonListContainer" class="one-ke-module freePersonListContainer">
+					<c:forEach var="freeketogether" items="${fktList }">
+						<c:set var="ke" value="${freeketogether.ke }"></c:set>
+						<c:set var="usertogether" value="${freeketogether.usertogether }"></c:set>
+						<c:set var="user" value="${usertogether.user }"></c:set>
+						<c:set var="academy" value="${usertogether.academy }"></c:set>
+						<c:set var="department" value="${usertogether.department }"></c:set>
+						<c:set var="job" value="${usertogether.job }"></c:set>
+						<c:set var="total" value="${freeketogether.total }"></c:set>
+						<div class="ftudInner">
+							<div class="one-person-line">${user.username }|${user.uid }<a href="action/ke/show?id=${ke.id }">查看课表情况</a></div>
+						</div>
+					</c:forEach>
+					</div>
+					<%-- 部门人员整体情况 --%>
+					<div id="one-wholeStateContainer" class="one-ke-module wholeStateContainer">
+					
+					</div>
 				</c:otherwise>
 			</c:choose>
 		</c:otherwise>
@@ -263,8 +278,29 @@
 	$(function(){
 		$('.closeTable').toggle(function(){
 			$('.allJHUsers').hide();
+			$(this).html('显示当前查询条件');
 		},function(){
 			$('.allJHUsers').show();
+			$(this).html('隐藏当前查询条件');
+		});
+		
+		//单部门的标签视图切换
+		$('#one-tbOpt ul li').click(function(){
+			var self=$(this);
+			$('#one-tbOpt ul li').removeClass('focus');
+			self.addClass('focus');
+			
+			//切换
+			$('.one-ke-module').hide();
+			if(self.hasClass('queryCondition')){
+				$('#one-queryConditionContainer').show();
+			}
+			else if(self.hasClass('freePersonList')){
+				$('#one-freePersonListContainer').show();
+			}
+			else if(self.hasClass('wholeState')){
+				$('#one-wholeStateContainer').show();
+			}
 		});
 	});
 </script>
