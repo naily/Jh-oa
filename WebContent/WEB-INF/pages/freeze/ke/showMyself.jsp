@@ -75,7 +75,7 @@
 					<c:set var="current_ke" value="${fn:substring(kevalue, index, index+1) }"></c:set>
 					<c:choose>
 						<c:when test="${j == 0 }">
-						<th class="center">第${i }节</th>
+						<th class="center">第${i >= 5 ? i+1 : i }节</th>
 						</c:when>
 						<c:when test="${j == 5 }">
 							<c:choose>

@@ -426,10 +426,14 @@ a:hover.closeTable{background-color:#f2f2f2;color:#333;}
 	/*查询条件容器*/
 	.queryConditionContainer{}
 	/*空闲人员列表*/
-	.freePersonListContainer{}
+	.freePersonListContainer{display:none;}
 	.ftudInner{margin:5px;}
 	/*部门人员整体情况*/
-	.wholeStateContainer{}
+	.wholeStateContainer{display:none;}
+
+/*色彩图示*/
+.colorIntroduce{margin:10px 0px;padding:5px;border:1px #f3f3f3 solid;}
+.color{display:inline-block;margin:0px 0px 5px 5px;width:10px;height:10px;overflow:hidden;border:1px #ccc solid;}
 
 /* =================产品====================== */
 .addproduct-title{}
