@@ -422,12 +422,22 @@ background:url(../images/sep-line.png) right 0px repeat-y;}
 a.closeTable,a:visited.closeTable,a:hover.closeTable,a:active.closeTable{display:block;padding-right:20px;height:25px;line-height:25px;text-decoration:none;color:#ccc;}
 a:hover.closeTable{background-color:#f2f2f2;color:#333;}
 /*单部门*/
-.queryConditionContainer,.freePersonListContainer,.wholeStateContainer{border-top:1px #ccc solid;padding:10px 5px 5px;}
+.queryConditionContainer,.freePersonListContainer,.wholeStateContainer{border-top:1px #ccc solid;padding:10px 10px 5px;}
 	/*查询条件容器*/
 	.queryConditionContainer{}
 	/*空闲人员列表*/
 	.freePersonListContainer{display:none;}
 	.ftudInner{margin:5px;}
+	.one-person-line{line-height:40px;height:40px;border-bottom:1px #ccc dashed;}
+		.one-p-l-uid{margin-right:10px;padding:0px 5px;display:inline-block;height:25px;line-height:25px;background-color:#ccc;color:#fff;font-weight:bold;
+			border-radius:10px;-moz-border-radius:10px;-webkit-border-radius:10px;
+		}
+		.one-p-l-username{margin-right:10px;font-weight:bold;}
+		.one-p-l-department{margin-right:10px;}
+		.one-p-l-phonenumber{margin-right:10px;}
+		.one-p-l-email{margin-right:10px;}
+	.one-person-line a,.one-person-line a:visited,.one-person-line a:hover,.one-person-line a:active{color:#333;text-decoration:underline;}
+	.one-person-line a:hover{text-decoration:none;}
 	/*部门人员整体情况*/
 	.wholeStateContainer{display:none;}
 

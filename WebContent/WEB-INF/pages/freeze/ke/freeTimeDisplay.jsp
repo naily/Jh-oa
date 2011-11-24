@@ -260,7 +260,13 @@
 						<c:set var="job" value="${usertogether.job }"></c:set>
 						<c:set var="total" value="${freeketogether.total }"></c:set>
 						<div class="ftudInner">
-							<div class="one-person-line">${user.username }|${user.uid }<a href="action/ke/show?id=${ke.id }">查看课表情况</a></div>
+							<div class="one-person-line">
+								<span class="one-p-l-uid">${user.uid }</span>
+								<span class="one-p-l-username"><a href="action/user/show?id=${user.id }" title="查看详细">${user.username }</a></span>
+								<span class="one-p-l-department">${department.departmentname }(${job.jobname })</span>
+								<span class="one-p-l-phonenumber">${user.telephone }(${user.cornet })</span>
+								<span class="one-p-l-email">${user.email }</span>
+								<a href="action/ke/show?id=${ke.id }" class="view" title="查看课表">详细课表</a></div>
 						</div>
 					</c:forEach>
 					</div>
@@ -643,7 +649,7 @@
 								<c:set var="maxCountState" value="${tmp }"></c:set>
 							</c:if>
 						</c:forEach>
-						<div class="actionTip">提示：<span class="tip-words">以下所统计的人数是指在不同时间点下有空闲时间的人员总数</span></div>
+						<div class="optTip">提示：<span class="msg">以下所统计的人数是指在不同时间点下有空闲时间的人员总数</span></div>
 						<div class="colorIntroduce">
 							<c:forEach var="cColorIndex" begin="0" end="${maxCountState }" step="1">
 								<div class="color color${cColorIndex }"></div>${cColorIndex }人
