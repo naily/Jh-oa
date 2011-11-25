@@ -251,24 +251,35 @@
 					</div>
 					<%-- 空闲人员列表 --%>
 					<div id="one-freePersonListContainer" class="one-ke-module freePersonListContainer">
-					<c:forEach var="freeketogether" items="${fktList }">
-						<c:set var="ke" value="${freeketogether.ke }"></c:set>
-						<c:set var="usertogether" value="${freeketogether.usertogether }"></c:set>
-						<c:set var="user" value="${usertogether.user }"></c:set>
-						<c:set var="academy" value="${usertogether.academy }"></c:set>
-						<c:set var="department" value="${usertogether.department }"></c:set>
-						<c:set var="job" value="${usertogether.job }"></c:set>
-						<c:set var="total" value="${freeketogether.total }"></c:set>
-						<div class="ftudInner">
+						<div class="ftudInner one-person-header">
 							<div class="one-person-line">
-								<span class="one-p-l-uid">${user.uid }</span>
-								<span class="one-p-l-username"><a href="action/user/show?id=${user.id }" title="查看详细">${user.username }</a></span>
-								<span class="one-p-l-department">${department.departmentname }(${job.jobname })</span>
-								<span class="one-p-l-phonenumber">${user.telephone }(${user.cornet })</span>
-								<span class="one-p-l-email">${user.email }</span>
-								<a href="action/ke/show?id=${ke.id }" class="view" title="查看课表">详细课表</a></div>
+								<span class="one-p-l-uid bold">学号</span>
+								<span class="one-p-l-username bold">姓名</span>
+								<span class="one-p-l-department bold">所在部门(职务)</span>
+								<span class="one-p-l-phonenumber bold">手机号码(短号)</span>
+								<span class="one-p-l-more bold">更多操作</span>
+							</div>
 						</div>
-					</c:forEach>
+						<div class="ftudInnerContainer">
+						<c:forEach var="freeketogether" items="${fktList }">
+							<c:set var="ke" value="${freeketogether.ke }"></c:set>
+							<c:set var="usertogether" value="${freeketogether.usertogether }"></c:set>
+							<c:set var="user" value="${usertogether.user }"></c:set>
+							<c:set var="academy" value="${usertogether.academy }"></c:set>
+							<c:set var="department" value="${usertogether.department }"></c:set>
+							<c:set var="job" value="${usertogether.job }"></c:set>
+							<c:set var="total" value="${freeketogether.total }"></c:set>
+							<div class="ftudInner">
+								<div class="one-person-line">
+									<span class="one-p-l-uid">${user.uid }</span>
+									<span class="one-p-l-username"><a href="action/user/show?id=${user.id }" title="查看详细">${user.username }</a></span>
+									<span class="one-p-l-department">${department.departmentname }(${job.jobname })</span>
+									<span class="one-p-l-phonenumber">${user.telephone }(${user.cornet })</span>
+									<span class="one-p-l-more"><a href="action/ke/show?id=${ke.id }" class="view" title="查看课表">详细课表</a></span>
+								</div>
+							</div>
+						</c:forEach>
+						</div>
 					</div>
 					<%-- 部门人员整体情况 --%>
 					<div id="one-wholeStateContainer" class="one-ke-module wholeStateContainer">
@@ -652,7 +663,11 @@
 						<div class="optTip">提示：<span class="msg">以下所统计的人数是指在不同时间点下有空闲时间的人员总数</span></div>
 						<div class="colorIntroduce">
 							<c:forEach var="cColorIndex" begin="0" end="${maxCountState }" step="1">
-								<div class="color color${cColorIndex }"></div>${cColorIndex }人
+								<div class="colorItem" id="${cColorIndex }">
+									<div class="color color${cColorIndex }"></div>
+									<span class="color-person">${cColorIndex }人</span>
+									<div class="clear"></div>
+								</div>
 							</c:forEach>
 								<div class="clear"></div>
 							</div>
@@ -689,12 +704,12 @@
 											</c:when>
 											<c:when test="${j == 5 }">
 												<c:set var="z" value="${(i-1)* 7 + j }"></c:set>
-												<td class="center color${countStateArr[z-1]}"><!-- ${countStateArr[z-1]}人 --></td>
+												<td class="center color${countStateArr[z-1]}" title="${countStateArr[z-1]}人有空"><!-- ${countStateArr[z-1]}人 --></td>
 												<th></th>
 											</c:when>
 											<c:otherwise>
 												<c:set var="z" value="${(i-1)* 7 + j }"></c:set>
-												<td class="center color${countStateArr[z-1]}"><!-- ${countStateArr[z-1]}人 --></td>
+												<td class="center color${countStateArr[z-1]}" title="${countStateArr[z-1]}人有空"><!-- ${countStateArr[z-1]}人 --></td>
 											</c:otherwise>
 										</c:choose>
 									<c:set var="index" value="${index+1 }"></c:set>
@@ -723,6 +738,9 @@
 			</c:choose>
 		</c:otherwise>
 	</c:choose>
+	<style type="text/css">
+	.color0{background-color:#F0C8D5}.color1{background-color:#E4F6DA}.color2{background-color:#CCDAF5}.color3{background-color:#D6F3E2}.color4{background-color:#CCD2F9}.color5{background-color:#F0D8CB}.color6{background-color:#F8F4D7}.color7{background-color:#E9C8DB}.color8{background-color:#EAF6E3}.color9{background-color:#D1D2DD}.color10{background-color:#D8D6D2}.color11{background-color:#E5D6D8}.color12{background-color:#F4D1DC}.color13{background-color:#D6F3D9}.color14{background-color:#E6E6F1}.color15{background-color:#CDD8F8}.color16{background-color:#F9D7F1}.color17{background-color:#DDDCCA}.color18{background-color:#D1C9E6}.color19{background-color:#F3CECC}.color20{background-color:#E8ECEE}.color21{background-color:#E4F6EB}.color22{background-color:#F5D4F0}.color23{background-color:#D8F5D2}.color24{background-color:#E8D2D8}.color25{background-color:#D5CFD8}.color26{background-color:#E9CCF6}.color27{background-color:#CDD6CC}.color28{background-color:#EFD1F7}.color29{background-color:#E9ECE2}.color30{background-color:#D3D5CE}.color31{background-color:#E1EFCB}.color32{background-color:#CBECE0}.color33{background-color:#D3EDE2}.color34{background-color:#F0D9EC}.color35{background-color:#F3F6C9}.color36{background-color:#D8F6E8}.color37{background-color:#EED2E7}.color38{background-color:#DAD6DF}.color39{background-color:#CCDDCF}.color40{background-color:#EACACA}.color41{background-color:#F9D2F1}.color42{background-color:#E9F9CB}.color43{background-color:#DBD6D1}.color44{background-color:#D6E7CC}.color45{background-color:#E2D8CA}.color46{background-color:#EBEFF2}.color47{background-color:#F9E5DB}.color48{background-color:#F7D5D1}.color49{background-color:#C8E3DF}.color50{background-color:#E6E5F5}.color51{background-color:#D7E4C8}.color52{background-color:#CBD4F2}.color53{background-color:#E0C9EE}.color54{background-color:#D8F2D9}.color55{background-color:#E3CFDF}.color56{background-color:#EEE9DD}.color57{background-color:#CFF5F4}.color58{background-color:#D0D0E5}.color59{background-color:#D0D5D0}.color60{background-color:#E3DCE8}.color61{background-color:#EACADA}.color62{background-color:#E9E8DD}.color63{background-color:#D8E9C8}.color64{background-color:#CAF0E2}.color65{background-color:#D1DED2}.color66{background-color:#EDE7CF}.color67{background-color:#ECD9E2}.color68{background-color:#E4E2EB}.color69{background-color:#D7EDDD}.color70{background-color:#CAE6F4}.color71{background-color:#E3E7C9}.color72{background-color:#F6D6E7}.color73{background-color:#E9EED8}.color74{background-color:#D0F6D7}.color75{background-color:#CDECD1}.color76{background-color:#CFF6F8}.color77{background-color:#F0CCF0}.color78{background-color:#D4D4F3}.color79{background-color:#C9D8D7}.color80{background-color:#C9E7D0}.color81{background-color:#E7D3EF}.color82{background-color:#ECF8D2}.color83{background-color:#E3CCEA}.color84{background-color:#E4E8F7}.color85{background-color:#E7E7D9}.color86{background-color:#D1F7ED}.color87{background-color:#D4F9CF}.color88{background-color:#EAD8CD}.color89{background-color:#DDE4EE}.color90{background-color:#DCF6CC}.color91{background-color:#F5EED9}.color92{background-color:#EEEFD6}.color93{background-color:#F4DFEE}.color94{background-color:#F0E4CA}.color95{background-color:#D7D1DE}.color96{background-color:#E9F0EA}.color97{background-color:#C8E9F0}.color98{background-color:#F5E2EC}.color99{background-color:#EBCFEC}.color100{background-color:#CEEEE2}.color101{background-color:#D3E5D3}.color102{background-color:#CBD8C8}.color103{background-color:#E6E4F5}.color104{background-color:#E7F4F4}.color105{background-color:#F0D1D9}.color106{background-color:#D0F1C9}.color107{background-color:#F9E9CA}.color108{background-color:#D3D8D0}.color109{background-color:#E9E6F3}.color110{background-color:#CEE6CD}.color111{background-color:#F8F0F4}.color112{background-color:#DAE9F6}.color113{background-color:#F1EAF4}.color114{background-color:#D4E4DD}.color115{background-color:#D4CED0}.color116{background-color:#EACADA}.color117{background-color:#EDD9F0}.color118{background-color:#D0D5E2}.color119{background-color:#CECCF1}.color120{background-color:#F9EFE1}.color121{background-color:#F3DDD1}.color122{background-color:#EEF0E5}.color123{background-color:#D3CDF6}.color124{background-color:#EFCFD0}.color125{background-color:#E3F3CB}.color126{background-color:#F0E1D6}.color127{background-color:#DACAD1}.color128{background-color:#C9F2E0}.color129{background-color:#D5F2EB}.color130{background-color:#CAF7DB}.color131{background-color:#DEE7D5}.color132{background-color:#EDF3F0}.color133{background-color:#CFF6DE}.color134{background-color:#DDF6D9}.color135{background-color:#CDF1E3}.color136{background-color:#F6F0D9}.color137{background-color:#CEF4DA}.color138{background-color:#CEEAEC}.color139{background-color:#DDCAE3}.color140{background-color:#F6DED1}.color141{background-color:#F9F1D1}.color142{background-color:#D8F6CA}.color143{background-color:#D4E0F1}.color144{background-color:#DAF0E9}.color145{background-color:#F5CEEC}.color146{background-color:#D0C9F6}.color147{background-color:#DFF5EC}.color148{background-color:#DAEFDC}.color149{background-color:#E7E0DB}.color150{background-color:#F7EECF}.color151{background-color:#D1E8CD}.color152{background-color:#EBD0CE}.color153{background-color:#EFE4E7}.color154{background-color:#D8D7D3}.color155{background-color:#E3CCD5}.color156{background-color:#F4D6CC}.color157{background-color:#F6ECE9}.color158{background-color:#E7F5F8}.color159{background-color:#F6F0F4}.color160{background-color:#EFE8D5}.color161{background-color:#C9DEE5}.color162{background-color:#CBE3C9}.color163{background-color:#E7D5E7}.color164{background-color:#E4CACC}.color165{background-color:#E9E7E2}.color166{background-color:#E1D7F8}.color167{background-color:#D5E9C8}.color168{background-color:#F9F3DA}.color169{background-color:#D6ECC9}.color170{background-color:#DDD5EA}.color171{background-color:#DCF4DF}.color172{background-color:#D6D8EF}.color173{background-color:#DBDEE2}.color174{background-color:#ECF3DC}.color175{background-color:#E7CFE8}.color176{background-color:#D2C9D2}.color177{background-color:#CCEBE2}.color178{background-color:#CEDBD8}.color179{background-color:#CAE8D0}.color180{background-color:#F9D0CE}.color181{background-color:#F7D7D5}.color182{background-color:#ECEBF5}.color183{background-color:#D3F7EF}.color184{background-color:#E4E1EF}.color185{background-color:#E6E0F3}.color186{background-color:#D9D3E2}.color187{background-color:#EBD8F2}.color188{background-color:#E0DBEB}.color189{background-color:#E1C8D4}.color190{background-color:#D0C8D6}.color191{background-color:#D5D8D5}.color192{background-color:#D5D1E8}.color193{background-color:#E9E0DF}.color194{background-color:#EDF4C8}.color195{background-color:#DFC9E9}.color196{background-color:#DEDFE5}.color197{background-color:#F5F7D9}.color198{background-color:#CFE6DF}.color199{background-color:#D2D3C8}.color200{background-color:#E4C9EF}.color201{background-color:#D6D2E9}.color202{background-color:#D8E3DC}.color203{background-color:#DDF9EB}.color204{background-color:#DBEDE6}.color205{background-color:#F2CEE7}.color206{background-color:#F5E0C8}.color207{background-color:#CBE8E1}.color208{background-color:#E9E0DC}.color209{background-color:#E1D6F0}.color210{background-color:#C9F8D7}.color211{background-color:#CDDEEB}.color212{background-color:#D8D0C9}.color213{background-color:#CEDEF7}.color214{background-color:#F5D5EB}.color215{background-color:#EDDCCE}.color216{background-color:#DFCCD7}.color217{background-color:#DDC8EA}.color218{background-color:#CCDAD3}.color219{background-color:#E5EFD3}.color220{background-color:#C8D1EB}.color221{background-color:#EAD1E6}.color222{background-color:#DBD4E0}.color223{background-color:#F6EEF6}.color224{background-color:#E1E1EA}.color225{background-color:#CCDAD2}.color226{background-color:#DDE7E7}.color227{background-color:#F9F1ED}.color228{background-color:#D1F5F8}.color229{background-color:#E9DCE0}.color230{background-color:#D6F8F5}.color231{background-color:#D7F9CD}.color232{background-color:#E7F6D4}.color233{background-color:#DCD4DE}.color234{background-color:#E3F7D1}.color235{background-color:#EBE9E8}.color236{background-color:#DDDEEE}.color237{background-color:#E4DCF7}.color238{background-color:#DEF6F4}.color239{background-color:#D7F5F0}.color240{background-color:#DBC9E2}.color241{background-color:#D1EBDA}.color242{background-color:#F9E8F8}.color243{background-color:#F0EDDD}.color244{background-color:#F9F4E4}.color245{background-color:#E5DCCF}.color246{background-color:#D6F1F8}.color247{background-color:#E1D9CF}.color248{background-color:#F2E6F7}.color249{background-color:#E8D4D4}.color250{background-color:#EDF5D5}.color251{background-color:#E9F3D1}.color252{background-color:#D4D9CF}.color253{background-color:#F4DCF7}.color254{background-color:#E8D7D6}
+	</style>
 </div>
 <script type="text/javascript">
 	$(function(){
@@ -752,24 +770,52 @@
 				$('#one-wholeStateContainer').show();
 			}
 		});
-	});
-	//随机背景色
-	var getRandomColor = function(){     
-		return  '#' +       
-		(function(color){       
-		return (color +=  '0123456789abcdef'[Math.floor(Math.random()*16)])         
-		&& (color.length == 6) ?  color : arguments.callee(color);     
-		})('');    
-	};
 	
-	var maxColorSize=5;
+		//人员列表的交互效果
+		$('.ftudInnerContainer .one-person-line').hover(function(){
+			$(this).addClass('on');
+		},function(){
+			$(this).removeClass('on');
+		});
+		//部门空闲人员
+		$('.colorItem').hover(function(){
+			var id=$(this).attr('id');
+			$('.color'+id).addClass('colorOn');
+		},function(){
+			var id=$(this).attr('id');
+			$('.color'+id).removeClass('colorOn');
+		});
+		
+		
+	});
+	function ToHex(n){
+		var hexch = new Array('0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F');
+		var h, l;
+		n = Math.round(n);
+		l = n % 16;
+		h = Math.floor((n / 16)) % 16;
+		return (hexch[h]+''+hexch[l]);
+	}
+	function getGColor(gradient){
+		var colorR=200 + Math.floor(Math.random() * 50);
+		var colorG=200 + Math.floor(Math.random() * 50);
+		var colorB=200 + Math.floor(Math.random() * 50);
+		
+		colorR=colorR % 255;
+		colorG=colorG % 255;
+		colorB=colorB % 255;
+		var color='#'+ToHex(colorR)+''+ToHex(colorG)+''+ToHex(colorB)+'';
+		return color;
+	}
+	/*
+	var maxColorSize=255;
 	var cssStyle='<style type="text/css">';
 	for(var i=0;i<maxColorSize;i++){
-		cssStyle+='.color'+i+'{background-color:'+getRandomColor(i)+'}';
+		cssStyle+='.color'+i+'{background-color:'+getGColor()+'}\n';
 	}
 	cssStyle+='</style>';
 	$('body').append(cssStyle);
+	*/
 </script>
-
 </body>
 </html>

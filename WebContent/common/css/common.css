@@ -20,7 +20,7 @@ p{line-height:150%;}
 /*表单相关*/
 .common-checkbox{}
 .common-checkbox-1{position:relative;top:2px;}
-.common-label{display:inline-block;width:80px;text-align:center;}
+.common-label{display:inline-block;width:80px;text-align:left;}
 .condition-label{display:inline-block;;text-align:center;}
 .condition-input{padding:3px;font-size:14px;border:1px #CCC solid;height:20px;line-height:20px;-moz-border-radius:3px;-webkit-border-radius:3px;}
 
@@ -428,22 +428,38 @@ a:hover.closeTable{background-color:#f2f2f2;color:#333;}
 	/*空闲人员列表*/
 	.freePersonListContainer{display:none;}
 	.ftudInner{margin:5px;}
+	
+	.one-person-header{height:30px;line-height:30px;border-bottom:4px #333 double;background-color:#f3f3f3;}
+	.one-person-header .bold{font-weight:bold;}
+	.one-person-header .one-person-line{height:30px;line-height:30px;border-bottom-width:0px;}
+	.one-person-header .one-p-l-uid{border-radius:0px;color:#000;background-color:transparent;}
+	
+	
+	.ftudInnerContainer .on{background-color:#E0EEE0;}
+	
 	.one-person-line{line-height:40px;height:40px;border-bottom:1px #ccc dashed;}
-		.one-p-l-uid{margin-right:10px;padding:0px 5px;display:inline-block;height:25px;line-height:25px;background-color:#ccc;color:#fff;font-weight:bold;
+		.one-person-line span{display:inline-block;overflow:hidden;}
+		.one-p-l-uid{margin-right:20px;width:115px;padding:0px 5px;display:inline-block;height:25px;line-height:25px;background-color:#ccc;color:#fff;font-weight:bold;
 			border-radius:10px;-moz-border-radius:10px;-webkit-border-radius:10px;
 		}
-		.one-p-l-username{margin-right:10px;font-weight:bold;}
-		.one-p-l-department{margin-right:10px;}
-		.one-p-l-phonenumber{margin-right:10px;}
-		.one-p-l-email{margin-right:10px;}
-	.one-person-line a,.one-person-line a:visited,.one-person-line a:hover,.one-person-line a:active{color:#333;text-decoration:underline;}
-	.one-person-line a:hover{text-decoration:none;}
+		.one-p-l-username{width:20%;font-weight:bold;}
+		.one-p-l-username a,.one-p-l-username a:visited,.one-p-l-username a:hover,.one-p-l-username a:active{color:#333;text-decoration:underline;}
+		.one-p-l-username a:hover{text-decoration:none;}
+		.one-p-l-department{width:20%;}
+		.one-p-l-phonenumber{width:20%;}
+		.one-p-l-more{margin-left:10px;}
+	.one-p-l-more a,.one-p-l-more a:visited,.one-p-l-more a:hover,.one-p-l-more a:active{color:#B22222;text-decoration:underline;}
+	.one-p-l-more a:hover{text-decoration:none;}
 	/*部门人员整体情况*/
 	.wholeStateContainer{display:none;}
 
 /*色彩图示*/
-.colorIntroduce{margin:10px 0px;padding:5px;border:1px #f3f3f3 solid;}
-.color{display:inline-block;margin:0px 0px 5px 5px;width:10px;height:10px;overflow:hidden;border:1px #ccc solid;}
+.colorIntroduce{margin:10px 0px 0px;}
+.colorItem{display:inline-block;margin:0px 0px 5px 5px;padding:0px 5px;border:1px #ccc solid;}
+.color{float:left;margin-top:5px;width:10px;height:10px;overflow:hidden;}
+.color-person{float:left;margin-left:5px;height:20px;line-height:20px;}
+.dataTableDisplay td.colorOn{background-color:green;}
+
 
 /* =================产品====================== */
 .addproduct-title{}

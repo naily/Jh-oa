@@ -168,7 +168,7 @@
 	
 	<tr>
 		<td colspan="2">
-			<textarea id="kindEditor" name="introduce"  class="editor" style="width:90%;height:200px;">${model.introduce}</textarea>
+			<textarea id="kindEditor" name="introduce"  class="editor" style="width:98%;height:200px;">${model.introduce}</textarea>
 			<input type="hidden"  id="simpleinfo" name="simpleinfo" value="${model.simpleinfo }"/>
 		</td>
 	</tr>

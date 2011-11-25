@@ -183,6 +183,7 @@ public class Ke extends Model {
 		sql.append(" u.id = k.userID ");
 		sql.append(filter.toString());
 		sql.append(" and u.departmentID = d.id ");
+		sql.append(" and u.islock = 0 ");
 		
 		//非全精弘范围，添加部门ID
 		if(!StringUtils.equals(departmentID, "0")){
@@ -194,7 +195,8 @@ public class Ke extends Model {
 		sql.append(" u.departmentID = tmp.id and ");
 		sql.append(" u.academyID = a.id and ");
 		sql.append(" u.jobID = j.id and ");
-		sql.append(" k.userID = u.id  ");
+		sql.append(" k.userID = u.id  and ");
+		sql.append(" u.islock = 0 ");
 		sql.append(" order by u.departmentID ");
 
 		PreparedStatement ps = null;

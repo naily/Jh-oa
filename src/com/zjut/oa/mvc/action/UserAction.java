@@ -693,7 +693,7 @@ public class UserAction extends ActionAdapter {
 						+ departmentname + "]; ");
 
 			if (pre_islock != islock)
-				tip.append("状态[" + pre_islock + "]->[" + islock + "]; ");
+				tip.append("状态[" + (pre_islock==0?"可用": "锁定")  + "]->[" + (islock==0?"可用": "锁定") + "]; ");
 
 			setAttr(req, TIP_NAME_KEY, tip.toString());
 			return SUCCESS;
