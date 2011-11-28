@@ -8,6 +8,7 @@
 		<pattern>/action/ffile/uploadFile*</pattern>
 		<pattern>/action/product/uploadFile*</pattern>
 		<pattern>/action/team/uploadFile*</pattern>
+		<pattern>/action/ke/listAllKeByDepartmentId*</pattern>
 		<pattern>/error/*</pattern>
 		<pattern>/kindeditor/plugins/link/link.html*</pattern>
 		<pattern>/kindeditor/plugins/image/image.html*</pattern>

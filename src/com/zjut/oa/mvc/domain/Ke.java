@@ -197,6 +197,7 @@ public class Ke extends Model {
 		sql.append(" u.jobID = j.id and ");
 		sql.append(" k.userID = u.id  and ");
 		sql.append(" u.islock = 0 ");
+		sql.append(filter.toString());
 		sql.append(" order by u.departmentID ");
 
 		PreparedStatement ps = null;
@@ -204,6 +205,149 @@ public class Ke extends Model {
 		try {
 			ps = DBHelper.getConnection().prepareStatement(sql.toString());
 			log.debug("Ke:findFreeKe, sql: " + sql.toString() + ", Values[]");
+			rs = ps.executeQuery();
+
+			while (rs.next()) {
+				FreeKeTogether fkt = new FreeKeTogether();
+
+				Ke k = new Ke();
+				k.setId(rs.getLong(1));
+				k.setUserID(rs.getInt(2));
+				k.setKevalue(rs.getString(3));
+
+				UserTogether ut = new UserTogether();
+				User u = new User();
+				u.setId(rs.getInt(2));
+				u.setUid(rs.getString(7));
+				u.setUsername(rs.getString(8));
+				u.setAddtime(rs.getTimestamp(9));
+				u.setModifytime(rs.getTimestamp(10));
+				u.setEmail(rs.getString(11));
+				u.setCornet(rs.getString(12));
+				u.setTelephone(rs.getString(13));
+				u.setAcademyID(rs.getInt(14));
+				u.setDepartmentID(rs.getInt(16));
+				u.setJobID(rs.getInt(17));
+				u.setMajor(rs.getString(19));
+				u.setLocation(rs.getString(20));
+				u.setDormitory(rs.getString(21));
+				u.setIslock(rs.getInt(22));
+				u.setBbs(rs.getString(23));
+				u.setIntroduce(rs.getString(24));
+				u.setSimpleinfo(rs.getString(25));
+
+				Academy a = new Academy();
+				a.setId(rs.getInt(14));
+				a.setAcademyname(rs.getString(15));
+
+				Department d = new Department();
+				d.setId(rs.getInt(16));
+				d.setDepartmentname(rs.getString(5));
+
+				Job j = new Job();
+				j.setId(rs.getInt(17));
+				j.setJobname(rs.getString(18));
+
+				ut.setId(rs.getInt(2));
+				ut.setUser(u);
+				ut.setAcademy(a);
+				ut.setDepartment(d);
+				ut.setJob(j);
+
+				fkt.setKeId(rs.getLong(1));
+				fkt.setKe(k);
+				fkt.setTotal(rs.getInt(4));
+				fkt.setUsertogether(ut);
+
+				fktList.add(fkt);
+			}
+		} catch (Exception e) {
+			log.error(e, e.getCause());
+		} finally {
+			DbUtils.closeQuietly(rs);
+			DbUtils.closeQuietly(ps);
+			sql = null;
+		}
+
+		log.info(fktList.size());
+		return fktList;
+	}
+	
+	public List<FreeKeTogether> listAllKeByDepartmentId(HttpServletRequest req) {
+		List<FreeKeTogether> fktList = new ArrayList<FreeKeTogether>();
+		
+		String departmentID=req.getParameter("departmentID");
+		
+		StringBuilder sql = new StringBuilder();
+		sql.append("select ");
+		sql.append(" k.id, ");// 1
+		sql.append(" k.userID, ");// 2
+		sql.append(" k.kevalue, ");// 3
+		sql.append(" tmp.total, ");// 4
+		sql.append(" tmp.departmentname, ");// 5
+		sql.append(" u.id, ");// 6
+		sql.append(" u.uid, ");// 7
+		sql.append(" u.username, ");// 8
+		sql.append(" u.addtime, ");// 9
+		sql.append(" u.modifytime, ");// 10
+		sql.append(" u.email, ");// 11
+		sql.append(" u.cornet, ");// 12
+		sql.append(" u.telephone, ");// 13
+		sql.append(" u.academyID, ");// 14
+		sql.append(" a.academyname, ");// 15
+		sql.append(" u.departmentID, ");// 16
+		sql.append(" u.jobID, ");// 17
+		sql.append(" j.jobname, ");// 18
+		sql.append(" u.major, ");// 19
+		sql.append(" u.location, ");// 20
+		sql.append(" u.dormitory, ");// 21
+		sql.append(" u.islock, ");// 22
+		sql.append(" u.bbs, ");// 23
+		sql.append(" u.introduce, ");// 24
+		sql.append(" u.simpleinfo ");// 25
+		sql.append(" from ");
+
+		User user = new User();
+		Academy academy = new Academy();
+		Department department = new Department();
+		Job job = new Job();
+
+		sql.append(academy.tableName() + " as a, ");
+		sql.append(job.tableName() + " as j, ");
+		sql.append(user.tableName() + " as u, ");
+		sql.append(" " + tableName() + " as k, ");
+		sql.append(" ( select ");
+		sql.append(" count(*) as total, ");
+		sql.append(" d.id, ");
+		sql.append(" d.departmentname");
+		sql.append(" from ");
+		sql.append(user.tableName()+" as u,");
+		sql.append(tableName()+" as k, ");
+		sql.append(department.tableName()+" as d");
+		sql.append(" where ");
+		sql.append(" u.id = k.userID ");
+		sql.append(" and u.departmentID = d.id ");
+		sql.append(" and u.islock = 0 ");
+		
+		//非全精弘范围，添加部门ID
+		if(!StringUtils.equals(departmentID, "0")){
+			sql.append(" and u.departmentID="+departmentID);
+		}
+		sql.append(" group by u.departmentID ) as tmp ");
+
+		sql.append(" where ");
+		sql.append(" u.departmentID = tmp.id and ");
+		sql.append(" u.academyID = a.id and ");
+		sql.append(" u.jobID = j.id and ");
+		sql.append(" k.userID = u.id  and ");
+		sql.append(" u.islock = 0 ");
+		sql.append(" order by u.departmentID ");
+
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		try {
+			ps = DBHelper.getConnection().prepareStatement(sql.toString());
+			log.debug("Ke:listAllKeByDepartmentId, sql: " + sql.toString() + ", Values[]");
 			rs = ps.executeQuery();
 
 			while (rs.next()) {

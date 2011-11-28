@@ -396,12 +396,12 @@ background:url(../images/sep-line.png) right 0px repeat-y;}
 .freetime-title{}
 .add-freetime{}
 
-.toggleBar{margin:10px 0px 0px;height:30px;line-height:30px;}
+.toggleBar{position:relative;margin:10px 0px 0px;height:30px;line-height:30px;}
 .tbTitle{float:left;margin-left:20px;}
 .tbOpt{float:right;}
 .tbTitle b{margin-right:10px;}
 .tbTitle span{margin:0px 5px;font-weight:bold;color:green;}
-.tbOpt ul{}
+.tbOpt ul{margin-right:100px;}
 .tbOpt ul li{display:inline-block;margin-right:10px;height:30px;color:#333;
 	border-style:solid;border-width:1px 1px 0px 1px;border-color:transparent;
 	text-decoration:none;text-align:center;cursor:pointer;}
@@ -409,13 +409,12 @@ background:url(../images/sep-line.png) right 0px repeat-y;}
 .tbOpt ul li.focus span{height:31px;}
 .tbOpt ul li span{display:block;padding:0px 5px;height:29px;background-color:#fff;}
 
-
+.viewAllPersonFreeTime{position:absolute;top:0px;right:5px;}
+.allPersonFreeTimeContainer {}
 
 .queryCondition{}
 .freePersonList{}
 .wholeState{}
-
-
 
 /*全精弘*/
 .closeConditionDisplay{text-align:right;background-color:#fefefe;}
@@ -433,7 +432,6 @@ a:hover.closeTable{background-color:#f2f2f2;color:#333;}
 	.one-person-header .bold{font-weight:bold;}
 	.one-person-header .one-person-line{height:30px;line-height:30px;border-bottom-width:0px;}
 	.one-person-header .one-p-l-uid{border-radius:0px;color:#000;background-color:transparent;}
-	
 	
 	.ftudInnerContainer .on{background-color:#E0EEE0;}
 	
@@ -456,11 +454,29 @@ a:hover.closeTable{background-color:#f2f2f2;color:#333;}
 /*色彩图示*/
 .colorIntroduce{margin:10px 0px 0px;}
 .colorItem{display:inline-block;margin:0px 0px 5px 5px;padding:0px 5px;border:1px #ccc solid;}
+.colorItemOn{border-color:#333;}
 .color{float:left;margin-top:5px;width:10px;height:10px;overflow:hidden;}
 .color-person{float:left;margin-left:5px;height:20px;line-height:20px;}
 .dataTableDisplay td.colorOn{background-color:green;}
 
-
+/*当前时间点人员列表*/
+.currentPersonsDisplay{position:relative;margin:0px 0px 5px 0px;min-height:70px;height:auto !important;height:70px;
+	border:1px #ccc solid;background:url(../images/oneperson-bg.png) right top repeat-y;}
+	.currentPersonBar{position:absolute;top:0px;right:0px;width:100px;}
+		.currentPersonsTitle{position:absolute;top:20px;right:0px;width:100px;text-align:center;color:#333;font-weight:bold;}
+			.currentPersons_week,.currentPersons_whichke{height:20px;line-height:20px;}
+			.currentPersons_week{}
+			.currentPersons_whichke{}
+		.closePersons{position:absolute;top:0px;right:0px;}
+		.closePersons a,.closePersons a:visited,.closePersons a:hover,.closePersons a:active{color:#fff;background-color:#aaa;text-decoration:underline;}
+		.closePersons a:hover{color:#f3f3f3;background-color:#aaa;text-decoration:none;}
+	.currentPersonList{float:left;margin-right:100px;padding:5px;}
+	.one-person-username{float:left;margin:0px 5px 5px 0px;padding:0px 5px;height:20px;line-height:20px;overflow:hidden;
+		color:#333;background-color:#CCDAF5;border:1px #f3f3f3 solid;border-radius:8px;-moz-border-radius:8px;-webkit-border-radius:8px;
+	}
+.keTitleForFreetime{margin:5px 0px;font-weight:bold;font-size:16px;color:#333;}
+.keTitleForFreetime a,.keTitleForFreetime a:visited,.keTitleForFreetime a:hover,.keTitleForFreetime a:active{margin-right:5px;color:#333;text-decoration:none;}
+.keTitleForFreetime a:hover{text-decoration:underline;}
 /* =================产品====================== */
 .addproduct-title{}
 .add-product{}

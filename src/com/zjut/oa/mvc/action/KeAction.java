@@ -187,7 +187,7 @@ public class KeAction extends ActionAdapter {
 
 		Ke model = new Ke();
 		setAttr(req, PAGE_KE_DEPARTMENTID_KEY, departmentID);
-		
+
 		// 未操作
 		if (!hasanydo) {
 			setAttr(req, TIP_NAME_KEY, "请勾选需要查询的空课时间点");
@@ -204,18 +204,44 @@ public class KeAction extends ActionAdapter {
 		setAttr(req, PAGE_KE_FREETIMELIST_KEY, fktList);
 		// 当前查询空课值
 		setAttr(req, PAGE_KE_KEVALUE_KEY, kevalue);
-		
-		//单部门时返回部门名与人数, 方便展现数据
-		if(!StringUtils.equals(departmentID, "0")){
-			int length=fktList.size();
-			FreeKeTogether fkt=length>0 ? fktList.get(0): null;
-			if(fkt!=null){
-				setAttr(req, PAGE_KE_DEPARTMNETNAME_KEY, fkt.getUsertogether().getDepartment().getDepartmentname());
+
+		// 单部门时返回部门名与人数, 方便展现数据
+		if (!StringUtils.equals(departmentID, "0")) {
+			int length = fktList.size();
+			FreeKeTogether fkt = length > 0 ? fktList.get(0) : null;
+			if (fkt != null) {
+				setAttr(req, PAGE_KE_DEPARTMNETNAME_KEY, fkt.getUsertogether()
+						.getDepartment().getDepartmentname());
 				setAttr(req, PAGE_KE_TOTAL_KEY, fkt.getTotal());
+				log.info("空课人数："+fkt.getTotal());
 			}
 		}
-		
+
 		return SUCCESS;
+	}
+
+	@Result("/WEB-INF/pages/freeze/ke/listAllKeByDepartmentId.jsp")
+	public String listAllKeByDepartmentId(HttpServletRequest req,
+			HttpServletResponse resp) {
+		String departmentID = param(req, "departmentID");
+
+		Ke model = new Ke();
+
+		List<FreeKeTogether> fktList = (List<FreeKeTogether>) model
+				.listAllKeByDepartmentId(req);
+
+		setAttr(req, PAGE_KE_DEPARTMENTID_KEY, departmentID);
+		setAttr(req, PAGE_KE_FREETIMELIST_KEY, fktList);
+
+		int length = fktList.size();
+		FreeKeTogether fkt = length > 0 ? fktList.get(0) : null;
+		if (fkt != null) {
+			setAttr(req, PAGE_KE_DEPARTMNETNAME_KEY, fkt.getUsertogether()
+					.getDepartment().getDepartmentname());
+			setAttr(req, PAGE_KE_TOTAL_KEY, fkt.getTotal());
+		}
+		
+		return INPUT;
 	}
 
 	@Success(path = "/WEB-INF/pages/freeze/ke/show.jsp")
