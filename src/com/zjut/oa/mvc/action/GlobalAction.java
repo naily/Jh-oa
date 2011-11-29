@@ -47,6 +47,7 @@ import com.zjut.oa.mvc.domain.strengthen.RolePermissionTogether;
 import com.zjut.oa.mvc.domain.strengthen.TeamTogether;
 import com.zjut.oa.tool.CalendarTool;
 import com.zjut.oa.tool.HttpTool;
+import com.zjut.oa.tool.MD5;
 import com.zjut.oa.tool.UploadTool;
 
 public class GlobalAction extends ActionAdapter {
@@ -100,7 +101,7 @@ public class GlobalAction extends ActionAdapter {
 			return FAIL;
 		}
 
-		if (model.login(uid, password)) {
+		if (model.login(uid, MD5.compute(password))) {
 			if (model.getIslock() == 1) {
 				setAttr(req, TIP_NAME_KEY, "您已被管理员锁定,登录失败!");
 				return FAIL;
@@ -194,7 +195,7 @@ public class GlobalAction extends ActionAdapter {
 	public String anonymous_team(HttpServletRequest req,
 			HttpServletResponse resp) {
 		Team model = new Team();
-		
+
 		List<Team> dataList = (List<Team>) model.listAll();
 
 		List<TeamTogether> ttList = new ArrayList<TeamTogether>();
@@ -217,8 +218,7 @@ public class GlobalAction extends ActionAdapter {
 
 	@SuppressWarnings("unchecked")
 	@Result("/WEB-INF/pages/freeze/ffile/sharefile.jsp")
-	public String shareFile(HttpServletRequest req,
-			HttpServletResponse resp) {
+	public String shareFile(HttpServletRequest req, HttpServletResponse resp) {
 		String showname = param(req, "showname");
 		// 会话用户
 		String[] loginUser = ((String) getAttr(req.getSession(), LOGIN_USER_KEY))
@@ -285,6 +285,7 @@ public class GlobalAction extends ActionAdapter {
 
 		return INPUT;
 	}
+
 	@Result("/WEB-INF/pages/freeze/ffile/sharefileshow.jsp")
 	public String shareFileShow(HttpServletRequest req, HttpServletResponse resp) {
 		String id = param(req, "id");
@@ -302,7 +303,7 @@ public class GlobalAction extends ActionAdapter {
 
 		return INPUT;
 	}
-	
+
 	@Result("/WEB-INF/pages/anonymous/anonymous_team_show.jsp")
 	public String anonymous_team_show(HttpServletRequest req,
 			HttpServletResponse resp) {
@@ -312,26 +313,26 @@ public class GlobalAction extends ActionAdapter {
 		if (id != 0) {
 			model = model.get(id);
 		}
-		
-		TeamTogether tt=new TeamTogether();
-		User user=new User();
-		user=user.get(model.getUserID());
+
+		TeamTogether tt = new TeamTogether();
+		User user = new User();
+		user = user.get(model.getUserID());
 		tt.setId(model.getId());
 		tt.setUser(user);
 		tt.setHeadimage(model.getHeadimage());
-		
-		Department department=new Department();
-		department=department.get(user.getDepartmentID());
-//		Job job=new Job();
-//		job=job.get(user.get)
-		
-		
+
+		Department department = new Department();
+		department = department.get(user.getDepartmentID());
+		// Job job=new Job();
+		// job=job.get(user.get)
+
 		setAttr(req, PAGE_TEAM_DEPARTMENT_KEY, department);
-		
+
 		setAttr(req, MODEL, tt);
 
 		return INPUT;
 	}
+
 	@Result("/WEB-INF/pages/anonymous/anonymous_event_show.jsp")
 	public String anonymous_event_show(HttpServletRequest req,
 			HttpServletResponse resp) {

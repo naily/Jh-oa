@@ -26,6 +26,7 @@ import com.zjut.oa.mvc.domain.User;
 import com.zjut.oa.mvc.domain.strengthen.UserTogether;
 import com.zjut.oa.tool.CalendarTool;
 import com.zjut.oa.tool.JExcelTool;
+import com.zjut.oa.tool.MD5;
 
 public class UserAction extends ActionAdapter {
 
@@ -226,10 +227,14 @@ public class UserAction extends ActionAdapter {
 			setAttr(req, TIP_NAME_KEY, "请选择状态");
 			return FAIL;
 		}
+		//加密的密码
+		model.setPassword(MD5.compute(password));
+		
 		Timestamp now = CalendarTool.now();
 		model.setAddtime(now);
 		model.setModifytime(now);
-
+		
+		
 		if (model.save() > 0) {
 			setAttr(req, TIP_NAME_KEY, "添加用户[" + username + "]成功");
 			model.setUid("");
@@ -613,7 +618,8 @@ public class UserAction extends ActionAdapter {
 
 		model.setIntroduce(introduce);
 		model.setSimpleinfo(simpleinfo);
-
+		//加密的密码
+		model.setPassword(MD5.compute(password));
 		model.setModifytime(CalendarTool.now());
 		setAttr(req, MODEL, model);
 
@@ -626,7 +632,7 @@ public class UserAction extends ActionAdapter {
 				tip.append("姓名[" + pre_username + "]->[" + username + "]; ");
 			if (!StringUtils.equals(pre_password, password)
 					&& !StringUtils.isBlank(password))
-				tip.append("密码[" + pre_password + "]->[" + password + "]; ");
+				tip.append("密码[" + pre_password + "]->[" + MD5.compute(password) + "]; ");
 
 			if (!StringUtils.equals(pre_email, email)
 					&& !StringUtils.isBlank(email))
@@ -824,27 +830,6 @@ public class UserAction extends ActionAdapter {
 			setAttr(req, MODEL, model);
 			return FAIL;
 		}
-
-		// if (StringUtils.isBlank(uid)) {
-		// setAttr(req, TIP_NAME_KEY, "请输入学号");
-		// model.setUid(pre_uid);
-		// model.setUsername(pre_username);
-		//
-		// model.setEmail(pre_email);
-		// model.setCornet(pre_cornet);
-		// model.setTelephone(pre_telephone);
-		// model.setAcademyID(pre_academyID);
-		// model.setMajor(pre_major);
-		// model.setLocation(pre_location);
-		// model.setDormitory(pre_dormitory);
-		//
-		// model.setDepartmentID(pre_departmentID);
-		//
-		// model.setIslock(pre_islock);
-		//
-		// setAttr(req, MODEL, model);
-		// return FAIL;
-		// }
 		if (StringUtils.isBlank(username)) {
 			setAttr(req, TIP_NAME_KEY, "请输入姓名");
 			model.setUid(pre_uid);
@@ -940,27 +925,6 @@ public class UserAction extends ActionAdapter {
 			setAttr(req, MODEL, model);
 			return FAIL;
 		}
-		// if (model.existProperty("uid", uid)
-		// && !StringUtils.equals(pre_uid, uid)) {
-		// setAttr(req, TIP_NAME_KEY, "学号[" + uid + "]已存在");
-		// model.setUid(pre_uid);
-		// model.setUsername(pre_username);
-		//
-		// model.setEmail(pre_email);
-		// model.setCornet(pre_cornet);
-		// model.setTelephone(pre_telephone);
-		// model.setAcademyID(pre_academyID);
-		// model.setMajor(pre_major);
-		// model.setLocation(pre_location);
-		// model.setDormitory(pre_dormitory);
-		//
-		// model.setDepartmentID(pre_departmentID);
-		//
-		// model.setIslock(pre_islock);
-		//
-		// setAttr(req, MODEL, model);
-		// return FAIL;
-		// }
 
 		model.setUid(uid);
 		model.setUsername(username);
@@ -990,20 +954,19 @@ public class UserAction extends ActionAdapter {
 		model.setIslock(islock);
 		model.setIntroduce(introduce);
 		model.setSimpleinfo(simpleinfo);
-
+		//加密的密码
+		model.setPassword(MD5.compute(password));
 		model.setModifytime(CalendarTool.now());
 		setAttr(req, MODEL, model);
 
 		if (model.save() > 0) {
 			StringBuilder tip = new StringBuilder();
 			tip.append("编辑个人资料成功; ");
-			// if (!StringUtils.equals(pre_uid, uid))
-			// tip.append("学号[" + pre_uid + "]->[" + uid + "]; ");
 			if (!StringUtils.equals(pre_username, username))
 				tip.append("姓名[" + pre_username + "]->[" + username + "]; ");
 			if (!StringUtils.equals(pre_password, password)
 					&& !StringUtils.isBlank(password))
-				tip.append("密码[" + pre_password + "]->[" + password + "]; ");
+				tip.append("密码[" + pre_password + "]->[" + MD5.compute(password) + "]; ");
 
 			if (!StringUtils.equals(pre_email, email)
 					&& !StringUtils.isBlank(email))
@@ -1039,37 +1002,8 @@ public class UserAction extends ActionAdapter {
 			if (!StringUtils.equals(pre_bbs, bbs))
 				tip.append("论坛ID[" + pre_bbs + "]->[" + bbs + "]; ");
 
-			// String pre_jobname = "";
-			// String jobname = "";
-			// if (pre_jobID != -1 && pre_jobID != 0) {
-			// job = job.get(pre_jobID);
-			// pre_jobname = job.getJobname();
-			// }
-			// if (jobID != -1 && jobID != 0) {
-			// job = job.get(jobID);
-			// jobname = job.getJobname();
-			// }
-			// if (pre_jobID != jobID && jobID != -1)
-			// tip.append("职务[" + pre_jobname + "]->[" + jobname + "]; ");
-			//
 			if (!StringUtils.equals(pre_introduce, introduce))
 				tip.append("简介[" + pre_introduce + "]->[" + introduce + "]; ");
-			// String pre_departmentname = "";
-			// String departmentname = "";
-			// if (pre_departmentID != -1 && pre_departmentID != 0) {
-			// department = department.get(pre_departmentID);
-			// pre_departmentname = department.getDepartmentname();
-			// }
-			// if (departmentID != -1 && departmentID != 0) {
-			// department = department.get(departmentID);
-			// departmentname = department.getDepartmentname();
-			// }
-			// if (pre_departmentID != departmentID && departmentID != -1)
-			// tip.append("所属部门[" + pre_departmentname + "]->["
-			// + departmentname + "]; ");
-
-			// if (pre_islock != islock)
-			// tip.append("状态[" + pre_islock + "]->[" + islock + "]; ");
 
 			setAttr(req, TIP_NAME_KEY, tip.toString());
 			return SUCCESS;
