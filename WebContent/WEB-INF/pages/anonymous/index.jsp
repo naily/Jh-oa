@@ -50,16 +50,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<c:otherwise>
 						<c:forEach var="news" items="${top6newsList }">
 							<li>
-								<span title="${news.title }">
+								<span title="动态标题：${news.title }&#10发布时间：[<fmt:formatDate value="${news.addtime }" type="both" />]">
 								<c:choose>
-									<c:when test="${fn:length(news.title) > 15 }">
-										${fn:substring(news.title,0,15) } ...
+									<c:when test="${fn:length(news.title) > 25 }">
+										${fn:substring(news.title,0,25) } ...
 									</c:when>
 									<c:otherwise>
 										${news.title }
 									</c:otherwise>
 								</c:choose>
-								[<fmt:formatDate value="${news.addtime }" type="both" />]
 								</span>
 								<a href="action/global/anonymous_news_show?id=${news.id }" class="show_detail">查看详情</a>
 							</li>

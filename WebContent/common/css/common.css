@@ -101,7 +101,7 @@ font-size:14px;color:#2B2B2B;background:url(../images/bg-bt.png) no-repeat 0px 0
 .logo img{display:block;width:136px;height:32px;}
 .toplink{float:right;display:inline;text-align:right;}
 .toplink a{margin-left:7px;color:#848585;text-decoration:none;}
-.user-enter{margin-right:10px;background-color:#f9f9f9;}
+.user-enter{margin-right:10px;}
 .moreLink{padding:0px 2px;width:28px;}
 .downmenu{display:none;z-index:999;position:absolute;top:15px;right:-1px;/*top:-1px;right:-82px;*/width:80px;border:1px #aaa solid;background-color:#f1f1f1;}
 .downmenu a{display:block;margin:0px;height:23px;line-height:23px;text-align:center;}
@@ -195,10 +195,10 @@ text-align:center;}
 .usernameCt{margin:20px 0px 5px;font-weight:bold;font-size:14px;}
 .innerSimpleinfo{padding-top:5px;border-top:1px #ccc solid;}
 /*搜索工具条*/
-.searchContainer{margin:10px 0px;border:4px #e3e3e3 solid;}
+.searchContainer{margin:10px 0px;border:4px #d4f6e9 solid;}
 
 .searchHeader{background-color:#fefefe;border-bottom:1px #e3e3e3 solid;}
-.searchHeader h2{padding:5px;font-size:14px;color:#333;font-weight:bold;background-color:#e3e3e3;}
+.searchHeader h2{padding:5px;font-size:14px;color:#333;font-weight:bold;background-color:#d4f6e9;}
 
 /*搜索当前条件*/
 .searchItemContainer{margin:5px 5px;}
@@ -334,7 +334,7 @@ background-repeat:no-repeat;background-image:url(../images/icon_spite.png);backg
 .resourcename,.resourcevalue,
 .optname,.optvalue,
 .userID,.roleID,
-.uid,.username,.password,.email,.cornet,.telephone,.academyID,.major,.location,.dormitory,.departmentID,.jobID,.islock,.bbs,
+.uid,.username,.password,.email,.cornet,.telephone,.academyID,.major,.location,.dormitory,.departmentID,.jobID,.islock,.bbs,.birthday,.qq,.sex,
 .menuID,.resourceID,.optID,.description,
 .academy-title,.academyname,
 .department-title,.departmentname,
@@ -562,7 +562,7 @@ border-color:#ccc;border-radius:5px;-moz-border-radius:5px;-webkit-border-radius
 /* =================用户====================== */
 .adduser-title{}
 .uid,.username,.password,
-.email,.cornet,.telephone,.academyID,.major,.location,.dormitory,.departmentID,.jobID,.islock,.bbs,
+.email,.cornet,.telephone,.academyID,.major,.location,.dormitory,.departmentID,.jobID,.islock,.bbs,.birthday,.qq,.sex,
 .savefilename{width:200px;}
 
 .add-user{}

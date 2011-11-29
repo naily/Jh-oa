@@ -100,14 +100,20 @@
 				</c:if>
 			</c:forEach>
 			</td>
-			<th></th>
-			<td></td>
+			<th>性别：</th>
+			<td>${model.sex }</td>
 		</tr>
 		<tr>
 			<th>添加时间：</th>
 			<td><fmt:formatDate value="${model.addtime }" type="both"></fmt:formatDate></td>
 			<th>最后编辑时间：</th>
 			<td><fmt:formatDate value="${model.modifytime }" type="both"></fmt:formatDate></td>
+		</tr>
+		<tr>
+			<th>生日：</th>
+			<td>${model.birthday }</td>
+			<th>QQ：</th>
+			<td>${model.qq }</td>
 		</tr>
 		<tr>
 			<th>简介：</th>

@@ -26,7 +26,6 @@
 			<c:if test="${not empty loginUser }">
 				<span class="user-enter">
 					[${username}, <a href="action/global/anonymous_logout">退出</a>]
-					|
 					<a href="action/global/manager" >管理后台</a>
 				</span>
 			</c:if>

@@ -31,6 +31,7 @@
 <c:set var="jobList" value="${requestScope.jobList}"></c:set>
 <c:set var="locationList" value="屏峰,朝晖,之江" />
 <c:set var="islockList" value="0,1" />
+<c:set var="sexList" value="男,女" />
 
 <div class="crumb">
 	<div class="adduser-title">编辑用户</div>
@@ -179,6 +180,37 @@
 			</select>
 		</td>
 		<td></td>
+	</tr>
+	<tr>
+		<td>
+			<label for="birthday" class="common-label">生日</label>
+			<input type="text" id="birthday" name="birthday" class="birthday" value="${model.birthday }" />
+		</td>
+		<td>
+			<label for="qq" class="common-label">QQ</label>
+			<input type="text" id="qq" name="qq" class="qq" value="${model.qq }" />
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<label for="sex" class="common-label">性别</label>
+			<select id="sex" name="sex" class="sex">
+				<option value="">==== 请选择性别  ====</option>
+				<c:forEach var="sex" items="${sexList }">
+					<c:choose>
+						<c:when test="${sex==model.sex}">
+							<option value="${sex }" selected="selected">${sex }</option>
+						</c:when>
+						<c:otherwise>
+							<option value="${sex }">${sex }</option>
+						</c:otherwise>
+					</c:choose>
+				</c:forEach>
+			</select>
+		</td>
+		<td>
+			&nbsp;
+		</td>
 	</tr>
 	<tr>
 		<td colspan="2">

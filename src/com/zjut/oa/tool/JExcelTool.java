@@ -59,6 +59,9 @@ public class JExcelTool {
 			Label label_110 = new Label(11, 0, "状态");
 			Label label_120 = new Label(12, 0, "添加时间");
 			Label label_130 = new Label(13, 0, "编辑时间");
+			Label label_140 = new Label(14, 0, "生日");
+			Label label_150 = new Label(15, 0, "QQ");
+			Label label_160 = new Label(16, 0, "性别");
 
 			ws.addCell(label_00);
 			ws.addCell(label_10);
@@ -74,6 +77,9 @@ public class JExcelTool {
 			ws.addCell(label_110);
 			ws.addCell(label_120);
 			ws.addCell(label_130);
+			ws.addCell(label_140);
+			ws.addCell(label_150);
+			ws.addCell(label_160);
 
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-mm-dd HH:mm:ss");
 			// 写用户数据到EXCEL
@@ -99,6 +105,9 @@ public class JExcelTool {
 				String islock = user.getIslock() == 1 ? "锁定" : "可用";
 				String addtime = sdf.format(user.getAddtime());
 				String modifytime = sdf.format(user.getModifytime());
+				String birthday = user.getBirthday();
+				String qq = user.getQq();
+				String sex = user.getSex();
 
 				Label label_uid = new Label(0, i + 1, uid);
 				Label label_username = new Label(1, i + 1, username);
@@ -114,6 +123,9 @@ public class JExcelTool {
 				Label label_islock = new Label(11, i + 1, islock);
 				Label label_addtime = new Label(12, i + 1, addtime);
 				Label label_modifytime = new Label(13, i + 1, modifytime);
+				Label label_birthday = new Label(14, i + 1, birthday);
+				Label label_qq = new Label(15, i + 1, qq);
+				Label label_sex = new Label(16, i + 1, sex);
 
 				ws.addCell(label_uid);
 				ws.addCell(label_username);
@@ -129,7 +141,9 @@ public class JExcelTool {
 				ws.addCell(label_islock);
 				ws.addCell(label_addtime);
 				ws.addCell(label_modifytime);
-
+				ws.addCell(label_birthday);
+				ws.addCell(label_qq);
+				ws.addCell(label_sex);
 			}
 
 			wwb.write();

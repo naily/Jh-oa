@@ -105,7 +105,6 @@ public class UserAction extends ActionAdapter {
 		String uid = param(req, "uid");
 		String username = param(req, "username");
 		String password = param(req, "password");
-
 		String email = param(req, "email");
 		String cornet = param(req, "cornet");
 		String telephone = param(req, "telephone");
@@ -113,16 +112,15 @@ public class UserAction extends ActionAdapter {
 		String major = param(req, "major");
 		String location = param(req, "location");
 		String dormitory = param(req, "dormitory");
-
 		int departmentID = param(req, "departmentID", -1);
 		int jobID = param(req, "jobID", -1);
-
 		String bbs = param(req, "bbs");
-
 		int islock = param(req, "islock", 0);
-
 		String introduce = param(req, "introduce");
 		String simpleinfo = param(req, "simpleinfo");
+		String birthday = param(req, "birthday");
+		String qq = param(req, "qq");
+		String sex = param(req, "sex");
 
 		User model = new User();
 		model.setUid(uid);
@@ -151,6 +149,9 @@ public class UserAction extends ActionAdapter {
 		model.setBbs(bbs);
 		model.setIntroduce(introduce);
 		model.setSimpleinfo(simpleinfo);
+		model.setBirthday(birthday);
+		model.setQq(qq);
+		model.setSex(sex);
 
 		Academy academy = new Academy();
 		setAttr(req, PAGE_USER_ACADEMYLIST_KEY, academy.listAll());
@@ -202,45 +203,22 @@ public class UserAction extends ActionAdapter {
 			setAttr(req, TIP_NAME_KEY, "请选择职务");
 			return FAIL;
 		}
-		// if (StringUtils.isBlank(telephone)) {
-		// setAttr(req, TIP_NAME_KEY, "请输入手机号码");
-		// return FAIL;
-		// }
-
-		//
-		// if (StringUtils.isBlank(major)) {
-		// setAttr(req, TIP_NAME_KEY, "请输入专业班级");
-		// return FAIL;
-		// }
-		//
-		// if (StringUtils.isBlank(location)) {
-		// setAttr(req, TIP_NAME_KEY, "请选择所在校区");
-		// return FAIL;
-		// }
-		//
-		// if (StringUtils.isBlank(dormitory)) {
-		// setAttr(req, TIP_NAME_KEY, "请输入宿舍");
-		// return FAIL;
-		// }
-
 		if (islock == -1) {
 			setAttr(req, TIP_NAME_KEY, "请选择状态");
 			return FAIL;
 		}
-		//加密的密码
+		// 加密的密码
 		model.setPassword(MD5.compute(password));
-		
+
 		Timestamp now = CalendarTool.now();
 		model.setAddtime(now);
 		model.setModifytime(now);
-		
-		
+
 		if (model.save() > 0) {
 			setAttr(req, TIP_NAME_KEY, "添加用户[" + username + "]成功");
 			model.setUid("");
 			model.setUsername("");
 			model.setPassword("");
-
 			model.setEmail("");
 			model.setCornet("");
 			model.setTelephone("");
@@ -252,10 +230,11 @@ public class UserAction extends ActionAdapter {
 			model.setJobID(-1);
 			model.setIslock(0);
 			model.setBbs("");
-
 			model.setIntroduce("");
 			model.setSimpleinfo("");
-
+			model.setBirthday("");
+			model.setQq("");
+			model.setSex("");
 			return SUCCESS;
 		} else {
 			setAttr(req, TIP_NAME_KEY, "添加用户失败");
@@ -327,7 +306,6 @@ public class UserAction extends ActionAdapter {
 		String uid = param(req, "uid");
 		String username = param(req, "username");
 		String password = param(req, "password");
-
 		String email = param(req, "email");
 		String cornet = param(req, "cornet");
 		String telephone = param(req, "telephone");
@@ -335,15 +313,15 @@ public class UserAction extends ActionAdapter {
 		String major = param(req, "major");
 		String location = param(req, "location");
 		String dormitory = param(req, "dormitory");
-
 		int departmentID = param(req, "departmentID", -1);
 		int jobID = param(req, "jobID", -1);
-
 		String bbs = param(req, "bbs");
-
 		int islock = param(req, "islock", -1);
 		String introduce = param(req, "introduce");
 		String simpleinfo = param(req, "simpleinfo");
+		String birthday = param(req, "birthday");
+		String qq = param(req, "qq");
+		String sex = param(req, "sex");
 
 		Academy academy = new Academy();
 		setAttr(req, PAGE_USER_ACADEMYLIST_KEY, academy.listAll());
@@ -363,7 +341,6 @@ public class UserAction extends ActionAdapter {
 		String pre_uid = model.getUid();
 		String pre_username = model.getUsername();
 		String pre_password = model.getPassword();
-
 		String pre_email = model.getEmail();
 		String pre_cornet = model.getCornet();
 		String pre_telephone = model.getTelephone();
@@ -371,22 +348,21 @@ public class UserAction extends ActionAdapter {
 		String pre_major = model.getMajor();
 		String pre_location = model.getLocation();
 		String pre_dormitory = model.getDormitory();
-
 		int pre_departmentID = model.getDepartmentID();
 		int pre_jobID = model.getJobID();
-
 		String pre_bbs = model.getBbs();
-
 		int pre_islock = model.getIslock();
 		String pre_introduce = model.getIntroduce();
 		String pre_simpleinfo = model.getSimpleinfo();
+		String pre_birthday = model.getBirthday();
+		String pre_qq = model.getQq();
+		String pre_sex = model.getSex();
 
 		if (StringUtils.isBlank(pre_uid)) {
 			setAttr(req, TIP_NAME_KEY, "加载用户失败");
 
 			model.setUid(pre_uid);
 			model.setUsername(pre_username);
-
 			model.setEmail(pre_email);
 			model.setCornet(pre_cornet);
 			model.setTelephone(pre_telephone);
@@ -400,6 +376,9 @@ public class UserAction extends ActionAdapter {
 			model.setBbs(pre_bbs);
 			model.setIntroduce(pre_introduce);
 			model.setSimpleinfo(pre_simpleinfo);
+			model.setBirthday(pre_birthday);
+			model.setQq(pre_qq);
+			model.setSex(pre_sex);
 
 			setAttr(req, MODEL, model);
 			return FAIL;
@@ -419,11 +398,13 @@ public class UserAction extends ActionAdapter {
 				&& StringUtils.equals(pre_bbs, bbs)
 				&& StringUtils.equals(pre_introduce, introduce)
 				&& StringUtils.equals(pre_simpleinfo, simpleinfo)
-				&& pre_jobID == jobID) {
+				&& pre_jobID == jobID
+				&& StringUtils.equals(pre_birthday, birthday)
+				&& StringUtils.equals(pre_qq, qq)
+				&& StringUtils.equals(pre_sex, sex)) {
 			setAttr(req, TIP_NAME_KEY, "无任何修改");
 			model.setUid(pre_uid);
 			model.setUsername(pre_username);
-
 			model.setEmail(pre_email);
 			model.setCornet(pre_cornet);
 			model.setTelephone(pre_telephone);
@@ -431,14 +412,15 @@ public class UserAction extends ActionAdapter {
 			model.setMajor(pre_major);
 			model.setLocation(pre_location);
 			model.setDormitory(pre_dormitory);
-
 			model.setDepartmentID(pre_departmentID);
 			model.setJobID(pre_jobID);
-
 			model.setIslock(pre_islock);
 			model.setBbs(pre_bbs);
 			model.setIntroduce(pre_introduce);
 			model.setSimpleinfo(pre_simpleinfo);
+			model.setBirthday(pre_birthday);
+			model.setQq(pre_qq);
+			model.setSex(pre_sex);
 
 			setAttr(req, MODEL, model);
 			return FAIL;
@@ -463,6 +445,9 @@ public class UserAction extends ActionAdapter {
 			model.setBbs(pre_bbs);
 			model.setIntroduce(pre_introduce);
 			model.setSimpleinfo(pre_simpleinfo);
+			model.setBirthday(pre_birthday);
+			model.setQq(pre_qq);
+			model.setSex(pre_sex);
 
 			setAttr(req, MODEL, model);
 			return FAIL;
@@ -487,6 +472,9 @@ public class UserAction extends ActionAdapter {
 			model.setBbs(pre_bbs);
 			model.setIntroduce(pre_introduce);
 			model.setSimpleinfo(pre_simpleinfo);
+			model.setBirthday(pre_birthday);
+			model.setQq(pre_qq);
+			model.setSex(pre_sex);
 
 			setAttr(req, MODEL, model);
 			return FAIL;
@@ -512,6 +500,9 @@ public class UserAction extends ActionAdapter {
 			model.setBbs(pre_bbs);
 			model.setIntroduce(pre_introduce);
 			model.setSimpleinfo(pre_simpleinfo);
+			model.setBirthday(pre_birthday);
+			model.setQq(pre_qq);
+			model.setSex(pre_sex);
 
 			setAttr(req, MODEL, model);
 			return FAIL;
@@ -536,6 +527,9 @@ public class UserAction extends ActionAdapter {
 			model.setBbs(pre_bbs);
 			model.setIntroduce(pre_introduce);
 			model.setSimpleinfo(pre_simpleinfo);
+			model.setBirthday(pre_birthday);
+			model.setQq(pre_qq);
+			model.setSex(pre_sex);
 
 			setAttr(req, MODEL, model);
 			return FAIL;
@@ -560,6 +554,9 @@ public class UserAction extends ActionAdapter {
 			model.setBbs(pre_bbs);
 			model.setIntroduce(pre_introduce);
 			model.setSimpleinfo(pre_simpleinfo);
+			model.setBirthday(pre_birthday);
+			model.setQq(pre_qq);
+			model.setSex(pre_sex);
 
 			setAttr(req, MODEL, model);
 			return FAIL;
@@ -585,6 +582,9 @@ public class UserAction extends ActionAdapter {
 			model.setBbs(pre_bbs);
 			model.setIntroduce(pre_introduce);
 			model.setSimpleinfo(pre_simpleinfo);
+			model.setBirthday(pre_birthday);
+			model.setQq(pre_qq);
+			model.setSex(pre_sex);
 
 			setAttr(req, MODEL, model);
 			return FAIL;
@@ -618,9 +618,13 @@ public class UserAction extends ActionAdapter {
 
 		model.setIntroduce(introduce);
 		model.setSimpleinfo(simpleinfo);
-		//加密的密码
+		// 加密的密码
 		model.setPassword(MD5.compute(password));
 		model.setModifytime(CalendarTool.now());
+		model.setBirthday(birthday);
+		model.setQq(qq);
+		model.setSex(sex);
+
 		setAttr(req, MODEL, model);
 
 		if (model.save() > 0) {
@@ -632,7 +636,8 @@ public class UserAction extends ActionAdapter {
 				tip.append("姓名[" + pre_username + "]->[" + username + "]; ");
 			if (!StringUtils.equals(pre_password, password)
 					&& !StringUtils.isBlank(password))
-				tip.append("密码[" + pre_password + "]->[" + MD5.compute(password) + "]; ");
+				tip.append("密码[" + pre_password + "]->["
+						+ MD5.compute(password) + "]; ");
 
 			if (!StringUtils.equals(pre_email, email)
 					&& !StringUtils.isBlank(email))
@@ -699,7 +704,15 @@ public class UserAction extends ActionAdapter {
 						+ departmentname + "]; ");
 
 			if (pre_islock != islock)
-				tip.append("状态[" + (pre_islock==0?"可用": "锁定")  + "]->[" + (islock==0?"可用": "锁定") + "]; ");
+				tip.append("状态[" + (pre_islock == 0 ? "可用" : "锁定") + "]->["
+						+ (islock == 0 ? "可用" : "锁定") + "]; ");
+
+			if (!StringUtils.equals(pre_birthday, birthday))
+				tip.append("生日[" + pre_birthday + "]->[" + birthday + "]; ");
+			if (!StringUtils.equals(pre_qq, qq))
+				tip.append("QQ[" + pre_qq + "]->[" + qq + "]; ");
+			if (!StringUtils.equals(pre_sex, sex))
+				tip.append("性别[" + pre_sex + "]->[" + sex + "]; ");
 
 			setAttr(req, TIP_NAME_KEY, tip.toString());
 			return SUCCESS;
@@ -716,7 +729,6 @@ public class UserAction extends ActionAdapter {
 		String uid = param(req, "uid");
 		String username = param(req, "username");
 		String password = param(req, "password");
-
 		String email = param(req, "email");
 		String cornet = param(req, "cornet");
 		String telephone = param(req, "telephone");
@@ -724,13 +736,15 @@ public class UserAction extends ActionAdapter {
 		String major = param(req, "major");
 		String location = param(req, "location");
 		String dormitory = param(req, "dormitory");
-
 		int departmentID = param(req, "departmentID", -1);
 		int jobID = param(req, "jobID", -1);
 		String bbs = param(req, "bbs");
 		int islock = param(req, "islock", -1);
 		String introduce = param(req, "introduce");
 		String simpleinfo = param(req, "simpleinfo");
+		String birthday = param(req, "birthday");
+		String qq = param(req, "qq");
+		String sex = param(req, "sex");
 
 		Academy academy = new Academy();
 		setAttr(req, PAGE_USER_ACADEMYLIST_KEY, academy.listAll());
@@ -767,6 +781,9 @@ public class UserAction extends ActionAdapter {
 		String pre_simpleinfo = model.getSimpleinfo();
 
 		int pre_islock = model.getIslock();
+		String pre_birthday = model.getBirthday();
+		String pre_qq = model.getQq();
+		String pre_sex = model.getSex();
 
 		if (StringUtils.isBlank(pre_uid)) {
 			setAttr(req, TIP_NAME_KEY, "加载用户失败");
@@ -807,7 +824,10 @@ public class UserAction extends ActionAdapter {
 				&& StringUtils.equals(pre_bbs, bbs)
 				&& StringUtils.equals(pre_introduce, introduce)
 				&& StringUtils.equals(pre_simpleinfo, simpleinfo)
-				&& pre_jobID == jobID) {
+				&& pre_jobID == jobID
+				&& StringUtils.equals(pre_birthday, birthday)
+				&& StringUtils.equals(pre_qq, qq)
+				&& StringUtils.equals(pre_sex, sex)) {
 			setAttr(req, TIP_NAME_KEY, "无任何修改");
 			model.setUid(pre_uid);
 			model.setUsername(pre_username);
@@ -826,6 +846,9 @@ public class UserAction extends ActionAdapter {
 			model.setIslock(pre_islock);
 			model.setIntroduce(pre_introduce);
 			model.setSimpleinfo(pre_simpleinfo);
+			model.setBirthday(pre_birthday);
+			model.setQq(pre_qq);
+			model.setSex(pre_sex);
 
 			setAttr(req, MODEL, model);
 			return FAIL;
@@ -849,6 +872,9 @@ public class UserAction extends ActionAdapter {
 			model.setIslock(pre_islock);
 			model.setIntroduce(pre_introduce);
 			model.setSimpleinfo(pre_simpleinfo);
+			model.setBirthday(pre_birthday);
+			model.setQq(pre_qq);
+			model.setSex(pre_sex);
 
 			setAttr(req, MODEL, model);
 			return FAIL;
@@ -873,6 +899,9 @@ public class UserAction extends ActionAdapter {
 			model.setIslock(pre_islock);
 			model.setIntroduce(pre_introduce);
 			model.setSimpleinfo(pre_simpleinfo);
+			model.setBirthday(pre_birthday);
+			model.setQq(pre_qq);
+			model.setSex(pre_sex);
 
 			setAttr(req, MODEL, model);
 			return FAIL;
@@ -898,6 +927,9 @@ public class UserAction extends ActionAdapter {
 			model.setIslock(pre_islock);
 			model.setIntroduce(pre_introduce);
 			model.setSimpleinfo(pre_simpleinfo);
+			model.setBirthday(pre_birthday);
+			model.setQq(pre_qq);
+			model.setSex(pre_sex);
 
 			setAttr(req, MODEL, model);
 			return FAIL;
@@ -921,6 +953,9 @@ public class UserAction extends ActionAdapter {
 			model.setBbs(pre_bbs);
 			model.setIntroduce(pre_introduce);
 			model.setSimpleinfo(pre_simpleinfo);
+			model.setBirthday(pre_birthday);
+			model.setQq(pre_qq);
+			model.setSex(pre_sex);
 
 			setAttr(req, MODEL, model);
 			return FAIL;
@@ -954,9 +989,13 @@ public class UserAction extends ActionAdapter {
 		model.setIslock(islock);
 		model.setIntroduce(introduce);
 		model.setSimpleinfo(simpleinfo);
-		//加密的密码
+		// 加密的密码
 		model.setPassword(MD5.compute(password));
 		model.setModifytime(CalendarTool.now());
+		model.setBirthday(birthday);
+		model.setQq(qq);
+		model.setSex(sex);
+
 		setAttr(req, MODEL, model);
 
 		if (model.save() > 0) {
@@ -966,7 +1005,8 @@ public class UserAction extends ActionAdapter {
 				tip.append("姓名[" + pre_username + "]->[" + username + "]; ");
 			if (!StringUtils.equals(pre_password, password)
 					&& !StringUtils.isBlank(password))
-				tip.append("密码[" + pre_password + "]->[" + MD5.compute(password) + "]; ");
+				tip.append("密码[" + pre_password + "]->["
+						+ MD5.compute(password) + "]; ");
 
 			if (!StringUtils.equals(pre_email, email)
 					&& !StringUtils.isBlank(email))
@@ -1005,6 +1045,13 @@ public class UserAction extends ActionAdapter {
 			if (!StringUtils.equals(pre_introduce, introduce))
 				tip.append("简介[" + pre_introduce + "]->[" + introduce + "]; ");
 
+			if (!StringUtils.equals(pre_birthday, birthday))
+				tip.append("生日[" + pre_birthday + "]->[" + birthday + "]; ");
+			if (!StringUtils.equals(pre_qq, qq))
+				tip.append("QQ[" + pre_qq + "]->[" + qq + "]; ");
+			if (!StringUtils.equals(pre_sex, sex))
+				tip.append("性别[" + pre_sex + "]->[" + sex + "]; ");
+
 			setAttr(req, TIP_NAME_KEY, tip.toString());
 			return SUCCESS;
 		} else {
@@ -1029,6 +1076,8 @@ public class UserAction extends ActionAdapter {
 		String dormitory = param(req, "dormitory");
 		String bbs = param(req, "bbs");
 		int islock = param(req, "islock", 0);
+		String qq = param(req, "qq");
+		String sex = param(req, "sex");
 
 		String by = param(req, "by");
 		String order = param(req, "order");
@@ -1050,6 +1099,8 @@ public class UserAction extends ActionAdapter {
 		model.setDormitory(dormitory);
 		model.setBbs(bbs);
 		model.setIslock(islock);
+		model.setQq(qq);
+		model.setSex(sex);
 
 		setAttr(req, MODEL, model);
 
@@ -1208,7 +1259,7 @@ public class UserAction extends ActionAdapter {
 				&& StringUtils.isBlank(telephone) && academyID == 0
 				&& StringUtils.isBlank(major) && StringUtils.isBlank(location)
 				&& StringUtils.isBlank(dormitory)
-				&& (islock != 0 && islock != 1) && departmentID != 0
+				&& (islock != 0 && islock != 1) && departmentID == 0
 				&& StringUtils.isNotBlank(bbs)) {
 			filter.append(" where bbs like '%" + bbs + "%'");
 		}
@@ -1228,9 +1279,53 @@ public class UserAction extends ActionAdapter {
 				&& StringUtils.isBlank(telephone) && academyID == 0
 				&& StringUtils.isBlank(major) && StringUtils.isBlank(location)
 				&& StringUtils.isBlank(dormitory)
-				&& (islock != 0 && islock != 1) && departmentID != 0
+				&& (islock != 0 && islock != 1) && departmentID == 0
 				&& StringUtils.isBlank(bbs) && jobID != 0) {
 			filter.append(" where jobID = " + jobID);
+		}
+		if ((StringUtils.isNotBlank(uid) || StringUtils.isNotBlank(username)
+				|| StringUtils.isNotBlank(email)
+				|| StringUtils.isNotBlank(cornet)
+				|| StringUtils.isNotBlank(telephone) || academyID != 0
+				|| StringUtils.isNotBlank(major)
+				|| StringUtils.isNotBlank(location)
+				|| StringUtils.isNotBlank(dormitory)
+				|| (islock == 0 || islock == 1) || departmentID == 0 || StringUtils
+				.isNotBlank(bbs)) && jobID != 0 && StringUtils.isNotBlank(qq)) {
+			filter.append(" and qq = '" + qq + "'");
+		} else if (StringUtils.isBlank(uid) && StringUtils.isBlank(username)
+				&& StringUtils.isBlank(email) && StringUtils.isBlank(cornet)
+				&& StringUtils.isBlank(telephone) && academyID == 0
+				&& StringUtils.isBlank(major) && StringUtils.isBlank(location)
+				&& StringUtils.isBlank(dormitory)
+				&& (islock != 0 && islock != 1) && departmentID == 0
+				&& StringUtils.isBlank(bbs) && jobID == 0
+				&& StringUtils.isNotBlank(qq)) {
+			filter.append(" where qq = '" + qq + "'");
+		}
+
+		if ((StringUtils.isNotBlank(uid) || StringUtils.isNotBlank(username)
+				|| StringUtils.isNotBlank(email)
+				|| StringUtils.isNotBlank(cornet)
+				|| StringUtils.isNotBlank(telephone) || academyID != 0
+				|| StringUtils.isNotBlank(major)
+				|| StringUtils.isNotBlank(location)
+				|| StringUtils.isNotBlank(dormitory)
+				|| (islock == 0 || islock == 1) || departmentID == 0 || StringUtils
+				.isNotBlank(bbs))
+				&& jobID != 0
+				&& StringUtils.isNotBlank(qq)
+				&& StringUtils.isNotBlank(sex)) {
+			filter.append(" and sex = '" + sex + "'");
+		} else if (StringUtils.isBlank(uid) && StringUtils.isBlank(username)
+				&& StringUtils.isBlank(email) && StringUtils.isBlank(cornet)
+				&& StringUtils.isBlank(telephone) && academyID == 0
+				&& StringUtils.isBlank(major) && StringUtils.isBlank(location)
+				&& StringUtils.isBlank(dormitory)
+				&& (islock != 0 && islock != 1) && departmentID == 0
+				&& StringUtils.isBlank(bbs) && jobID == 0
+				&& StringUtils.isBlank(qq) && StringUtils.isNotBlank(sex)) {
+			filter.append(" where sex = '" + sex + "'");
 		}
 
 		if (StringUtils.isNotBlank(by)

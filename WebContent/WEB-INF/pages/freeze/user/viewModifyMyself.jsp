@@ -31,6 +31,7 @@
 <c:set var="jobList" value="${requestScope.jobList}"></c:set>
 <c:set var="locationList" value="屏峰,朝晖,之江" />
 <c:set var="islockList" value="0,1" />
+<c:set var="sexList" value="男,女" />
 
 <div class="crumb">
 	<div class="adduser-title">编辑个人资料</div>
@@ -167,28 +168,57 @@
 		</td>
 	</tr>
 	<tr>
-			<td>
-				<label for="jobID" class="common-label">职务</label>
-				<select id="jobID" name="jobID" class="jobID" disabled="disabled">
-					<option value="-1">==== 请选择职务  ====</option>
-					<c:forEach var="job" items="${jobList }">
-						<c:choose>
-							<c:when test="${job.id==model.jobID }">
-								<option value="${job.id }" selected="selected">${job.jobname }</option>
-							</c:when>
-							<c:otherwise>
-								<option value="${job.id }">${job.jobname }</option>
-							</c:otherwise>
-						</c:choose>
-					</c:forEach>
-				</select>
+		<td>
+			<label for="jobID" class="common-label">职务</label>
+			<select id="jobID" name="jobID" class="jobID" disabled="disabled">
+				<option value="-1">==== 请选择职务  ====</option>
+				<c:forEach var="job" items="${jobList }">
+					<c:choose>
+						<c:when test="${job.id==model.jobID }">
+							<option value="${job.id }" selected="selected">${job.jobname }</option>
+						</c:when>
+						<c:otherwise>
+							<option value="${job.id }">${job.jobname }</option>
+						</c:otherwise>
+					</c:choose>
+				</c:forEach>
+			</select>
 				
-				<input type="hidden" name="jobID" value="${model.jobID }" />
-			</td>
-			<td></td>
-		</tr>
-	
-	
+			<input type="hidden" name="jobID" value="${model.jobID }" />
+		</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>
+			<label for="birthday" class="common-label">生日</label>
+			<input type="text" id="birthday" name="birthday" class="birthday" value="${model.birthday }" />
+		</td>
+		<td>
+			<label for="qq" class="common-label">QQ</label>
+			<input type="text" id="qq" name="qq" class="qq" value="${model.qq }" />
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<label for="sex" class="common-label">性别</label>
+			<select id="sex" name="sex" class="sex">
+				<option value="">==== 请选择性别  ====</option>
+				<c:forEach var="sex" items="${sexList }">
+					<c:choose>
+						<c:when test="${sex==model.sex}">
+							<option value="${sex }" selected="selected">${sex }</option>
+						</c:when>
+						<c:otherwise>
+							<option value="${sex }">${sex }</option>
+						</c:otherwise>
+					</c:choose>
+				</c:forEach>
+			</select>
+		</td>
+		<td>
+			&nbsp;
+		</td>
+	</tr>
 	<tr>
 		<td colspan="2">
 			<textarea id="kindEditor" name="introduce"  class="editor" style="width:98%;height:200px;">${model.introduce}</textarea>

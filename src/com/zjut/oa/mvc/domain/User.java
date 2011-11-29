@@ -23,7 +23,6 @@ public class User extends Model {
 	private String uid;
 	private String username;
 	private String password;
-
 	private String email;
 	private String cornet;
 	private String telephone;
@@ -33,16 +32,40 @@ public class User extends Model {
 	private String dormitory; // 宿舍
 	private int departmentID; // 部门ID
 	private int jobID;// 职务ID
-
 	private String bbs;
-
 	private int islock; // 状态
-
 	private Timestamp addtime;
 	private Timestamp modifytime;
-
 	private String introduce;
 	private String simpleinfo;
+	private String birthday;
+	private String qq;
+	private String sex;
+
+	
+	public String getBirthday() {
+		return birthday;
+	}
+
+	public void setBirthday(String birthday) {
+		this.birthday = birthday;
+	}
+
+	public String getQq() {
+		return qq;
+	}
+
+	public void setQq(String qq) {
+		this.qq = qq;
+	}
+
+	public String getSex() {
+		return sex;
+	}
+
+	public void setSex(String sex) {
+		this.sex = sex;
+	}
 
 	public String getUid() {
 		return uid;
@@ -180,6 +203,8 @@ public class User extends Model {
 		this.introduce = introduce;
 	}
 
+
+
 	@Override
 	public String toString() {
 		return "User [uid=" + uid + ", username=" + username + ", password="
@@ -190,6 +215,7 @@ public class User extends Model {
 				+ ", jobID=" + jobID + ", bbs=" + bbs + ", islock=" + islock
 				+ ", addtime=" + addtime + ", modifytime=" + modifytime
 				+ ", introduce=" + introduce + ", simpleinfo=" + simpleinfo
+				+ ", birthday=" + birthday + ", qq=" + qq + ", sex=" + sex
 				+ "]";
 	}
 
@@ -237,6 +263,10 @@ public class User extends Model {
 
 				setIntroduce(rs.getString("introduce"));
 				setSimpleinfo(rs.getString("simpleinfo"));
+				
+				setBirthday(rs.getString("birthday"));
+				setQq(rs.getString("qq"));
+				setSex(rs.getString("sex"));
 
 				flag = true;
 			}
@@ -274,8 +304,8 @@ public class User extends Model {
 
 		Academy academy = new Academy();
 		Department department = new Department();
-		Job job=new Job();
-		
+		Job job = new Job();
+
 		StringBuilder sql = new StringBuilder();
 
 		sql.append("select ");
@@ -299,7 +329,10 @@ public class User extends Model {
 		sql.append(" u.modifytime, ");
 		sql.append(" u.bbs, ");
 		sql.append(" u.jobID, ");
-		sql.append(" j.jobname ");
+		sql.append(" j.jobname, ");
+		sql.append(" u.birthday, ");
+		sql.append(" u.qq, ");
+		sql.append(" u.sex ");
 
 		sql.append(" from ");
 		sql.append(tableName() + " as u, ");
@@ -338,7 +371,10 @@ public class User extends Model {
 				u.setAddtime(rs.getTimestamp(15));
 				u.setModifytime(rs.getTimestamp(16));
 				u.setBbs(rs.getString(17));
-
+				u.setBirthday(rs.getString(20));
+				u.setQq(rs.getString(21));
+				u.setSex(rs.getString(22));
+				
 				Academy a = new Academy();
 				a.setId(rs.getLong(13));
 				a.setAcademyname(rs.getString(9));
@@ -347,17 +383,17 @@ public class User extends Model {
 				d.setId(rs.getLong(14));
 				d.setDepartmentname(rs.getString(4));
 
-				Job j=new Job();
+				Job j = new Job();
 				j.setId(rs.getLong(18));
 				j.setJobname(rs.getString(19));
-				
+
 				UserTogether ut = new UserTogether();
 				ut.setId(rs.getLong(1));
 				ut.setAcademy(a);
 				ut.setDepartment(d);
 				ut.setUser(u);
 				ut.setJob(j);
-				
+
 				utList.add(ut);
 			}
 		} catch (Exception e) {

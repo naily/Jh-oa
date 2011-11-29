@@ -31,6 +31,7 @@
 <c:set var="jobList" value="${requestScope.jobList }"></c:set>
 <c:set var="locationList" value="屏峰,朝晖,之江" />
 <c:set var="islockList" value="0,1" />
+<c:set var="sexList" value="男,女" />
 
 <div class="crumb">
 	<div class="adduser-title">添加新用户</div>
@@ -38,7 +39,7 @@
 	<div class="clear"></div>
 </div>
 <div class="box">
-<div class="actionTip">温馨提醒：<span class="tip-words">学号、姓名、密码、Email地址、所属部门、短号、论坛ID、职务为必填项</span></div>
+<div class="actionTip">温馨提醒：<span class="tip-words">学号、姓名、密码、Email地址、所属部门、短号、论坛ID、学院、职务为必填项</span></div>
 <c:if test="${ not empty tip}">
 <div class="optTip">提示：<span class="msg">${tip}</span></div>
 </c:if>
@@ -165,7 +166,37 @@
 			</select>
 		</td>
 	</tr>
-	
+	<tr>
+		<td>
+			<label for="birthday" class="common-label">生日</label>
+			<input type="text" id="birthday" name="birthday" class="birthday" value="${model.birthday }" />
+		</td>
+		<td>
+			<label for="qq" class="common-label">QQ</label>
+			<input type="text" id="qq" name="qq" class="qq" value="${model.qq }" />
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<label for="sex" class="common-label">性别</label>
+			<select id="sex" name="sex" class="sex">
+				<option value="">==== 请选择性别  ====</option>
+				<c:forEach var="sex" items="${sexList }">
+					<c:choose>
+						<c:when test="${sex==model.sex}">
+							<option value="${sex }" selected="selected">${sex }</option>
+						</c:when>
+						<c:otherwise>
+							<option value="${sex }">${sex }</option>
+						</c:otherwise>
+					</c:choose>
+				</c:forEach>
+			</select>
+		</td>
+		<td>
+			&nbsp;
+		</td>
+	</tr>
 	<tr>
 		<td colspan="2">
 			<textarea id="kindEditor" name="introduce"  class="editor" style="width:98%;height:200px;">${model.introduce}</textarea>
@@ -221,23 +252,6 @@ $(function(){
 	else if($('#uid').val()!=''&& $('#username').val()!=''&& $('#password').val()!=''&& $('#email').val()!='' && $('#cornet').val()!='' && $('#departmentID').val() == -1){
 		$('#departmentID').focus();
 	}
-	/*
-	else if($('#uid').val()!=''&& $('#username').val()!=''&& $('#email').val()!='' && $('#cornet').val()!='' && $('#telephone').val()==''){
-		$('#telephone').focus();
-	}
-	else if($('#uid').val()!=''&& $('#username').val()!=''&& $('#email').val()!='' && $('#cornet').val()!='' && $('#telephone').val()!='' && $('#academyID').val()==-1){
-		$('#academyID').focus();
-	}
-	else if($('#uid').val()!=''&& $('#username').val()!=''&& $('#email').val()!='' && $('#cornet').val()!='' && $('#telephone').val()!='' && $('#academyID').val()!=-1 && $('#major').val()==''){
-		$('#major').focus();
-	}
-	else if($('#uid').val()!=''&& $('#username').val()!=''&& $('#email').val()!='' && $('#cornet').val()!='' && $('#telephone').val()!='' && $('#academyID').val()!=-1 && $('#major').val()!='' && $('#location').val()==-1 ){
-		$('#location').focus();
-	}
-	else if($('#uid').val()!=''&& $('#username').val()!=''&& $('#email').val()!='' && $('#cornet').val()!='' && $('#telephone').val()!='' && $('#academyID').val()!=-1 && $('#major').val()!='' && $('#location').val()!=-1 && $('#dormitory').val() ==''){
-		$('#dormitory').focus();
-	}
-	*/
 	else if($('#uid').val()!=''&& $('#username').val()!=''&& $('#password').val()!=''&& $('#email').val()!='' && $('#cornet').val()!='' && $('#departmentID').val()!=-1 /*&& $('#telephone').val()!='' && $('#academyID').val()!=-1 && $('#major').val()!='' && $('#location').val()!=-1 && $('#dormitory').val() !=''*/&& $('#islock').val()== -1){
 		$('#islock').focus();
 	}

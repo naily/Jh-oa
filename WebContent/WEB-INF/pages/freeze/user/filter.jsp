@@ -41,6 +41,7 @@
 <c:set var="jobList" value="${requestScope.jobList }"></c:set>
 <c:set var="locationList" value="屏峰,朝晖,之江" />
 <c:set var="islockList" value="0,1" />
+<c:set var="sexList" value="男,女" />
 <c:set var="currentAcademyName" ></c:set>
 <c:set var="currentDepartmentName" ></c:set>
 <c:set var="currentJobName" ></c:set>
@@ -67,7 +68,7 @@
 	</c:choose>
 </c:forEach>
 
-<c:set var="queryCondition" value="&uid=${model.uid }&username=${model.username }&email=${model.email }&cornet=${model.cornet }&telephone=${model.telephone }&academyID=${model.academyID }&major=${model.major }&location=${model.location }&dormitory=${model.dormitory }&islock=${model.islock }&departmentID=${model.departmentID }&bbs=${model.bbs }&jobID=${model.jobID }"></c:set>
+<c:set var="queryCondition" value="&uid=${model.uid }&username=${model.username }&email=${model.email }&cornet=${model.cornet }&telephone=${model.telephone }&academyID=${model.academyID }&major=${model.major }&location=${model.location }&dormitory=${model.dormitory }&islock=${model.islock }&departmentID=${model.departmentID }&bbs=${model.bbs }&jobID=${model.jobID }&qq=${model.qq }&sex=${model.sex }"></c:set>
 
 <div class="crumb">
 	<div class="adduser-title">用户</div>
@@ -89,55 +90,63 @@
 				<div class="searchItemContainer">
 					<c:if test="${not empty model.uid }">
 					<div class="searchItem">
-						<span class="searchItem-label">学号包含</span><span class="searchItem-value">${model.uid }</span><a href="action/user/filter?by=${by }&order=${order }&page=${pager.currentPage}&countPerPage=${pager.countPerPage}&username=${model.username}&email=${model.email}&cornet=${model.cornet}&telephone=${model.telephone}&academyID=${model.academyID}&major=${model.major }&location=${model.location }&dormitory=${model.dormitory }&islock=${model.islock}&departmentID=${model.departmentID}&jobID=${model.jobID}&bbs=${model.bbs}" class="sclose" title="去掉这个筛选条件"><span>关闭</span></a></div>
+						<span class="searchItem-label">学号包含</span><span class="searchItem-value">${model.uid }</span><a href="action/user/filter?by=${by }&order=${order }&page=${pager.currentPage}&countPerPage=${pager.countPerPage}&username=${model.username}&email=${model.email}&cornet=${model.cornet}&telephone=${model.telephone}&academyID=${model.academyID}&major=${model.major }&location=${model.location }&dormitory=${model.dormitory }&islock=${model.islock}&departmentID=${model.departmentID}&jobID=${model.jobID}&bbs=${model.bbs}&qq=${model.qq}&sex=${model.sex}" class="sclose" title="去掉这个筛选条件"><span>关闭</span></a></div>
 					</c:if>
 					<c:if test="${not empty model.username }">
 					<div class="searchItem">
-						<span class="searchItem-label">姓名包含</span><span class="searchItem-value">${model.username }</span><a href="action/user/filter?by=${by }&order=${order }&page=${pager.currentPage}&countPerPage=${pager.countPerPage}&uid=${model.uid}&email=${model.email}&cornet=${model.cornet}&telephone=${model.telephone}&academyID=${model.academyID}&major=${model.major }&location=${model.location }&dormitory=${model.dormitory }&islock=${model.islock}&departmentID=${model.departmentID}&jobID=${model.jobID}&bbs=${model.bbs}" class="sclose" title="去掉这个筛选条件"><span>关闭</span></a></div>
+						<span class="searchItem-label">姓名包含</span><span class="searchItem-value">${model.username }</span><a href="action/user/filter?by=${by }&order=${order }&page=${pager.currentPage}&countPerPage=${pager.countPerPage}&uid=${model.uid}&email=${model.email}&cornet=${model.cornet}&telephone=${model.telephone}&academyID=${model.academyID}&major=${model.major }&location=${model.location }&dormitory=${model.dormitory }&islock=${model.islock}&departmentID=${model.departmentID}&jobID=${model.jobID}&bbs=${model.bbs}&qq=${model.qq}&sex=${model.sex}" class="sclose" title="去掉这个筛选条件"><span>关闭</span></a></div>
 					</c:if>
 					<c:if test="${not empty model.email }">
 					<div class="searchItem">
-						<span class="searchItem-label">邮箱包含</span><span class="searchItem-value">${model.email }</span><a href="action/user/filter?by=${by }&order=${order }&page=${pager.currentPage}&countPerPage=${pager.countPerPage}&uid=${model.uid}&username=${model.username}&cornet=${model.cornet}&telephone=${model.telephone}&academyID=${model.academyID}&major=${model.major }&location=${model.location }&dormitory=${model.dormitory }&islock=${model.islock}&departmentID=${model.departmentID}&jobID=${model.jobID}&bbs=${model.bbs}" class="sclose" title="去掉这个筛选条件"><span>关闭</span></a></div>
+						<span class="searchItem-label">邮箱包含</span><span class="searchItem-value">${model.email }</span><a href="action/user/filter?by=${by }&order=${order }&page=${pager.currentPage}&countPerPage=${pager.countPerPage}&uid=${model.uid}&username=${model.username}&cornet=${model.cornet}&telephone=${model.telephone}&academyID=${model.academyID}&major=${model.major }&location=${model.location }&dormitory=${model.dormitory }&islock=${model.islock}&departmentID=${model.departmentID}&jobID=${model.jobID}&bbs=${model.bbs}&qq=${model.qq}&sex=${model.sex}" class="sclose" title="去掉这个筛选条件"><span>关闭</span></a></div>
 					</c:if>
 					<c:if test="${not empty model.cornet }">
 					<div class="searchItem">
-						<span class="searchItem-label">短号包含</span><span class="searchItem-value">${model.cornet }</span><a href="action/user/filter?by=${by }&order=${order }&page=${pager.currentPage}&countPerPage=${pager.countPerPage}&uid=${model.uid}&username=${model.username}&email=${model.email}&telephone=${model.telephone}&academyID=${model.academyID}&major=${model.major }&location=${model.location }&dormitory=${model.dormitory }&islock=${model.islock}&departmentID=${model.departmentID}&jobID=${model.jobID}&bbs=${model.bbs}" class="sclose" title="去掉这个筛选条件"><span>关闭</span></a></div>
+						<span class="searchItem-label">短号包含</span><span class="searchItem-value">${model.cornet }</span><a href="action/user/filter?by=${by }&order=${order }&page=${pager.currentPage}&countPerPage=${pager.countPerPage}&uid=${model.uid}&username=${model.username}&email=${model.email}&telephone=${model.telephone}&academyID=${model.academyID}&major=${model.major }&location=${model.location }&dormitory=${model.dormitory }&islock=${model.islock}&departmentID=${model.departmentID}&jobID=${model.jobID}&bbs=${model.bbs}&qq=${model.qq}&sex=${model.sex}" class="sclose" title="去掉这个筛选条件"><span>关闭</span></a></div>
 					</c:if>
 					<c:if test="${not empty model.telephone }">
 					<div class="searchItem">
-						<span class="searchItem-label">长号包含</span><span class="searchItem-value">${model.telephone }</span><a href="action/user/filter?by=${by }&order=${order }&page=${pager.currentPage}&countPerPage=${pager.countPerPage}&uid=${model.uid}&username=${model.username}&email=${model.email}&cornet=${model.cornet}&academyID=${model.academyID}&major=${model.major }&location=${model.location }&dormitory=${model.dormitory }&islock=${model.islock}&departmentID=${model.departmentID}&jobID=${model.jobID}&bbs=${model.bbs}" class="sclose" title="去掉这个筛选条件"><span>关闭</span></a></div>
+						<span class="searchItem-label">长号包含</span><span class="searchItem-value">${model.telephone }</span><a href="action/user/filter?by=${by }&order=${order }&page=${pager.currentPage}&countPerPage=${pager.countPerPage}&uid=${model.uid}&username=${model.username}&email=${model.email}&cornet=${model.cornet}&academyID=${model.academyID}&major=${model.major }&location=${model.location }&dormitory=${model.dormitory }&islock=${model.islock}&departmentID=${model.departmentID}&jobID=${model.jobID}&bbs=${model.bbs}&qq=${model.qq}&sex=${model.sex}" class="sclose" title="去掉这个筛选条件"><span>关闭</span></a></div>
 					</c:if>
 					<c:if test="${not empty model.academyID && model.academyID != 0 }">
 					<div class="searchItem">
-						<span class="searchItem-label">学院为</span><span class="searchItem-value">${currentAcademyName }</span><a href="action/user/filter?by=${by }&order=${order }&page=${pager.currentPage}&countPerPage=${pager.countPerPage}&uid=${model.uid}&username=${model.username}&email=${model.email}&cornet=${model.cornet}&telephone=${model.telephone}&major=${model.major }&location=${model.location }&dormitory=${model.dormitory }&islock=${model.islock}&departmentID=${model.departmentID}&jobID=${model.jobID}&bbs=${model.bbs}" class="sclose" title="去掉这个筛选条件"><span>关闭</span></a></div>
+						<span class="searchItem-label">学院为</span><span class="searchItem-value">${currentAcademyName }</span><a href="action/user/filter?by=${by }&order=${order }&page=${pager.currentPage}&countPerPage=${pager.countPerPage}&uid=${model.uid}&username=${model.username}&email=${model.email}&cornet=${model.cornet}&telephone=${model.telephone}&major=${model.major }&location=${model.location }&dormitory=${model.dormitory }&islock=${model.islock}&departmentID=${model.departmentID}&jobID=${model.jobID}&bbs=${model.bbs}&qq=${model.qq}&sex=${model.sex}" class="sclose" title="去掉这个筛选条件"><span>关闭</span></a></div>
 					</c:if>
 					<c:if test="${not empty model.major }">
 					<div class="searchItem">
-						<span class="searchItem-label">专业班级包含</span><span class="searchItem-value">${model.major }</span><a href="action/user/filter?by=${by }&order=${order }&page=${pager.currentPage}&countPerPage=${pager.countPerPage}&uid=${model.uid}&username=${model.username}&email=${model.email}&cornet=${model.cornet}&telephone=${model.telephone}&academyID=${model.academyID}&location=${model.location }&dormitory=${model.dormitory }&islock=${model.islock}&departmentID=${model.departmentID}&jobID=${model.jobID}&bbs=${model.bbs}" class="sclose" title="去掉这个筛选条件"><span>关闭</span></a></div>
+						<span class="searchItem-label">专业班级包含</span><span class="searchItem-value">${model.major }</span><a href="action/user/filter?by=${by }&order=${order }&page=${pager.currentPage}&countPerPage=${pager.countPerPage}&uid=${model.uid}&username=${model.username}&email=${model.email}&cornet=${model.cornet}&telephone=${model.telephone}&academyID=${model.academyID}&location=${model.location }&dormitory=${model.dormitory }&islock=${model.islock}&departmentID=${model.departmentID}&jobID=${model.jobID}&bbs=${model.bbs}&qq=${model.qq}&sex=${model.sex}" class="sclose" title="去掉这个筛选条件"><span>关闭</span></a></div>
 					</c:if>
 					<c:if test="${not empty model.location && model.location != 0}">
 					<div class="searchItem">
-						<span class="searchItem-label">所在校区为</span><span class="searchItem-value">${model.location }</span><a href="action/user/filter?by=${by }&order=${order }&page=${pager.currentPage}&countPerPage=${pager.countPerPage}&uid=${model.uid}&username=${model.username}&email=${model.email}&cornet=${model.cornet}&telephone=${model.telephone}&academyID=${model.academyID}&major=${model.major }&dormitory=${model.dormitory }&islock=${model.islock}&departmentID=${model.departmentID}&jobID=${model.jobID}&bbs=${model.bbs}" class="sclose" title="去掉这个筛选条件"><span>关闭</span></a></div>
+						<span class="searchItem-label">所在校区为</span><span class="searchItem-value">${model.location }</span><a href="action/user/filter?by=${by }&order=${order }&page=${pager.currentPage}&countPerPage=${pager.countPerPage}&uid=${model.uid}&username=${model.username}&email=${model.email}&cornet=${model.cornet}&telephone=${model.telephone}&academyID=${model.academyID}&major=${model.major }&dormitory=${model.dormitory }&islock=${model.islock}&departmentID=${model.departmentID}&jobID=${model.jobID}&bbs=${model.bbs}&qq=${model.qq}&sex=${model.sex}" class="sclose" title="去掉这个筛选条件"><span>关闭</span></a></div>
 					</c:if>
 					<c:if test="${not empty model.dormitory }">
 					<div class="searchItem">
-						<span class="searchItem-label">宿舍包含</span><span class="searchItem-value">${model.dormitory }</span><a href="action/user/filter?by=${by }&order=${order }&page=${pager.currentPage}&countPerPage=${pager.countPerPage}&uid=${model.uid}&username=${model.username}&email=${model.email}&cornet=${model.cornet}&telephone=${model.telephone}&academyID=${model.academyID}&major=${model.major }&location=${model.location }&islock=${model.islock}&departmentID=${model.departmentID}&jobID=${model.jobID}&bbs=${model.bbs}" class="sclose" title="去掉这个筛选条件"><span>关闭</span></a></div>
+						<span class="searchItem-label">宿舍包含</span><span class="searchItem-value">${model.dormitory }</span><a href="action/user/filter?by=${by }&order=${order }&page=${pager.currentPage}&countPerPage=${pager.countPerPage}&uid=${model.uid}&username=${model.username}&email=${model.email}&cornet=${model.cornet}&telephone=${model.telephone}&academyID=${model.academyID}&major=${model.major }&location=${model.location }&islock=${model.islock}&departmentID=${model.departmentID}&jobID=${model.jobID}&bbs=${model.bbs}&qq=${model.qq}&sex=${model.sex}" class="sclose" title="去掉这个筛选条件"><span>关闭</span></a></div>
 					</c:if>
 					<c:if test="${not empty model.islock }">
 					<div class="searchItem">
-						<span class="searchItem-label">状态为</span><span class="searchItem-value">${model.islock == 0 ? "可用" : "锁定" }</span><a href="action/user/filter?by=${by }&order=${order }&page=${pager.currentPage}&countPerPage=${pager.countPerPage}&uid=${model.uid}&username=${model.username}&email=${model.email}&cornet=${model.cornet}&telephone=${model.telephone}&academyID=${model.academyID}&major=${model.major }&location=${model.location }&dormitory=${model.dormitory }&departmentID=${model.departmentID}&jobID=${model.jobID}&bbs=${model.bbs}" class="sclose" title="去掉这个筛选条件"><span>关闭</span></a></div>
+						<span class="searchItem-label">状态为</span><span class="searchItem-value">${model.islock == 0 ? "可用" : "锁定" }</span><a href="action/user/filter?by=${by }&order=${order }&page=${pager.currentPage}&countPerPage=${pager.countPerPage}&uid=${model.uid}&username=${model.username}&email=${model.email}&cornet=${model.cornet}&telephone=${model.telephone}&academyID=${model.academyID}&major=${model.major }&location=${model.location }&dormitory=${model.dormitory }&departmentID=${model.departmentID}&jobID=${model.jobID}&bbs=${model.bbs}&qq=${model.qq}&sex=${model.sex}" class="sclose" title="去掉这个筛选条件"><span>关闭</span></a></div>
 					</c:if>
 					<c:if test="${not empty model.departmentID && model.departmentID != 0  }">
 					<div class="searchItem">
-						<span class="searchItem-label">所属部门为</span><span class="searchItem-value">${currentDepartmentName}</span><a href="action/user/filter?by=${by }&order=${order }&page=${pager.currentPage}&countPerPage=${pager.countPerPage}&uid=${model.uid}&username=${model.username}&email=${model.email}&cornet=${model.cornet}&telephone=${model.telephone}&academyID=${model.academyID}&major=${model.major }&location=${model.location }&dormitory=${model.dormitory }&islock=${model.islock}&jobID=${model.jobID}&bbs=${model.bbs}" class="sclose" title="去掉这个筛选条件"><span>关闭</span></a></div>
+						<span class="searchItem-label">所属部门为</span><span class="searchItem-value">${currentDepartmentName}</span><a href="action/user/filter?by=${by }&order=${order }&page=${pager.currentPage}&countPerPage=${pager.countPerPage}&uid=${model.uid}&username=${model.username}&email=${model.email}&cornet=${model.cornet}&telephone=${model.telephone}&academyID=${model.academyID}&major=${model.major }&location=${model.location }&dormitory=${model.dormitory }&islock=${model.islock}&jobID=${model.jobID}&bbs=${model.bbs}&qq=${model.qq}&sex=${model.sex}" class="sclose" title="去掉这个筛选条件"><span>关闭</span></a></div>
 					</c:if>
 					<c:if test="${not empty model.jobID && model.jobID!=0 }">
 					<div class="searchItem">
-						<span class="searchItem-label">职务包含</span><span class="searchItem-value">${currentJobName}</span><a href="action/user/filter?by=${by }&order=${order }&page=${pager.currentPage}&countPerPage=${pager.countPerPage}&uid=${model.uid}&username=${model.username}&email=${model.email}&cornet=${model.cornet}&telephone=${model.telephone}&academyID=${model.academyID}&major=${model.major }&location=${model.location }&dormitory=${model.dormitory }&islock=${model.islock}&departmentID=${model.departmentID}&bbs=${model.bbs}" class="sclose" title="去掉这个筛选条件"><span>关闭</span></a></div>
+						<span class="searchItem-label">职务包含</span><span class="searchItem-value">${currentJobName}</span><a href="action/user/filter?by=${by }&order=${order }&page=${pager.currentPage}&countPerPage=${pager.countPerPage}&uid=${model.uid}&username=${model.username}&email=${model.email}&cornet=${model.cornet}&telephone=${model.telephone}&academyID=${model.academyID}&major=${model.major }&location=${model.location }&dormitory=${model.dormitory }&islock=${model.islock}&departmentID=${model.departmentID}&bbs=${model.bbs}&qq=${model.qq}&sex=${model.sex}" class="sclose" title="去掉这个筛选条件"><span>关闭</span></a></div>
 					</c:if>
 					<c:if test="${not empty model.bbs }">
 					<div class="searchItem">
-						<span class="searchItem-label">论坛ID包含</span><span class="searchItem-value">${model.bbs}</span><a href="action/user/filter?by=${by }&order=${order }&page=${pager.currentPage}&countPerPage=${pager.countPerPage}&uid=${model.uid}&username=${model.username}&email=${model.email}&cornet=${model.cornet}&telephone=${model.telephone}&academyID=${model.academyID}&major=${model.major }&location=${model.location }&dormitory=${model.dormitory }&islock=${model.islock}&departmentID=${model.departmentID}&jobID=${model.jobID}" class="sclose" title="去掉这个筛选条件"><span>关闭</span></a></div>
+						<span class="searchItem-label">论坛ID包含</span><span class="searchItem-value">${model.bbs}</span><a href="action/user/filter?by=${by }&order=${order }&page=${pager.currentPage}&countPerPage=${pager.countPerPage}&uid=${model.uid}&username=${model.username}&email=${model.email}&cornet=${model.cornet}&telephone=${model.telephone}&academyID=${model.academyID}&major=${model.major }&location=${model.location }&dormitory=${model.dormitory }&islock=${model.islock}&departmentID=${model.departmentID}&jobID=${model.jobID}&qq=${model.qq}&sex=${model.sex}" class="sclose" title="去掉这个筛选条件"><span>关闭</span></a></div>
+					</c:if>
+					<c:if test="${not empty model.qq }">
+					<div class="searchItem">
+						<span class="searchItem-label">qq包含</span><span class="searchItem-value">${model.qq}</span><a href="action/user/filter?by=${by }&order=${order }&page=${pager.currentPage}&countPerPage=${pager.countPerPage}&uid=${model.uid}&username=${model.username}&email=${model.email}&cornet=${model.cornet}&telephone=${model.telephone}&academyID=${model.academyID}&major=${model.major }&location=${model.location }&dormitory=${model.dormitory }&islock=${model.islock}&departmentID=${model.departmentID}&jobID=${model.jobID}&bbs=${model.bbs}&sex=${model.sex}" class="sclose" title="去掉这个筛选条件"><span>关闭</span></a></div>
+					</c:if>
+					<c:if test="${not empty model.sex }">
+					<div class="searchItem">
+						<span class="searchItem-label">性别为</span><span class="searchItem-value">${model.sex}</span><a href="action/user/filter?by=${by }&order=${order }&page=${pager.currentPage}&countPerPage=${pager.countPerPage}&uid=${model.uid}&username=${model.username}&email=${model.email}&cornet=${model.cornet}&telephone=${model.telephone}&academyID=${model.academyID}&major=${model.major }&location=${model.location }&dormitory=${model.dormitory }&islock=${model.islock}&departmentID=${model.departmentID}&jobID=${model.jobID}&bbs=${model.bbs}&qq=${model.qq}" class="sclose" title="去掉这个筛选条件"><span>关闭</span></a></div>
 					</c:if>
 					
 				</div>
@@ -235,7 +244,24 @@
 					</c:forEach>
 				</select>		
 				<label class="condition-label" for="bbs">论坛ID</label>
-				<input type="text" name="bbs" id="bbs" class="condition-input" value="${model.bbs }"/>
+				<input type="text" name="bbs" id="bbs" class="condition-input" style="width:60px;"  value="${model.bbs }"/>
+				<label for="qq" class="condition-label">QQ</label>
+				<input type="text" id="qq" name="qq" class="condition-input"  style="width:60px;" value="${model.qq }" />
+				<label for="sex" class="condition-label">性别</label>
+				<select id="sex" name="sex" style="width:100px;">
+					<option value="">请选择性别</option>
+					<c:forEach var="sex" items="${sexList }">
+						<c:choose>
+							<c:when test="${sex==model.sex}">
+								<option value="${sex }" selected="selected">${sex }</option>
+							</c:when>
+							<c:otherwise>
+								<option value="${sex }">${sex }</option>
+							</c:otherwise>
+						</c:choose>
+					</c:forEach>
+				</select>
+				
 				<input type="submit" value="搜索"  />
 			</p>
 		</form>
@@ -266,6 +292,8 @@
 				<input type="hidden" name="departmentID" value="${model.departmentID }" />
 				<input type="hidden" name="jobID" value="${model.jobID }" />
 				<input type="hidden" name="bbs" value="${model.bbs }" />
+				<input type="hidden" name="qq" value="${model.qq }" />
+				<input type="hidden" name="sex" value="${model.sex }" />
 				
 				<table class="dataTable">
 					<colgroup>
