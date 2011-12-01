@@ -44,6 +44,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<span>产品</span>
 			<a href="action/global/anonymous_team">团队</a>
 		</div>
+		<div class="clear"></div>
 		<div class="common-panel">
 			<div class="inner-content-panel">
 				<c:choose>
@@ -63,10 +64,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					</div>	
 					</c:otherwise>
 				</c:choose>
-				<div class="jh-contact">
-					精弘办公室地址：东1、东4、东17架空层、养贤府317 
-					<span class="jh-number">联系电话：0571-85290XXX</span>
-				</div>
+				<%@ include file="/include/office.jsp" %>
 			</div>
 		</div>
 	</div>

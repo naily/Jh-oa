@@ -31,7 +31,7 @@ public class UserroleAction extends ActionAdapter {
 		User user = new User();
 		Role role = new Role();
 
-		setAttr(req, PAGE_USERROLE_USERLIST_KEY, user.listAll());
+		setAttr(req, PAGE_USERROLE_USERLIST_KEY, user.listAll(" order by uid desc, username desc"));
 		setAttr(req, PAGE_USERROLE_ROLELIST_KEY, role.listAll());
 
 		return INPUT;

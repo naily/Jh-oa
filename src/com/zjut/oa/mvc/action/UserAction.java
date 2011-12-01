@@ -1498,4 +1498,19 @@ public class UserAction extends ActionAdapter {
 
 		return NONE;
 	}
+
+	@None
+	public String exportUserOfCurrentCondition(HttpServletRequest req,
+			HttpServletResponse resp) {
+		String savefilename = "精弘OA3.0按条件筛选数据.xls";
+
+		User model = new User();
+
+		List<UserTogether> utList = (List<UserTogether>) model
+				.exportUserListByCondition(req);
+		// 响应生成excel文件
+		JExcelTool.exportUserToOutputStream(savefilename, utList, resp);
+
+		return NONE;
+	}
 }

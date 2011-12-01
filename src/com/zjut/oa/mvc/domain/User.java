@@ -6,6 +6,8 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.apache.commons.dbutils.DbUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
@@ -14,6 +16,7 @@ import org.apache.commons.logging.LogFactory;
 import com.zjut.oa.db.DBHelper;
 import com.zjut.oa.db.Model;
 import com.zjut.oa.mvc.domain.strengthen.UserTogether;
+import com.zjut.oa.tool.HttpTool;
 
 @SuppressWarnings("serial")
 public class User extends Model {
@@ -351,7 +354,178 @@ public class User extends Model {
 		ResultSet rs = null;
 		try {
 			ps = DBHelper.getConnection().prepareStatement(sql.toString());
-			log.debug("User:getExportUserListBy, sql: " + sql.toString()
+			log.debug("User:exportUserListBy, sql: " + sql.toString()
+					+ ", Values[]");
+			rs = ps.executeQuery();
+
+			while (rs.next()) {
+
+				User u = new User();
+				u.setId(rs.getLong(1));
+				u.setUid(rs.getString(2));
+				u.setUsername(rs.getString(3));
+				u.setEmail(rs.getString(5));
+				u.setCornet(rs.getString(6));
+				u.setTelephone(rs.getString(7));
+				u.setLocation(rs.getString(8));
+				u.setMajor(rs.getString(10));
+				u.setDormitory(rs.getString(11));
+				u.setIslock(rs.getInt(12));
+				u.setAddtime(rs.getTimestamp(15));
+				u.setModifytime(rs.getTimestamp(16));
+				u.setBbs(rs.getString(17));
+				u.setBirthday(rs.getString(20));
+				u.setQq(rs.getString(21));
+				u.setSex(rs.getString(22));
+				
+				Academy a = new Academy();
+				a.setId(rs.getLong(13));
+				a.setAcademyname(rs.getString(9));
+
+				Department d = new Department();
+				d.setId(rs.getLong(14));
+				d.setDepartmentname(rs.getString(4));
+
+				Job j = new Job();
+				j.setId(rs.getLong(18));
+				j.setJobname(rs.getString(19));
+
+				UserTogether ut = new UserTogether();
+				ut.setId(rs.getLong(1));
+				ut.setAcademy(a);
+				ut.setDepartment(d);
+				ut.setUser(u);
+				ut.setJob(j);
+
+				utList.add(ut);
+			}
+		} catch (Exception e) {
+			log.error(e, e.getCause());
+		} finally {
+			DbUtils.closeQuietly(rs);
+			DbUtils.closeQuietly(ps);
+			sql = null;
+		}
+		return utList;
+	}
+	
+	public List<UserTogether> exportUserListByCondition(HttpServletRequest req){
+		String uid = HttpTool.getInstance().param(req, "uid");
+		String username = HttpTool.getInstance().param(req, "username");
+		String email = HttpTool.getInstance().param(req, "email");
+		String cornet = HttpTool.getInstance().param(req, "cornet");
+		String telephone = HttpTool.getInstance().param(req, "telephone");
+		int academyID = HttpTool.getInstance().param(req, "academyID", 0);
+		int departmentID = HttpTool.getInstance().param(req, "departmentID", 0);
+		int jobID = HttpTool.getInstance().param(req, "jobID", 0);
+		String major = HttpTool.getInstance().param(req, "major");
+		String location = HttpTool.getInstance().param(req, "location");
+		String dormitory = HttpTool.getInstance().param(req, "dormitory");
+		String bbs = HttpTool.getInstance().param(req, "bbs");
+		int islock = HttpTool.getInstance().param(req, "islock", 0);
+		String qq = HttpTool.getInstance().param(req, "qq");
+		String sex = HttpTool.getInstance().param(req, "sex");
+		
+		StringBuilder condition=new StringBuilder();
+		
+		if (StringUtils.isNotBlank(uid)) {
+			condition.append(" and u.uid like '%" + uid + "%'");
+		}
+		if (StringUtils.isNotBlank(username)) {
+			condition.append(" and u.username like '%" + username + "%'");
+		}
+		if (StringUtils.isNotBlank(email)) {
+			condition.append(" and u.email like '%" + email + "%'");
+		}
+		if (StringUtils.isNotBlank(cornet)) {
+			condition.append(" and u.cornet like '%" + cornet + "%'");
+		}
+		if (StringUtils.isNotBlank(telephone)) {
+			condition.append(" and u.telephone like '%" + telephone + "%'");
+		}
+		if(academyID != 0){
+			condition.append(" and u.academyID = " + academyID);
+		}
+		if(departmentID != 0){
+			condition.append(" and u.departmentID = " + departmentID);
+		}
+		if(jobID != 0){
+			condition.append(" and u.jobID = " + jobID);
+		}
+		if (StringUtils.isNotBlank(major)) {
+			condition.append(" and u.major like '%" + major + "%'");
+		}
+		if (StringUtils.isNotBlank(location)) {
+			condition.append(" and u.location like '%" + location + "%'");
+		}
+		if (StringUtils.isNotBlank(dormitory)) {
+			condition.append(" and u.dormitory like '%" + dormitory + "%'");
+		}
+		if (StringUtils.isNotBlank(bbs)) {
+			condition.append(" and u.bbs like '%" + bbs + "%'");
+		}
+		if(islock == 0 || islock== 1){
+			condition.append(" and u.islock = " + islock);
+		}
+		if (StringUtils.isNotBlank(qq)) {
+			condition.append(" and u.qq like '%" + qq + "%'");
+		}
+		if (StringUtils.isNotBlank(sex)) {
+			condition.append(" and u.sex like '%" + sex + "%'");
+		}
+
+		List<UserTogether> utList = new ArrayList<UserTogether>();
+
+		Academy academy = new Academy();
+		Department department = new Department();
+		Job job = new Job();
+
+		StringBuilder sql = new StringBuilder();
+
+		sql.append("select ");
+
+		sql.append(" u.id, ");
+
+		sql.append(" u.uid, ");
+		sql.append(" u.username, ");
+		sql.append(" d.departmentname, ");
+		sql.append(" u.email, ");
+		sql.append(" u.cornet, ");
+		sql.append(" u.telephone, ");
+		sql.append(" u.location, ");
+		sql.append(" a.academyname, ");
+		sql.append(" u.major, ");
+		sql.append(" u.dormitory, ");
+		sql.append(" u.islock, ");
+		sql.append(" u.academyID, ");
+		sql.append(" u.departmentID, ");
+		sql.append(" u.addtime, ");
+		sql.append(" u.modifytime, ");
+		sql.append(" u.bbs, ");
+		sql.append(" u.jobID, ");
+		sql.append(" j.jobname, ");
+		sql.append(" u.birthday, ");
+		sql.append(" u.qq, ");
+		sql.append(" u.sex ");
+
+		sql.append(" from ");
+		sql.append(tableName() + " as u, ");
+		sql.append(academy.tableName() + " as a, ");
+		sql.append(department.tableName() + " as d, ");
+		sql.append(job.tableName() + " as j ");
+		sql.append(" where ");
+		sql.append(" u.academyID=a.id ");
+		sql.append(" and u.departmentID = d.id  ");
+		sql.append(" and u.jobID = j.id  ");
+
+		sql.append(condition.toString());
+
+		sql.append(" order by u.addtime asc");
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		try {
+			ps = DBHelper.getConnection().prepareStatement(sql.toString());
+			log.debug("User:exportUserListByCondition, sql: " + sql.toString()
 					+ ", Values[]");
 			rs = ps.executeQuery();
 

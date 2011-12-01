@@ -58,10 +58,10 @@ public class GlobalAction extends ActionAdapter {
 	public String anonymous_index(HttpServletRequest req,
 			HttpServletResponse resp) {
 
-		List<News> top6newsList = (List<News>) HttpTool.getInstance()
-				.getTop6NewsList();
+		List<News> topnewsList = (List<News>) HttpTool.getInstance()
+				.getTopNewsList();
 
-		setAttr(req, DATA_LIST, top6newsList);
+		setAttr(req, DATA_LIST, topnewsList);
 
 		return INPUT;
 	}
@@ -82,7 +82,7 @@ public class GlobalAction extends ActionAdapter {
 		setAttr(req, Constant.PAGE_LOGIN_AUTOLOGIN_KEY, autologin); // true or 空
 
 		List<News> top6newsList = (List<News>) HttpTool.getInstance()
-				.getTop6NewsList();
+				.getTopNewsList();
 
 		setAttr(req, MODEL, model);
 		setAttr(req, DATA_LIST, top6newsList);
@@ -168,7 +168,7 @@ public class GlobalAction extends ActionAdapter {
 		setAttr(req, TIP_NAME_KEY, "成功注销");
 
 		List<News> top6newsList = (List<News>) HttpTool.getInstance()
-				.getTop6NewsList();
+				.getTopNewsList();
 		setAttr(req, DATA_LIST, top6newsList);
 
 		return INPUT;
@@ -347,12 +347,56 @@ public class GlobalAction extends ActionAdapter {
 
 		return INPUT;
 	}
+	
+	@SuppressWarnings("unchecked")
+	@Result("/WEB-INF/pages/anonymous/anonymous_news_list.jsp")
+	public String anonymous_news_list(HttpServletRequest req,
+			HttpServletResponse resp) {
+		
+		News model=new News();
+		
+		StringBuilder filter = new StringBuilder();
+		filter.append(" order by addtime desc");
+		// 前台分页
+		int p = Constant.DEFAULT_CURRENT_PAGE;
+		int countPerPage = Constant.DEFAULT_COUNT_PER_PAGE;
+		try {
+			p = param(req, "page", Constant.DEFAULT_CURRENT_PAGE);
+			if (p < 1)
+				p = Constant.DEFAULT_CURRENT_PAGE;
+		} catch (NumberFormatException e) {
+			p = Constant.DEFAULT_CURRENT_PAGE;
+		}
+		try {
+			countPerPage = param(req, "countPerPage",
+					Constant.DEFAULT_COUNT_PER_PAGE);
+		} catch (NumberFormatException e) {
+			countPerPage = Constant.DEFAULT_COUNT_PER_PAGE;
+		}
+		int currentPage = p;
+		int totalCount = model.totalCount(filter.toString());
+		Pager pager = new Pager(currentPage, countPerPage, totalCount);
+		// 针对可能的原访问页数大于实际总页数，此处重置下
+		if (currentPage > pager.getTotalPage())
+			currentPage = p = pager.getTotalPage();
+		// 读取部分数据
+		List<News> dataList = (List<News>) model.filterByPage(
+				filter.toString(), p, pager.getCountPerPage());
 
+		setAttr(req, CURRENT_PAGE_KEY, currentPage);
+		setAttr(req, CURRENT_COUNT_PER_PAGE_KEY, countPerPage);
+		setAttr(req, PAGER_KEY, pager);
+		setAttr(req, MAX_PAGERSHOW_LENGTH_KEY, DEFAULT_MAX_PAGERSHOW_LENGTH);
+
+		setAttr(req, DATA_LIST, dataList);
+		return INPUT;
+	}
+	
 	@Result("/WEB-INF/pages/anonymous/anonymous_news_show.jsp")
 	public String anonymous_news_show(HttpServletRequest req,
 			HttpServletResponse resp) {
 		int id = param(req, "id", 0);
-
+		
 		News model = new News();
 		if (id != 0) {
 			model.setId(id);

@@ -44,6 +44,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<span>产品</span>
 			<a href="action/global/anonymous_team">团队</a>
 		</div>
+		<div class="clear"></div>
 		<div class="common-panel">
 			<div class="inner-content-panel">
 				<div class="one-month-event">

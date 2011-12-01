@@ -99,7 +99,7 @@
 			<input type="hidden" name="order" value="${order}" />
 			<p class="formItem">
 				<label class="condition-label" for="menuID">所属菜单</label>
-				<select id="menuID" name="menuID">
+				<select id="menuID" name="menuID" style="width:180px;">
 					<option value="0">====请选择所属学院====</option>
 					<c:forEach var="menu" items="${menuList }">
 					<c:choose>
@@ -113,7 +113,7 @@
 					</c:forEach>
 				</select>
 				<label class="condition-label" for="resourceID">所属资源</label>
-				<select id="resourceID" name="resourceID">
+				<select id="resourceID" name="resourceID" style="width:180px;">
 					<option value="0">====请选择所在校区====</option>
 					<c:forEach var="resource" items="${resourceList }">
 					<c:choose>
@@ -127,7 +127,7 @@
 					</c:forEach>
 				</select>
 				<label class="condition-label" for="optID">所属操作</label>
-				<select id="optID" name="optID">
+				<select id="optID" name="optID" style="width:180px;">
 					<option value="0">====请选择所属部门====</option>
 					<c:forEach var="operator" items="${operatorList }">
 					<c:choose>

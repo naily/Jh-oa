@@ -41,8 +41,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<h2>${model.title }</h2>
 		</div>
 		<div class="subNav common-nav">
-			<a href="index.jsp" title="返回首页">返回首页</a> 
+			<a href="action/global/anonymous_news_list" title="返回动态列表">返回动态列表</a> 
 		</div>
+		<div class="clear"></div>
 		<div class="common-panel">
 			<div class="inner-content-panel" style="margin:0px;">
 				<div class="anonymous_news-detail-bar">

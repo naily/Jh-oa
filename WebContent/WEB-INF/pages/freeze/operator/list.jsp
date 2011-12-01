@@ -45,9 +45,9 @@
 		<c:otherwise>
 				<table class="dataTable">
 					<colgroup>
-						<col width="20%" />
-						<col width="20%" />
-						<col width="60%" />
+						<col width="30%" />
+						<col width="30%" />
+						<col width="40%" />
 					</colgroup>
 					<tr>
 						<th>操作描述</th>

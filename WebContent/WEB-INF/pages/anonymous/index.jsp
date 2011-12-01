@@ -42,6 +42,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<a href="#nogo"></a>
 			</div>
 			<div class="news">
+				<h2><a href="action/global/anonymous_news_list" title="查看所有动态">所有动态</a></h2>
 				<ul>
 					<c:choose>
 						<c:when test="${fn:length(top6newsList)==0 }">
@@ -50,7 +51,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<c:otherwise>
 						<c:forEach var="news" items="${top6newsList }">
 							<li>
-								<span title="动态标题：${news.title }&#10发布时间：[<fmt:formatDate value="${news.addtime }" type="both" />]">
+								<span title="动态标题：${news.title }&#10发布时间：[<fmt:formatDate value="${news.addtime }"  type="both" />]">
 								<c:choose>
 									<c:when test="${fn:length(news.title) > 25 }">
 										${fn:substring(news.title,0,25) } ...
@@ -60,7 +61,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									</c:otherwise>
 								</c:choose>
 								</span>
-								<a href="action/global/anonymous_news_show?id=${news.id }" class="show_detail">查看详情</a>
+								<a href="action/global/anonymous_news_show?id=${news.id }" class="show_detail">详情</a>
 							</li>
 						</c:forEach>	
 						</c:otherwise>

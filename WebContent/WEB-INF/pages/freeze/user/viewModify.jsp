@@ -159,11 +159,6 @@
 			<input type="text" id="bbs" name="bbs" class="bbs" value="${model.bbs }" />
 		</td>
 		<td>
-			
-		</td>
-	</tr>
-	<tr>
-		<td>
 			<label for="jobID" class="common-label">职务</label>
 			<select id="jobID" name="jobID" class="jobID">
 				<option value="-1">==== 请选择职务  ====</option>
@@ -179,7 +174,6 @@
 				</c:forEach>
 			</select>
 		</td>
-		<td></td>
 	</tr>
 	<tr>
 		<td>
