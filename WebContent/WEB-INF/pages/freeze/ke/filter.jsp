@@ -66,8 +66,8 @@
 					</colgroup>
 					<tr>
 						<th>删?</th>
-						<th>用户名</th>
 						<th>学号</th>
+						<th>用户名</th>
 						<th>操作</th>
 					</tr>
 					<c:forEach var="ketogether" items="${dataList }">
