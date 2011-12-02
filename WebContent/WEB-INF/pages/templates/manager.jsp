@@ -117,6 +117,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</div>
 	<div class="suggestBox">
 		<a href="action/suggest/viewAddMyself" title="给我们反馈">给我们反馈</a>
+		<p><a href="javascript:void(0);" onclick="window.scroll(0,0);" class="toTop" title="回到顶部">Top</a></p>
 	</div>
 	<div id="footer" style="margin-top:0px;">
 		 精弘版权所有  © 2011  <a href="mailto:qingtian16265@gmail.com" title="给晴天发邮件">晴天</a>

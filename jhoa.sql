@@ -14,6 +14,104 @@
 # ------------------------------------------------------
 # Server version 5.1.54-community
 
+USE `jhoa`;
+
+#
+# Table structure for table jh_ke
+#
+
+CREATE TABLE `jh_ke` (
+  `Id` int(11) NOT NULL AUTO_INCREMENT,
+  `termID` int(11) NOT NULL DEFAULT '0' COMMENT '学期ID',
+  `userID` int(11) NOT NULL DEFAULT '0' COMMENT '用户ID',
+  `k_1_1` tinyint(3) NOT NULL DEFAULT '0',
+  `k_1_2` tinyint(3) NOT NULL DEFAULT '0',
+  `k_1_3` tinyint(3) NOT NULL DEFAULT '0',
+  `k_1_4` tinyint(3) NOT NULL DEFAULT '0',
+  `k_1_5` tinyint(3) NOT NULL DEFAULT '0',
+  `k_1_6` tinyint(3) NOT NULL DEFAULT '0',
+  `k_1_7` tinyint(3) NOT NULL DEFAULT '0',
+  `k_1_8` tinyint(3) NOT NULL DEFAULT '0',
+  `k_1_9` tinyint(3) NOT NULL DEFAULT '0',
+  `k_1_10` tinyint(3) NOT NULL DEFAULT '0',
+  `k_1_11` tinyint(3) NOT NULL DEFAULT '0',
+  `k_1_12` tinyint(3) NOT NULL DEFAULT '0',
+  `k_2_1` tinyint(3) NOT NULL DEFAULT '0',
+  `k_2_2` tinyint(3) NOT NULL DEFAULT '0',
+  `k_2_3` tinyint(3) NOT NULL DEFAULT '0',
+  `k_2_4` tinyint(3) NOT NULL DEFAULT '0',
+  `k_2_5` tinyint(3) NOT NULL DEFAULT '0',
+  `k_2_6` tinyint(3) NOT NULL DEFAULT '0',
+  `k_2_7` tinyint(3) NOT NULL DEFAULT '0',
+  `k_2_8` tinyint(3) NOT NULL DEFAULT '0',
+  `k_2_9` tinyint(3) NOT NULL DEFAULT '0',
+  `k_2_10` tinyint(3) NOT NULL DEFAULT '0',
+  `k_2_11` tinyint(3) NOT NULL DEFAULT '0',
+  `k_2_12` tinyint(3) NOT NULL DEFAULT '0',
+  `k_3_1` tinyint(3) NOT NULL DEFAULT '0',
+  `k_3_2` tinyint(3) NOT NULL DEFAULT '0',
+  `k_3_3` tinyint(3) NOT NULL DEFAULT '0',
+  `k_3_4` tinyint(3) NOT NULL DEFAULT '0',
+  `k_3_5` tinyint(3) NOT NULL DEFAULT '0',
+  `k_3_6` tinyint(3) NOT NULL DEFAULT '0',
+  `k_3_7` tinyint(3) NOT NULL DEFAULT '0',
+  `k_3_8` tinyint(3) NOT NULL DEFAULT '0',
+  `k_3_9` tinyint(3) NOT NULL DEFAULT '0',
+  `k_3_10` tinyint(3) NOT NULL DEFAULT '0',
+  `k_3_11` tinyint(3) NOT NULL DEFAULT '0',
+  `k_3_12` tinyint(3) NOT NULL DEFAULT '0',
+  `k_4_1` tinyint(3) NOT NULL DEFAULT '0',
+  `k_4_2` tinyint(3) NOT NULL DEFAULT '0',
+  `k_4_3` tinyint(3) NOT NULL DEFAULT '0',
+  `k_4_4` tinyint(3) NOT NULL DEFAULT '0',
+  `k_4_5` tinyint(3) NOT NULL DEFAULT '0',
+  `k_4_6` tinyint(3) NOT NULL DEFAULT '0',
+  `k_4_7` tinyint(3) NOT NULL DEFAULT '0',
+  `k_4_8` tinyint(3) NOT NULL DEFAULT '0',
+  `k_4_9` tinyint(3) NOT NULL DEFAULT '0',
+  `k_4_10` tinyint(3) NOT NULL DEFAULT '0',
+  `k_4_11` tinyint(3) NOT NULL DEFAULT '0',
+  `k_4_12` tinyint(3) NOT NULL DEFAULT '0',
+  `k_5_1` tinyint(3) NOT NULL DEFAULT '0',
+  `k_5_2` tinyint(3) NOT NULL DEFAULT '0',
+  `k_5_3` tinyint(3) NOT NULL DEFAULT '0',
+  `k_5_4` tinyint(3) NOT NULL DEFAULT '0',
+  `k_5_5` tinyint(3) NOT NULL DEFAULT '0',
+  `k_5_6` tinyint(3) NOT NULL DEFAULT '0',
+  `k_5_7` tinyint(3) NOT NULL DEFAULT '0',
+  `k_5_8` tinyint(3) NOT NULL DEFAULT '0',
+  `k_5_9` tinyint(3) NOT NULL DEFAULT '0',
+  `k_5_10` tinyint(3) NOT NULL DEFAULT '0',
+  `k_5_11` tinyint(3) NOT NULL DEFAULT '0',
+  `k_5_12` tinyint(3) NOT NULL DEFAULT '0',
+  `k_6_1` tinyint(3) NOT NULL DEFAULT '0',
+  `k_6_2` tinyint(3) NOT NULL DEFAULT '0',
+  `k_6_3` tinyint(3) NOT NULL DEFAULT '0',
+  `k_6_4` tinyint(3) NOT NULL DEFAULT '0',
+  `k_6_5` tinyint(3) NOT NULL DEFAULT '0',
+  `k_6_6` tinyint(3) NOT NULL DEFAULT '0',
+  `k_6_7` tinyint(3) NOT NULL DEFAULT '0',
+  `k_6_8` tinyint(3) NOT NULL DEFAULT '0',
+  `k_6_9` tinyint(3) NOT NULL DEFAULT '0',
+  `k_6_10` tinyint(3) NOT NULL DEFAULT '0',
+  `k_6_11` tinyint(3) NOT NULL DEFAULT '0',
+  `k_6_12` tinyint(3) NOT NULL DEFAULT '0',
+  `k_7_1` tinyint(3) NOT NULL DEFAULT '0',
+  `k_7_2` tinyint(3) NOT NULL DEFAULT '0',
+  `k_7_3` tinyint(3) NOT NULL DEFAULT '0',
+  `k_7_4` tinyint(3) NOT NULL DEFAULT '0',
+  `k_7_5` tinyint(3) NOT NULL DEFAULT '0',
+  `k_7_6` tinyint(3) NOT NULL DEFAULT '0',
+  `k_7_7` tinyint(3) NOT NULL DEFAULT '0',
+  `k_7_8` tinyint(3) NOT NULL DEFAULT '0',
+  `k_7_9` tinyint(3) NOT NULL DEFAULT '0',
+  `k_7_10` tinyint(3) NOT NULL DEFAULT '0',
+  `k_7_11` tinyint(3) NOT NULL DEFAULT '0',
+  `k_7_12` tinyint(3) NOT NULL DEFAULT '0',
+  `addtime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '添加时间',
+  PRIMARY KEY (`Id`)
+) ENGINE=InnoDB AUTO_INCREMENT=479 DEFAULT CHARSET=utf8 COMMENT='课程表';
+
 #
 # Dumping data for table jh_ke
 #
@@ -485,6 +583,35 @@ INSERT INTO `jh_ke` VALUES (477,1,480,1,1,0,0,1,1,1,1,0,0,0,0,1,1,1,1,1,1,0,0,0,
 INSERT INTO `jh_ke` VALUES (478,3,409,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,1,1,1,1,0,0,0,0,0,1,1,1,1,1,1,1,0,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,'2011-11-22 16:00:54');
 /*!40000 ALTER TABLE `jh_ke` ENABLE KEYS */;
 UNLOCK TABLES;
+
+#
+# Table structure for table jh_user
+#
+
+CREATE TABLE `jh_user` (
+  `Id` int(11) NOT NULL AUTO_INCREMENT,
+  `uid` varchar(255) NOT NULL DEFAULT '' COMMENT '学号',
+  `username` varchar(255) NOT NULL DEFAULT '' COMMENT '用户名',
+  `password` varchar(255) NOT NULL DEFAULT 'e10adc3949ba59abbe56e057f20f883e' COMMENT '密码',
+  `academy` varchar(255) DEFAULT '-' COMMENT '学院',
+  `job_1` varchar(255) DEFAULT '-' COMMENT '职务1',
+  `job_2` varchar(255) DEFAULT '-' COMMENT '职务2',
+  `job_3` varchar(255) DEFAULT '-' COMMENT '职务3',
+  `major` varchar(255) DEFAULT '-' COMMENT '专业',
+  `grade` varchar(255) DEFAULT '-' COMMENT '年级',
+  `dormitory` varchar(255) DEFAULT '-' COMMENT '寝室',
+  `sex` varchar(255) DEFAULT '-' COMMENT '性别',
+  `phone` varchar(255) DEFAULT '-' COMMENT '电话',
+  `cornet` varchar(255) DEFAULT '-' COMMENT '短号',
+  `roleID` int(11) DEFAULT '0' COMMENT '角色ID',
+  `add_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP COMMENT '添加时间',
+  `birthday` varchar(255) DEFAULT '-' COMMENT '生日',
+  `location` varchar(255) DEFAULT '-' COMMENT '所在校区',
+  `is_locked` int(1) unsigned DEFAULT '0' COMMENT '是否锁定，1为锁定',
+  `qq` varchar(255) DEFAULT '-' COMMENT 'QQ号码',
+  `bbsID` varchar(255) DEFAULT '-' COMMENT '论坛ID',
+  PRIMARY KEY (`Id`)
+) ENGINE=InnoDB AUTO_INCREMENT=522 DEFAULT CHARSET=utf8 COMMENT='用户表';
 
 #
 # Dumping data for table jh_user
@@ -993,6 +1120,16 @@ INSERT INTO `jh_user` VALUES (521,'201001390501','卞惟环','63d33a02572ae45977
 UNLOCK TABLES;
 
 #
+# Table structure for table qt_academy
+#
+
+CREATE TABLE `qt_academy` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `academyname` varchar(255) DEFAULT NULL COMMENT '学院名',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8 COMMENT='学院表';
+
+#
 # Dumping data for table qt_academy
 #
 LOCK TABLES `qt_academy` WRITE;
@@ -1021,6 +1158,19 @@ INSERT INTO `qt_academy` VALUES (19,'政管学院');
 UNLOCK TABLES;
 
 #
+# Table structure for table qt_comment
+#
+
+CREATE TABLE `qt_comment` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `content` text COMMENT '内容',
+  `userID` int(11) DEFAULT NULL COMMENT '评论ID',
+  `addtime` timestamp NULL DEFAULT NULL COMMENT '评论时间',
+  `fileID` int(11) DEFAULT NULL COMMENT '关联文件ID',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8 COMMENT='文件评论表';
+
+#
 # Dumping data for table qt_comment
 #
 LOCK TABLES `qt_comment` WRITE;
@@ -1031,6 +1181,16 @@ INSERT INTO `qt_comment` VALUES (21,'2',2,'2011-10-26 21:10:01',4);
 INSERT INTO `qt_comment` VALUES (22,'什么',2,'2011-10-26 21:11:36',4);
 /*!40000 ALTER TABLE `qt_comment` ENABLE KEYS */;
 UNLOCK TABLES;
+
+#
+# Table structure for table qt_department
+#
+
+CREATE TABLE `qt_department` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `departmentname` varchar(255) DEFAULT NULL COMMENT '部门名',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8 COMMENT='部门表';
 
 #
 # Dumping data for table qt_department
@@ -1058,6 +1218,18 @@ INSERT INTO `qt_department` VALUES (16,'常务办公室');
 UNLOCK TABLES;
 
 #
+# Table structure for table qt_event
+#
+
+CREATE TABLE `qt_event` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `title` varchar(255) DEFAULT NULL COMMENT '事件标题',
+  `content` text COMMENT '事件内容',
+  `modifytime` timestamp NULL DEFAULT NULL COMMENT '最后编辑时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8 COMMENT='大事件表';
+
+#
 # Dumping data for table qt_event
 #
 LOCK TABLES `qt_event` WRITE;
@@ -1081,6 +1253,21 @@ INSERT INTO `qt_event` VALUES (22,'09/10学年精弘网络发展规划','<p styl
 UNLOCK TABLES;
 
 #
+# Table structure for table qt_ffile
+#
+
+CREATE TABLE `qt_ffile` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `filename` varchar(255) DEFAULT NULL COMMENT '文件名',
+  `showname` varchar(255) DEFAULT NULL COMMENT '显示名',
+  `addtime` timestamp NULL DEFAULT NULL COMMENT '上传时间',
+  `userID` int(11) DEFAULT NULL COMMENT '用户ID',
+  `size` int(11) DEFAULT NULL COMMENT '大小',
+  `suffix` varchar(255) DEFAULT NULL COMMENT '后缀',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COMMENT='文件表';
+
+#
 # Dumping data for table qt_ffile
 #
 LOCK TABLES `qt_ffile` WRITE;
@@ -1090,6 +1277,16 @@ INSERT INTO `qt_ffile` VALUES (1,'/Jh-oa/file/20111110222027_538.jpg','hello','2
 INSERT INTO `qt_ffile` VALUES (2,'/Jh-oa/file/20111113142241_267.png','2011新生报告申请表','2011-11-13 14:22:53',2,4905,'png');
 /*!40000 ALTER TABLE `qt_ffile` ENABLE KEYS */;
 UNLOCK TABLES;
+
+#
+# Table structure for table qt_job
+#
+
+CREATE TABLE `qt_job` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `jobname` varchar(255) DEFAULT NULL COMMENT '职务名',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COMMENT='职务表';
 
 #
 # Dumping data for table qt_job
@@ -1105,6 +1302,17 @@ INSERT INTO `qt_job` VALUES (5,'部员');
 INSERT INTO `qt_job` VALUES (6,'实习用户');
 /*!40000 ALTER TABLE `qt_job` ENABLE KEYS */;
 UNLOCK TABLES;
+
+#
+# Table structure for table qt_ke
+#
+
+CREATE TABLE `qt_ke` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `userID` int(11) DEFAULT NULL COMMENT '用户ID',
+  `kevalue` varchar(255) DEFAULT NULL COMMENT '课程表值[以0代表没课，1代表有课]',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=179 DEFAULT CHARSET=utf8 COMMENT='课表';
 
 #
 # Dumping data for table qt_ke
@@ -1286,6 +1494,16 @@ INSERT INTO `qt_ke` VALUES (178,409,'1011100101110010111001011100000010001001000
 UNLOCK TABLES;
 
 #
+# Table structure for table qt_menu
+#
+
+CREATE TABLE `qt_menu` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `menuname` varchar(255) DEFAULT NULL COMMENT '菜单名',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8 COMMENT='菜单表';
+
+#
 # Dumping data for table qt_menu
 #
 LOCK TABLES `qt_menu` WRITE;
@@ -1316,6 +1534,21 @@ INSERT INTO `qt_menu` VALUES (28,'职务菜单');
 UNLOCK TABLES;
 
 #
+# Table structure for table qt_news
+#
+
+CREATE TABLE `qt_news` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `title` varchar(255) DEFAULT NULL COMMENT '标题',
+  `content` text CHARACTER SET utf8 COLLATE utf8_hungarian_ci COMMENT '富文本内容',
+  `stext` varchar(255) DEFAULT NULL COMMENT '纯文本内容',
+  `userID` int(11) DEFAULT NULL COMMENT '发布者ID',
+  `addtime` timestamp NULL DEFAULT NULL COMMENT '添加时间',
+  `modifytime` timestamp NULL DEFAULT NULL COMMENT '最后修改时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8 COMMENT='新闻动态表';
+
+#
 # Dumping data for table qt_news
 #
 LOCK TABLES `qt_news` WRITE;
@@ -1341,6 +1574,17 @@ INSERT INTO `qt_news` VALUES (24,'新学期新气象－在精弘开心每一天�
 INSERT INTO `qt_news` VALUES (25,'2011.3.13精弘招新面试','2011.3.13精弘招新面试.','2011.3.13精弘招新面试.',2,'2011-03-13 18:17:56','2011-11-29 17:13:41');
 /*!40000 ALTER TABLE `qt_news` ENABLE KEYS */;
 UNLOCK TABLES;
+
+#
+# Table structure for table qt_operator
+#
+
+CREATE TABLE `qt_operator` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `optname` varchar(255) DEFAULT NULL COMMENT '操作描述',
+  `optvalue` varchar(255) DEFAULT NULL COMMENT '操作值',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=40 DEFAULT CHARSET=utf8 COMMENT='操作表';
 
 #
 # Dumping data for table qt_operator
@@ -1387,6 +1631,19 @@ INSERT INTO `qt_operator` VALUES (38,'按部门查看全体人员空闲时间情
 INSERT INTO `qt_operator` VALUES (39,'导出当前条件用户数据','exportUserOfCurrentCondition');
 /*!40000 ALTER TABLE `qt_operator` ENABLE KEYS */;
 UNLOCK TABLES;
+
+#
+# Table structure for table qt_permission
+#
+
+CREATE TABLE `qt_permission` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `menuID` int(11) DEFAULT NULL COMMENT '菜单ID',
+  `resourceID` int(11) DEFAULT NULL COMMENT '资源ID',
+  `optID` int(11) DEFAULT NULL COMMENT '操作ID',
+  `description` varchar(255) DEFAULT NULL COMMENT '权限描述',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=160 DEFAULT CHARSET=utf8 COMMENT='权限表';
 
 #
 # Dumping data for table qt_permission
@@ -1544,6 +1801,20 @@ INSERT INTO `qt_permission` VALUES (159,9,8,39,'导出当前条件用户数据')
 UNLOCK TABLES;
 
 #
+# Table structure for table qt_product
+#
+
+CREATE TABLE `qt_product` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `logo` varchar(255) DEFAULT NULL COMMENT 'logo图片地址',
+  `name` varchar(255) DEFAULT NULL COMMENT '产品名称',
+  `introduce` text COMMENT '产品介绍',
+  `link` varchar(255) DEFAULT NULL COMMENT '产品地址',
+  `addtime` timestamp NULL DEFAULT NULL COMMENT '上线时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COMMENT='产品表';
+
+#
 # Dumping data for table qt_product
 #
 LOCK TABLES `qt_product` WRITE;
@@ -1555,6 +1826,17 @@ INSERT INTO `qt_product` VALUES (4,'/Jh-oa/product/20111106220113_808.jpg','电�
 INSERT INTO `qt_product` VALUES (5,'/Jh-oa/product/20111106220412_875.jpg','下载','下载','http://down.zjut.com','2011-11-06 22:04:24');
 /*!40000 ALTER TABLE `qt_product` ENABLE KEYS */;
 UNLOCK TABLES;
+
+#
+# Table structure for table qt_resource
+#
+
+CREATE TABLE `qt_resource` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `resourcename` varchar(255) DEFAULT NULL COMMENT '资源描述',
+  `resourcevalue` varchar(255) DEFAULT NULL COMMENT '资源值',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8 COMMENT='资源表';
 
 #
 # Dumping data for table qt_resource
@@ -1586,6 +1868,16 @@ INSERT INTO `qt_resource` VALUES (24,'职务资源','job');
 UNLOCK TABLES;
 
 #
+# Table structure for table qt_role
+#
+
+CREATE TABLE `qt_role` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `rolename` varchar(255) DEFAULT NULL COMMENT '角色名',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 COMMENT='角色表';
+
+#
 # Dumping data for table qt_role
 #
 LOCK TABLES `qt_role` WRITE;
@@ -1597,6 +1889,17 @@ INSERT INTO `qt_role` VALUES (7,'部长');
 INSERT INTO `qt_role` VALUES (8,'主席团');
 /*!40000 ALTER TABLE `qt_role` ENABLE KEYS */;
 UNLOCK TABLES;
+
+#
+# Table structure for table qt_rolepermission
+#
+
+CREATE TABLE `qt_rolepermission` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `roleID` int(11) DEFAULT NULL COMMENT '角色ID',
+  `permissionID` int(11) DEFAULT NULL COMMENT '权限ID',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4308 DEFAULT CHARSET=utf8 COMMENT='角色权限对应表';
 
 #
 # Dumping data for table qt_rolepermission
@@ -1782,6 +2085,22 @@ INSERT INTO `qt_rolepermission` VALUES (4307,1,99);
 UNLOCK TABLES;
 
 #
+# Table structure for table qt_suggest
+#
+
+CREATE TABLE `qt_suggest` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `content` text COMMENT '反馈内容',
+  `addtime` timestamp NULL DEFAULT NULL COMMENT '添加时间',
+  `reply` text COMMENT '回复内容',
+  `replytime` timestamp NULL DEFAULT NULL COMMENT '回复时间',
+  `userID` int(11) DEFAULT NULL COMMENT '反馈者',
+  `replyUserID` int(11) DEFAULT NULL COMMENT '回复者',
+  `stext` varchar(255) DEFAULT NULL COMMENT '纯文本内容',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8 COMMENT='建议反馈表';
+
+#
 # Dumping data for table qt_suggest
 #
 LOCK TABLES `qt_suggest` WRITE;
@@ -1794,6 +2113,17 @@ INSERT INTO `qt_suggest` VALUES (10,'<a href=\"http://www.zjut.com\" target=\"_b
 UNLOCK TABLES;
 
 #
+# Table structure for table qt_team
+#
+
+CREATE TABLE `qt_team` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `userID` int(11) DEFAULT NULL COMMENT '用户ID',
+  `headimage` varchar(255) DEFAULT NULL COMMENT '头像',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COMMENT='管理团队表';
+
+#
 # Dumping data for table qt_team
 #
 LOCK TABLES `qt_team` WRITE;
@@ -1802,6 +2132,36 @@ LOCK TABLES `qt_team` WRITE;
 INSERT INTO `qt_team` VALUES (7,2,'/Jh-oa/team/20111125142342_881.jpg');
 /*!40000 ALTER TABLE `qt_team` ENABLE KEYS */;
 UNLOCK TABLES;
+
+#
+# Table structure for table qt_user
+#
+
+CREATE TABLE `qt_user` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `uid` varchar(255) NOT NULL DEFAULT '' COMMENT '学号',
+  `username` varchar(255) NOT NULL DEFAULT '' COMMENT '姓名',
+  `password` varchar(255) NOT NULL DEFAULT 'e10adc3949ba59abbe56e057f20f883e' COMMENT '密码',
+  `addtime` timestamp NULL DEFAULT CURRENT_TIMESTAMP COMMENT '添加时间',
+  `modifytime` timestamp NULL DEFAULT NULL COMMENT '最后修改时间',
+  `email` varchar(255) DEFAULT NULL COMMENT '邮箱地址',
+  `cornet` varchar(255) DEFAULT NULL COMMENT '短号',
+  `telephone` varchar(255) DEFAULT NULL COMMENT '电话号码长号',
+  `academyID` int(11) DEFAULT NULL COMMENT '学院ID',
+  `departmentID` int(11) DEFAULT NULL COMMENT '部门ID',
+  `jobID` int(11) DEFAULT NULL COMMENT '职务ID',
+  `major` varchar(255) DEFAULT NULL COMMENT '专业',
+  `location` varchar(255) DEFAULT NULL COMMENT '校区',
+  `dormitory` varchar(255) DEFAULT NULL COMMENT '宿舍',
+  `islock` int(11) DEFAULT '0' COMMENT '是否锁定',
+  `bbs` varchar(255) DEFAULT NULL COMMENT '论坛ID',
+  `introduce` text COMMENT '简介',
+  `simpleinfo` text COMMENT '纯文本',
+  `birthday` varchar(255) DEFAULT NULL COMMENT '生日''',
+  `qq` varchar(255) DEFAULT NULL COMMENT 'QQ',
+  `sex` varchar(255) DEFAULT NULL COMMENT '性别',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=522 DEFAULT CHARSET=utf8 COMMENT='用户表';
 
 #
 # Dumping data for table qt_user
@@ -2308,6 +2668,17 @@ INSERT INTO `qt_user` VALUES (520,'201103120204','丁益','e10adc3949ba59abbe56e
 INSERT INTO `qt_user` VALUES (521,'201001390501','卞惟环','63d33a02572ae459776aacccd9d2ff95','2011-11-04 23:38:46','2011-11-29 16:09:06',NULL,'513213','18767116540',1,12,5,'金属材料材料1005','朝晖校区','尚4#121',0,'青墨语',NULL,NULL,'1992-07-24','307395146','男');
 /*!40000 ALTER TABLE `qt_user` ENABLE KEYS */;
 UNLOCK TABLES;
+
+#
+# Table structure for table qt_userrole
+#
+
+CREATE TABLE `qt_userrole` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `roleID` int(11) DEFAULT NULL COMMENT '角色ID',
+  `userID` int(11) DEFAULT NULL COMMENT '用户ID',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8 COMMENT='用户角色对应表';
 
 #
 # Dumping data for table qt_userrole

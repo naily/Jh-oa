@@ -233,11 +233,13 @@ public class KeAction extends ActionAdapter {
 		setAttr(req, PAGE_KE_DEPARTMENTID_KEY, departmentID);
 		setAttr(req, PAGE_KE_FREETIMELIST_KEY, fktList);
 
+		Department department=new Department();
+		department=department.get(Integer.parseInt(departmentID));
+		setAttr(req, PAGE_KE_DEPARTMNETNAME_KEY, department.getDepartmentname());
+		
 		int length = fktList.size();
 		FreeKeTogether fkt = length > 0 ? fktList.get(0) : null;
 		if (fkt != null) {
-			setAttr(req, PAGE_KE_DEPARTMNETNAME_KEY, fkt.getUsertogether()
-					.getDepartment().getDepartmentname());
 			setAttr(req, PAGE_KE_TOTAL_KEY, fkt.getTotal());
 		}
 		

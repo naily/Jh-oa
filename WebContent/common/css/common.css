@@ -278,6 +278,9 @@ right:-33px;background-color:#f3f3f3;border:1px #aaa solid;}
 .suggestBox a,.suggestBox a:visited,.suggestBox a:hover,.suggestBox a:active{display:inline-block;padding:5px;width:13px;color:#333;text-decoration:none;}
 .suggestBox a:hover{background-color:#f3f3f3;}
 
+.suggestBox a.toTop,.suggestBox a.toTop:visited,.suggestBox a.toTop:hover,.suggestBox a.toTop:active{padding:0px;border-top:1px #ccc solid;width:23px;background-color:#ccc;color:#fff;}
+.suggestBox a.toTop:hover{}
+
 #manager{padding-top:10px;border-top:1px #e3e3e3 solid;min-height:450px;height:auto !important;height:450px;}
 .menuContainer{float:left;display:inline;padding-bottom:5px;width:136px;}
 .menuContainer h2{margin:5px 0px 5px 5px;font-size:14px;color:#000;font-weight:bold;}
@@ -418,7 +421,18 @@ background:url(../images/sep-line.png) right 0px repeat-y;}
 .freetime-title{}
 .add-freetime{}
 
+
+
+.fast-action-bar{padding:5px;background-color:#f3f3f3;color:#333;}
+.fast-action-bar span{font-weight:bold;}
+.allPersonBar-word{float:left;}
+.allPersonBar-tools{float:right;}
+.one-module-container{}
+.one-toggle-bar{}
+.one-toggle-bar-on{background:url(../images/arrow.jpg) 0px 8px no-repeat;}
 .toggleBar{position:relative;margin:10px 0px 0px;height:30px;line-height:30px;}
+.closeStatus{background-color:#fff;}
+.optMoreBar{display:block;}
 .tbTitle{float:left;margin-left:20px;}
 .tbOpt{float:right;}
 .tbTitle b{margin-right:10px;}
@@ -452,7 +466,7 @@ a:hover.closeTable{background-color:#f2f2f2;color:#333;}
 	
 	.one-person-header{height:30px;line-height:30px;border-bottom:4px #333 double;background-color:#f3f3f3;}
 	.one-person-header .bold{font-weight:bold;}
-	.one-person-header .one-person-line{height:30px;line-height:30px;border-bottom-width:0px;}
+	.one-person-header .one-person-line{height:30px;line-height:30px;border-bottom-width:0px;overflow:hidden;}
 	.one-person-header .one-p-l-uid{border-radius:0px;color:#000;background-color:transparent;}
 	
 	.ftudInnerContainer .on{background-color:#E0EEE0;}
@@ -496,7 +510,8 @@ a:hover.closeTable{background-color:#f2f2f2;color:#333;}
 	.one-person-username{float:left;margin:0px 5px 5px 0px;padding:0px 5px;height:20px;line-height:20px;overflow:hidden;
 		color:#333;background-color:#CCDAF5;border:1px #f3f3f3 solid;border-radius:8px;-moz-border-radius:8px;-webkit-border-radius:8px;
 	}
-.keTitleForFreetime{margin:5px 0px;font-weight:bold;font-size:16px;color:#333;}
+.keTitleForFreetime{margin:5px 0px;padding:5px;font-weight:bold;font-size:16px;color:#333;
+	background-color:#f3f3f3;border-bottom:1px #ddd solid;}
 .keTitleForFreetime a,.keTitleForFreetime a:visited,.keTitleForFreetime a:hover,.keTitleForFreetime a:active{margin-right:5px;color:#333;text-decoration:none;}
 .keTitleForFreetime a:hover{text-decoration:underline;}
 /* =================产品====================== */

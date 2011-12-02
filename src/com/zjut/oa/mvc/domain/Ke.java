@@ -269,7 +269,6 @@ public class Ke extends Model {
 			sql = null;
 		}
 
-		log.info(fktList.size());
 		return fktList;
 	}
 	
@@ -412,7 +411,6 @@ public class Ke extends Model {
 			sql = null;
 		}
 
-		log.info(fktList.size());
 		return fktList;
 	}
 }

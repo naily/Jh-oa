@@ -192,6 +192,7 @@
 		<td>
 			<label for="birthday" class="common-label">生日</label>
 			<input type="text" id="birthday" name="birthday" class="birthday" value="${model.birthday }" />
+			<p style="margin-left:80px;color:red;">格式为：yyyy-MM-dd，如（1987-08-18）</p>
 		</td>
 		<td>
 			<label for="qq" class="common-label">QQ</label>

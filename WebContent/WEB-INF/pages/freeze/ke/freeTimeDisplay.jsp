@@ -39,7 +39,6 @@
 	<div class="clear"></div>
 </div>
 <div class="box">
-<div class="actionTip">温馨提醒：<span class="tip-words">当前查询条件将以黄色突出显示</span></div>
 	<c:if test="${ not empty tip}">
 		<div class="optTip">提示：<span class="msg">${tip}</span></div>
 	</c:if>
@@ -47,8 +46,8 @@
 		<c:when test="${empty fktList }">
 			<div class="no-data">
 				这个时间点没人有空！请<a href="action/ke/viewFindFreeTime">重新选择时间点</a>或
-				<c:if test="${not empty currentDepartmentID }">
-					 <a href="javascript:void(0);" class="viewAllPersonFreeTime_nodata_trigger" department="${currentDepartmentID }" url="action/ke/listAllKeByDepartmentId?departmentID=${currentDepartmentID }">部门人员整体情况</a>
+				<c:if test="${not empty currentDepartmentID && currentDepartmentID !=0 }">
+					 <a href="javascript:void(0);" class="viewAllPersonFreeTime_nodata_trigger" department="${currentDepartmentID }" url="action/ke/listAllKeByDepartmentId?departmentID=${currentDepartmentID }">查看部门人员整体情况</a>
 				</c:if>
 			</div>
 			<%-- 部门人员整体情况 --%>
@@ -58,90 +57,24 @@
 			<c:choose>
 				<%-- 全精弘范围数据展示 --%>
 				<c:when test="${currentDepartmentID=='0' }">
-					<%-- 当前查询条件显示区域 --%>
-					<div class="toggleArea">
-						<div class="closeConditionDisplay">
-							<a href="javascript:void(0);" class="closeTable">隐藏当前查询条件</a>
-						</div>
-						<table class="dataTableDisplay allJHUsers">
-							<colgroup>
-								<col width="13%" />
-								<col width="11%" />
-								<col width="11%" />
-								<col width="11%" />
-								<col width="11%" />
-								<col width="11%" />
-								<col width="10%" />
-								<col width="11%" />
-								<col width="11%" />
-							</colgroup>
-							<tr>
-								<th></th>
-								<th class="center">周一</th>
-								<th class="center">周二</th>
-								<th class="center">周三</th>
-								<th class="center">周四</th>
-								<th class="center">周五</th>
-								<th></th>
-								<th class="center">周六</th>
-								<th class="center">周日</th>
-							</tr>
-							<%-- 此处高亮显示查询时间点 --%>
-							<c:set var="kevalue" value="${findFreeTime_kevalue }"></c:set>
-							<c:set var="index" value="-1"></c:set>
-							<c:forEach var="i" begin="1" end="11" step="1">
-								<tr>
-									<c:forEach var="j" begin="0" end="7" step="1">
-									<c:set var="current_ke" value="${fn:substring(kevalue, index, index+1) }"></c:set>
-									<c:choose>
-										<c:when test="${j == 0 }">
-										<th class="center">第${i }节</th>
-										</c:when>
-										<c:when test="${j == 5 }">
-											<c:choose>
-												<c:when test="${current_ke == '0' }">
-												<td class="center">-</td>
-												</c:when>
-												<c:otherwise>
-												<td class="center itemOutShow">有空</td>
-												</c:otherwise>
-											</c:choose>
-										<th></th>
-										</c:when>
-										<c:otherwise>
-											<c:choose>
-												<c:when test="${current_ke == '0' }">
-												<td class="center">-</td>
-												</c:when>
-												<c:otherwise>
-												<td class="center itemOutShow">有空</td>
-												</c:otherwise>
-											</c:choose>
-										</c:otherwise>
-									</c:choose>
-									<c:set var="index" value="${index+1 }"></c:set>
-									</c:forEach>
-									<c:set var="index" value="${index-1 }"></c:set>
-								</tr>	
-								<c:if test="${i==4 || i==8 }">
-								<tr>
-									<th></th>
-									
-									<th></th>
-									<th></th>
-									<th></th>
-									<th></th>
-									<th></th>
-				
-									<th></th>
-									<th></th>
-									<th></th>
-								</tr>
-								</c:if>
-							</c:forEach>
-						</table>
-					</div>
+					<c:set var="cacheDepartmentID" value=""></c:set>
 					
+					<c:set var="alltotal" value="0"></c:set>
+					<c:set var="alltotal_cacheDepartmentID" value=""></c:set>
+					<c:forEach var="freeketogether" items="${fktList }">
+						<c:if test="${alltotal_cacheDepartmentID != freeketogether.usertogether.department.id }">
+							<c:set var="alltotal_cacheDepartmentID" value="${freeketogether.usertogether.department.id }"></c:set>
+							<c:set var="alltotal" value="${alltotal + freeketogether.total }"></c:set>
+						</c:if>
+					</c:forEach>
+					<div class="optTip">提示：<span class="msg">以下是按部门进行当前查询条件的部门人员空闲时间的统计情况</span></div>
+					<div class="fast-action-bar">
+						<div class="allPersonBar-word">在全精弘目前在职成员共找到 [<span>${alltotal }</span>]人此时间点有空</div>
+						<div class="allPersonBar-tools">
+							<a href="javascript:void(0);" class="button-like closeStatus">收起全部</a>
+						</div>
+						<div class="clear"></div>
+					</div>
 					<%-- 按部门分区域展示全精弘的成员当前条件下的空闲时间情况　 --%>
 					<c:forEach var="freeketogether" items="${fktList }">
 						<c:set var="ke" value="${freeketogether.ke }"></c:set>
@@ -151,19 +84,154 @@
 						<c:set var="department" value="${usertogether.department }"></c:set>
 						<c:set var="job" value="${usertogether.job }"></c:set>
 						<c:set var="total" value="${freeketogether.total }"></c:set>
-						<div class="toggleBar">
-							<div id="tbOpt-${department.id }" class="tbOpt">
-								<ul>
-									<li class="freePersonList focus"><span>空闲人员列表</span></li>
-									<li class="wholeState"><span>部门人员整体情况</span></li>
-								</ul>
-							</div>
-						</div>
-						<div class="freeTimeUserDisplay">
-							<div class="ftudInner">
-								<div class="one-person-line">${user.username }|${user.uid }<a href="action/ke/show?id=${ke.id }">查看课表情况</a></div>
-							</div>
-						</div>
+						
+						<%-- 不同部门时构建页面模块 --%>
+						<c:choose>
+							<c:when test="${cacheDepartmentID != department.id }">
+								<c:set var="cacheDepartmentID" value="${department.id }"></c:set>
+								
+								<%-- 全精弘－当前查询条件显示区域 --%>
+								<div class="toggleBar one-toggle-bar">
+									<div class="tbTitle"><b>${department.departmentname }</b>共[<span>${total }</span>]人有空</div>
+									<div class="optMoreBar">
+										<div class="tbOpt tbOpt-${department.id }">
+											<ul>
+												<li class="queryCondition doBeforeShow" department="${department.id }"><span>当前查询条件</span></li>
+												<li class="freePersonList doBeforeShow" department="${department.id }"><span>空闲人员列表</span></li>
+											</ul>
+										</div>
+										<div class="viewAllPersonFreeTime">
+											<a href="javascript:void(0);" class="viewAllPersonFreeTime_trigger doBeforeShow" department="${department.id }" url="action/ke/listAllKeByDepartmentId?departmentID=${department.id }">部门人员整体情况</a>
+										</div>
+									</div>
+									<div class="clear"></div>
+								</div>
+								<div class="one-module-container one-module-container-${department.id }">
+									<%-- 全精弘－当前查询条件显示区域  (默认隐藏)--%>
+									<div class="queryConditionContainer queryConditionContainer-${department.id } module-${department.id }" style="display:none">
+										<div class="actionTip">温馨提醒：<span class="tip-words">当前查询条件将以黄色突出显示</span></div>
+										<table class="dataTableDisplay">
+											<colgroup>
+												<col width="13%" />
+												<col width="11%" />
+												<col width="11%" />
+												<col width="11%" />
+												<col width="11%" />
+												<col width="11%" />
+												<col width="10%" />
+												<col width="11%" />
+												<col width="11%" />
+											</colgroup>
+											<tr>
+												<th></th>
+												<th class="center">周一</th>
+												<th class="center">周二</th>
+												<th class="center">周三</th>
+												<th class="center">周四</th>
+												<th class="center">周五</th>
+												<th></th>
+												<th class="center">周六</th>
+												<th class="center">周日</th>
+											</tr>
+											<%-- 此处按照空课查询选择时间来显示 --%>
+											<c:set var="kevalue" value="${findFreeTime_kevalue }"></c:set>
+											<c:set var="index" value="-1"></c:set>
+											<c:forEach var="i" begin="1" end="11" step="1">
+												<tr>
+													<c:forEach var="j" begin="0" end="7" step="1">
+													<c:set var="current_ke" value="${fn:substring(kevalue, index, index+1) }"></c:set>
+													<c:choose>
+														<c:when test="${j == 0 }">
+														<th class="center">第${i >= 5 ? i+1 : i }节</th>
+														</c:when>
+														<c:when test="${j == 5 }">
+															<c:choose>
+																<c:when test="${current_ke == '0' }">
+																<td class="center">-</td>
+																</c:when>
+																<c:otherwise>
+																<td class="center itemOutShow">有空</td>
+																</c:otherwise>
+															</c:choose>
+														<th></th>
+														</c:when>
+														<c:otherwise>
+															<c:choose>
+																<c:when test="${current_ke == '0' }">
+																<td class="center">-</td>
+																</c:when>
+																<c:otherwise>
+																<td class="center itemOutShow">有空</td>
+																</c:otherwise>
+															</c:choose>
+														</c:otherwise>
+													</c:choose>
+													<c:set var="index" value="${index+1 }"></c:set>
+													</c:forEach>
+													<c:set var="index" value="${index-1 }"></c:set>
+												</tr>	
+												<c:if test="${i==4 || i==8 }">
+												<tr>
+													<th></th>
+													
+													<th></th>
+													<th></th>
+													<th></th>
+													<th></th>
+													<th></th>
+								
+													<th></th>
+													<th></th>
+													<th></th>
+												</tr>
+												</c:if>
+											</c:forEach>
+										</table>
+									</div>
+									<%-- 全精弘－空闲人员列表 --%>
+									<div class="freePersonListContainer freePersonListContainer-${department.id }  module-${department.id }">
+										<div class="ftudInner one-person-header">
+											<div class="one-person-line">
+												<span class="one-p-l-uid bold">学号</span>
+												<span class="one-p-l-username bold">姓名</span>
+												<span class="one-p-l-department bold">所在部门(职务)</span>
+												<span class="one-p-l-phonenumber bold">手机号码(短号)</span>
+												<span class="one-p-l-more bold">更多操作</span>
+											</div>
+										</div>
+										<div class="ftudInnerContainer">
+										<c:forEach var="freeketogether_ftu" items="${fktList }">
+											<c:set var="ke_ftu" value="${freeketogether_ftu.ke }"></c:set>
+											<c:set var="usertogether_ftu" value="${freeketogether_ftu.usertogether }"></c:set>
+											<c:set var="user_ftu" value="${usertogether_ftu.user }"></c:set>
+											<c:set var="academy_ftu" value="${usertogether_ftu.academy }"></c:set>
+											<c:set var="department_ftu" value="${usertogether_ftu.department }"></c:set>
+											<c:set var="job_ftu" value="${usertogether_ftu.job }"></c:set>
+											<c:set var="total_ftu" value="${freeketogether_ftu.total }"></c:set>
+											
+											<%-- 第二级循环获取当前部门用户 --%>
+											<c:if test="${department.id == department_ftu.id }">
+												<div class="ftudInner">
+													<div class="one-person-line">
+														<span class="one-p-l-uid">${user_ftu.uid }</span>
+														<span class="one-p-l-username"><a href="action/user/show?id=${user_ftu.id }" title="查看详细">${user_ftu.username }</a></span>
+														<span class="one-p-l-department">${department_ftu.departmentname }(${job_ftu.jobname })</span>
+														<span class="one-p-l-phonenumber">${user_ftu.telephone }(${user_ftu.cornet })</span>
+														<span class="one-p-l-more"><a href="action/ke/show?id=${ke_ftu.id }" class="view" title="查看课表">详细课表</a></span>
+													</div>
+												</div>
+											</c:if>
+										</c:forEach>
+										</div>
+									</div>
+									<%-- 全精弘－部门人员整体情况 --%>
+									<div class="allPersonFreeTimeContainer-${department.id }"></div>
+								</div>
+							</c:when>
+							<c:otherwise>
+								<%-- 此处为相等情况（无特殊显示处理） --%>
+							</c:otherwise>
+						</c:choose>
 					</c:forEach>
 				</c:when>
 				<%-- 单部门数据展示 --%>
@@ -183,6 +251,7 @@
 					</div>
 					<%-- 当前查询条件显示区域 --%>
 					<div class="queryConditionContainer queryConditionContainer-${currentDepartmentID } module-${currentDepartmentID }">
+						<div class="actionTip">温馨提醒：<span class="tip-words">当前查询条件将以黄色突出显示</span></div>
 						<table class="dataTableDisplay">
 							<colgroup>
 								<col width="13%" />
@@ -352,19 +421,47 @@
 			$('.color'+count).removeClass('colorOn');
 		});
 		
+		//打开、展开全部
+		$('.closeStatus').click(function(){
+			$('.one-module-container').hide();
+			$('.tbOpt ul li').removeClass('focus');
+		});
+		
+		//显示区域前判断是否隐藏
+		$('.doBeforeShow').click(function(){
+			var departmentID=$(this).attr('department');
+			$('.one-module-container-'+departmentID).show();
+		});
+		
 		//显示当前时间点的空闲人员
 		$('.showPersonsOfCurrentKe').live('click',function(){
 			var kenum=$(this).attr('kenum');
 			var departmentID=$(this).attr('department');
-			var arr=[];
-			var html=createHTMLOfCurrentKe(arr,kenum);
-			var before=$('#department_'+departmentID+'.currentPersonsContainer').html();
-			$('#department_'+departmentID+'.currentPersonsContainer').html(html+before);
+			var itemsArr=$('.department-'+departmentID);//对象元素
+			var usernameArr=getUsernameOfCurrentKe(itemsArr,kenum,departmentID);
+			//是否已创建节点
+			var prepareShowID='#'+departmentID+'_'+kenum;
+			if($(prepareShowID).size()==0){
+				var html=createHTMLOfCurrentKe(usernameArr,kenum,departmentID);
+				//var before=$('#department_'+departmentID+'.currentPersonsContainer').html();
+				$('#department_'+departmentID+'.currentPersonsContainer').append(html);
+			}
+			else{
+			    $(prepareShowID).show();
+			}
 		});
 		//单个时间点的关闭		
 		$('.closePersons').live('click',function(){
 			$(this).parent().parent().hide();			
 		});
+		
+		//部门人员空闲标题鼠标效果
+		$('.one-toggle-bar').hover(function(){
+			$(this).addClass('one-toggle-bar-on');
+		},function(){
+			$(this).removeClass('one-toggle-bar-on');
+		});
+		
 		
 		//部门情况AJAX请求
 		$('.viewAllPersonFreeTime_trigger').live('click',function(){
@@ -413,9 +510,30 @@
 			});
 		});
 	});
-	function createHTMLOfCurrentKe(arr,kenum){
+	//获取当前有空人员的列表
+	function getUsernameOfCurrentKe(itemsArr,kenum,departmentID){
+		var usernameArr=[];
+		for(var i=0,len=itemsArr.length;i<len;i++){
+			var obj=eval('('+$(itemsArr[i]).html()+')');
+			if(hasFreeTime(kenum,obj.kevalue)){
+				usernameArr.push(obj.username);
+			}
+		}
+		return usernameArr;
+	}
+	//当前课是否有空
+	function hasFreeTime(kenum,kevalue){
+		if($.trim(kevalue)==''){
+			return false;
+		}
+		var currentke=kevalue.substring(kenum-1,kenum);
+		if(currentke=='0')
+			return true;
+		return false;
+	}
+	function createHTMLOfCurrentKe(arr,kenum,departmentID){
 		var html='';
-		html+='<div class="currentPersonsDisplay">';
+		html+='<div id="'+departmentID+'_'+kenum+'" class="currentPersonsDisplay">';
 		html+='<div class="currentPersonList">';
 		if(arr.length == 0){
 			html+='<div class="one-person-username">无</div>';

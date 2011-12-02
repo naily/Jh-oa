@@ -48,7 +48,7 @@
 							</c:choose>
 							<%-- 生成时间点与人对应关系 --%>
 							<div style="display:none" class="department-${currentDepartmentID }">
-								{'${user.username}':'${ke.kevalue}'}
+								{'username':'${user.username}','kevalue':'${ke.kevalue}'}
 							</div>
 						</c:forEach>
 						
@@ -417,19 +417,6 @@
 							</c:forEach>
 							<div class="clear"></div>
 						</div>
-						<%-- 部门全体人员数据 --%>
-						<c:forEach var="freeketogether" items="${fktList }">
-							<c:set var="ke" value="${freeketogether.ke }"></c:set>
-							<c:set var="usertogether" value="${freeketogether.usertogether }"></c:set>
-							<c:set var="user" value="${usertogether.user }"></c:set>
-							<c:set var="academy" value="${usertogether.academy }"></c:set>
-							<c:set var="department" value="${usertogether.department }"></c:set>
-							<c:set var="job" value="${usertogether.job }"></c:set>
-							<c:set var="total" value="${freeketogether.total }"></c:set>
-							
-							
-							
-						</c:forEach>
 						<table class="dataTableDisplay">
 							<colgroup>
 								<col width="13%" />
@@ -493,24 +480,9 @@
 							</c:forEach>
 						</table>
 						<%-- 各个时间点的空闲情况 --%>
-						<h2 class="keTitleForFreetime"><a href="javascript:void(0);" name="department_${currentDepartmentID }">${oneDepartmentname }</a>成员在各个时间点的空闲情况如下：</h2>
+						<h2 class="keTitleForFreetime">[${oneDepartmentname }] 成员在各个时间点的空闲情况如下：</h2>
 						<div id="department_${currentDepartmentID }" class="currentPersonsContainer"></div>
-						<div id="departmentID">${currentDepartmentID }</div>	
 					</div>
 					<script type="text/javascript">
-					function isFreeTime(kevalue){
-						
-					}
-					//统计各时间点的人员列表计算
-					function countByTime(departmentID){
-						var elements=$('.department-'+departmentID);
-						var arr=[];
-						for(var i=0,len=elements.length;i<len;i++){
-							var json=$(elements[i]).html();
-						}
-					}
-					$(function(){
-						var departmentID=$('#departmentID').html();
-						var arr=countByTime(departmentID);
-					});
+					
 					</script>
