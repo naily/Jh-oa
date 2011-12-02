@@ -225,7 +225,7 @@
 										</div>
 									</div>
 									<%-- 全精弘－部门人员整体情况 --%>
-									<div class="allPersonFreeTimeContainer-${department.id }"></div>
+									<div class="allPersonFreeTimeContainer allPersonFreeTimeContainer-${department.id }"></div>
 								</div>
 							</c:when>
 							<c:otherwise>
@@ -363,7 +363,7 @@
 						</div>
 					</div>
 					<%-- 部门人员整体情况 --%>
-					<div class="allPersonFreeTimeContainer-${currentDepartmentID }"></div>
+					<div class="allPersonFreeTimeContainer allPersonFreeTimeContainer-${currentDepartmentID }"></div>
 				</c:otherwise>
 			</c:choose>
 		</c:otherwise>

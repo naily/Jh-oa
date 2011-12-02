@@ -458,6 +458,8 @@ a.closeTable,a:visited.closeTable,a:hover.closeTable,a:active.closeTable{display
 a:hover.closeTable{background-color:#f2f2f2;color:#333;}
 /*单部门*/
 .queryConditionContainer,.freePersonListContainer,.wholeStateContainer{border-top:1px #ccc solid;padding:10px 10px 5px;}
+.wholeStateContainer{border:none;}
+.allPersonFreeTimeContainer{border-top:1px #ccc solid;}
 	/*查询条件容器*/
 	.queryConditionContainer{}
 	/*空闲人员列表*/
