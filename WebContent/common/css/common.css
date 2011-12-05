@@ -249,6 +249,29 @@ min-height:300px;height:auto !important;height:300px;}
 .anonymous_news-detail-bar{color:#aaa;background-color:#eee;padding:5px 10px;}
 .news-detail-modify-time{margin:5px 0px 0px;padding:5px 5px;color:#aaa;border-top:1px #aaa dashed;background-color:#eee;text-align:right;}
 
+/*忘记密码*/
+.anonymous_getpassword_container{border:1px #ccc solid;}
+.getpassword_main{float:left;width:400px;}
+.getpassword_main h2{margin:10px 10px;font-size:14px;font-weight:bold;color:#666;height:18px;line-height:18px;
+	padding-left:18px;background:url(../images/psw.png) 0px 0px no-repeat;}
+.getpassword_inner{padding:30px 10px 10px 30px;}
+.getpassword_info{float:right;padding:0px 0px 0px 20px;width:330px;min-heigth:250px;height:auto !important;height:250px;
+	background-color:#fcfcfc;
+}
+.getpassword_info h2{margin:10px 10px;font-size:14px;font-weight:bold;color:#666;height:18px;line-height:18px;}
+.getpassword_info ol{padding:10px 5px 5px 5px;}
+.getpassword_info ol li{padding-left:20px;background:url(../images/bg-news-li.gif) 3px 13px no-repeat;line-height:30px;border-bottom:1px #ccc dashed;}
+.getpassword_info ol li.current{background-color:#FFE6D9;color:#333;font-weight:bold;background-image:none;}
+
+.getps_title{position:relative;font-size:14px;padding-left:20px;}
+.getps_email{position:relative;font-size:14px;font-weight:bold;color:#CC0000;font-family:"verdana";}
+.getps_title span{position:absolute;top:10px;left:95px;}
+.getps_email span{position:absolute;top:-25px;left:95px;}
+.go{margin:20px 10px 10px 95px;}
+a.quick-confirm-bt,a:visited.quick-confirm-bt,a:hover.quick-confirm-bt,a:active.quick-confirm-bt{display:inline-block;padding:0px 10px;height:30px;line-height:30px;
+	background-color:#f3f3f3;color:#666;font-weight:bold;border:1px #ddd solid;text-decoration:none;
+}
+a:hover.quick-confirm-bt{background-color:#ddd;color:#333;border:1px #aaa solid;}
 /*产品列表*/
 .product-container{margin-left:80px;margin-right:80px;}
 .product-item{position:relative;float:left;display:inline;margin:10px 24px;width:150px;height:180px;

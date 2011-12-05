@@ -3,6 +3,7 @@ package com.zjut.oa.mvc.action;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.MessageFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -48,6 +49,8 @@ import com.zjut.oa.mvc.domain.strengthen.TeamTogether;
 import com.zjut.oa.tool.CalendarTool;
 import com.zjut.oa.tool.HttpTool;
 import com.zjut.oa.tool.MD5;
+import com.zjut.oa.tool.Mail;
+import com.zjut.oa.tool.MailTool;
 import com.zjut.oa.tool.UploadTool;
 
 public class GlobalAction extends ActionAdapter {
@@ -64,6 +67,66 @@ public class GlobalAction extends ActionAdapter {
 		setAttr(req, DATA_LIST, topnewsList);
 
 		return INPUT;
+	}
+
+	@Result("/WEB-INF/pages/anonymous/anonymous_view_getpassword.jsp")
+	public String anonymous_view_getpassword(HttpServletRequest req,
+			HttpServletResponse resp) {
+
+		return INPUT;
+	}
+
+	@SuppressWarnings("unchecked")
+	@Result("/WEB-INF/pages/anonymous/anonymous_view_getpassword.jsp")
+	@Success(path = "/WEB-INF/pages/anonymous/anonymous_getpassword_ok.jsp")
+	@Fail(path = "/WEB-INF/pages/anonymous/anonymous_getpassword_fail.jsp")
+	public String anonymous_getpassword(HttpServletRequest req,
+			HttpServletResponse resp) {
+		String uid = param(req, "uid");
+		if (StringUtils.isBlank(uid) || StringUtils.equals("请输入需要找回密码的学号", uid)) {
+			setAttr(req, TIP_NAME_KEY, "学号不能为空");
+			return INPUT;
+		}
+		User user = new User();
+		List<User> uList = (List<User>) user.filter(" where uid='" + uid + "'");
+		if (uList.size() == 0) {
+			setAttr(req, TIP_NAME_KEY, "不存在该用户");
+			return FAIL;
+		} else {
+			User oneUser = uList.get(0);
+			String email = oneUser.getEmail();
+			if (StringUtils.isBlank(email)) {
+				setAttr(req, TIP_NAME_KEY, "您尚未填写EMAIL地址，无法自主找回密码，请联系相关人员协助解决！");
+				return FAIL;
+			} else {
+				log.info("User[uid=" + uid + "] getpassword by email address["
+						+ email + "]");
+				try{
+//					Mail mail = new Mail();
+//					mail.setSubject("通过邮件发送工具类设置的主题");
+//					mail.setFrom(MailTool.getInstance().getUsername());
+//					mail.setTo(new String[] { "549652838@qq.com" });
+//
+//					String htmlStr = MailTool.getInstance().loadMailTemplate("template.html");
+//
+//					Object[] obj = new Object[] { "这是HTML的标题",
+//							"http://www.google.com.hk/intl/zh-CN/images/logo_cn.png",
+//							"http://www.google.com", "谷歌" };
+//					htmlStr = MessageFormat.format(htmlStr, obj);
+//
+//					mail.setContent(htmlStr);
+//					MailTool.getInstance().sendHtml(mail);
+					
+					setAttr(req, PAGE_GETPASSWORD_EMAIL, email);
+					return SUCCESS;
+				}catch(Exception e){
+					log.error(e,e.getCause());
+					setAttr(req, TIP_NAME_KEY, "发送邮件失败");
+					return FAIL;
+				}
+				
+			}
+		}
 	}
 
 	@SuppressWarnings("unchecked")
@@ -347,14 +410,14 @@ public class GlobalAction extends ActionAdapter {
 
 		return INPUT;
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	@Result("/WEB-INF/pages/anonymous/anonymous_news_list.jsp")
 	public String anonymous_news_list(HttpServletRequest req,
 			HttpServletResponse resp) {
-		
-		News model=new News();
-		
+
+		News model = new News();
+
 		StringBuilder filter = new StringBuilder();
 		filter.append(" order by addtime desc");
 		// 前台分页
@@ -391,12 +454,12 @@ public class GlobalAction extends ActionAdapter {
 		setAttr(req, DATA_LIST, dataList);
 		return INPUT;
 	}
-	
+
 	@Result("/WEB-INF/pages/anonymous/anonymous_news_show.jsp")
 	public String anonymous_news_show(HttpServletRequest req,
 			HttpServletResponse resp) {
 		int id = param(req, "id", 0);
-		
+
 		News model = new News();
 		if (id != 0) {
 			model.setId(id);

@@ -83,7 +83,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<div class="fi">
 							<label class="lb" for="password">密　码</label>
 							<input type="password" tabindex="2" id="password" name="password" class="ipt" value="${requestScope.model.password }" />
-							<a href="action/global/viewForgetpwd" class="forgetpwd" target="_blank" tabindex="5" title="找回密码">忘记密码?</a>
+							<a href="action/global/anonymous_view_getpassword" class="forgetpwd" target="_self" tabindex="5" title="找回密码">忘记密码?</a>
 						</div>
 						<div class="fi fi-nolb">
 							<label for="autologin">
