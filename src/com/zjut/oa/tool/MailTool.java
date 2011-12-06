@@ -1,9 +1,11 @@
 package com.zjut.oa.tool;
 
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
+import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.net.URISyntaxException;
+import java.net.URL;
 import java.text.MessageFormat;
 import java.util.Date;
 import java.util.Properties;
@@ -71,8 +73,9 @@ public class MailTool {
 		}
 	}
 
-	public String loadMailTemplate(String filename) throws IOException {
-		BufferedReader br = new BufferedReader(new FileReader(filename));
+	public String loadMailTemplate(String filename) throws IOException, URISyntaxException {
+		URL in=MailTool.class.getClassLoader().getResource(filename);
+		BufferedReader br = new BufferedReader(new FileReader(new File(in.toURI())));
 		StringBuilder html = new StringBuilder();
 		String line = null;
 		while ((line = br.readLine()) != null) {
@@ -188,7 +191,7 @@ public class MailTool {
 	}
 
 	public static void main(String args[]) throws MessagingException,
-			IOException {
+			IOException, URISyntaxException {
 		Mail mail = new Mail();
 		mail.setSubject("通过邮件发送工具类设置的主题");
 		mail.setFrom("qingtian16265@163.com");
@@ -196,7 +199,7 @@ public class MailTool {
 		// mail.setContent("这是一个简单的文本信息邮件");
 		// MailTool.getInstance().sendText(mail);
 
-		String htmlStr = MailTool.getInstance().loadMailTemplate("res/template.html");
+		String htmlStr = MailTool.getInstance().loadMailTemplate("template.html");
 
 		Object[] obj = new Object[] { "这是HTML的标题",
 				"http://www.google.com.hk/intl/zh-CN/images/logo_cn.png",

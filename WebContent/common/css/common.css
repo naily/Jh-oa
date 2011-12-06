@@ -113,7 +113,7 @@ font-size:14px;color:#2B2B2B;background:url(../images/bg-bt.png) no-repeat 0px 0
 
 #content{position:relative;height:380px;}
 .main{}
-.main .banner a{position:absolute;top:20px;left:0px;width:410px;height:200px;overflow:hidden;
+.main .banner span{display:block;position:absolute;top:20px;left:0px;width:410px;height:200px;overflow:hidden;
 	background:url(../images/banner.png) 0px 0px no-repeat;}
 .news{position:absolute;top:230px;}
 .news h2{height:25px;line-height:25px;text-align:right;
@@ -129,7 +129,10 @@ font-size:14px;color:#2B2B2B;background:url(../images/bg-bt.png) no-repeat 0px 0
 .news a.show_detail{margin-left:5px;}
 .recently{display:none;position:absolute;top:-51px;left:638px;height:52px;width:145px;overflow:hidden;border:1px #e3e3e3 solid;}
 .login{position:absolute;right:0px;top:0px;width:375px;height:380px;background:url(../images/bg-login.gif) 0px 0px no-repeat;}
-.login h2{margin:4px 0px 0px 25px;padding-left:30px;font-size:14px;color:#000;width:185px;height:40px;line-height:40px;font-weight:bold;}
+.login h2{margin:14px 0px 0px 25px;padding-left:40px;font-size:14px;color:#000;width:200px;height:40px;line-height:40px;font-weight:bold;
+	background:url(../images/icon-login.png) 0px 2px no-repeat;
+}
+.login h2 span{display:none;}
 .login .panel{padding:15px 25px 0px;}
 .login .loginTip{margin-bottom:5px;padding:5px;color:#333;font-weight:bold;border:1px #FFBA43 solid;background-color:#FDFFCE;}
 .loginTip .msg{color:#CC0000;}
@@ -150,7 +153,7 @@ a.forgetpwd{color:#000;text-decoration:none;}
 /*大事记－产品－人员*/
 .history-product-user{padding:5px;}
 .common-title{float:left;display:inline;}
-.common-title h2{margin:0px 5px;font-size:14px;font-family:"宋体";color:#000;font-weight:bold;}
+.common-title h2{margin:0px 5px;font-size:14px;font-family:"宋体";color:#666;font-weight:bold;}
 .subNav{float:right;display:inline;vertical-align:top;}
 .subNav a,.subNav span{display:inline-block;margin-right:5px;padding:5px 10px;background-color:#fff;
 color:#333;text-decoration:none;}
@@ -260,7 +263,7 @@ min-height:300px;height:auto !important;height:300px;}
 }
 .getpassword_info h2{margin:10px 10px;font-size:14px;font-weight:bold;color:#666;height:18px;line-height:18px;}
 .getpassword_info ol{padding:10px 5px 5px 5px;}
-.getpassword_info ol li{padding-left:20px;background:url(../images/bg-news-li.gif) 3px 13px no-repeat;line-height:30px;border-bottom:1px #ccc dashed;}
+.getpassword_info ol li{padding-left:10px;/*background:url(../images/bg-news-li.gif) 3px 13px no-repeat;*/line-height:30px;border-bottom:1px #ccc dashed;}
 .getpassword_info ol li.current{background-color:#FFE6D9;color:#333;font-weight:bold;background-image:none;}
 
 .getps_title{position:relative;font-size:14px;padding-left:20px;}
@@ -343,6 +346,7 @@ min-height:600px;height:auto !important;height:600px;}
 .add-permission,
 .add-rolepermission,
 .add-academy,
+.add-officerule,
 .add-department,
 .add-ke,
 .add-freetime,
@@ -365,6 +369,7 @@ background-repeat:no-repeat;background-image:url(../images/icon_spite.png);backg
 .addrolepermission-title,
 .viewrolepermission-title,
 .addacademy-title,
+.addofficerule-title,
 .adddepartment-title,
 .addke-title,
 .freetime-title,
@@ -375,6 +380,7 @@ background-repeat:no-repeat;background-image:url(../images/icon_spite.png);backg
 .addteam-title{float:left;padding-left:30px;}
 
 .news-title,
+.officerule-title,
 .user-title,
 .menuname,
 .jobname,
@@ -383,6 +389,7 @@ background-repeat:no-repeat;background-image:url(../images/icon_spite.png);backg
 .optname,.optvalue,
 .userID,.roleID,
 .uid,.username,.password,.email,.cornet,.telephone,.academyID,.major,.location,.dormitory,.departmentID,.jobID,.islock,.bbs,.birthday,.qq,.sex,
+.fastname,
 .menuID,.resourceID,.optID,.description,
 .academy-title,.academyname,
 .department-title,.departmentname,
@@ -416,7 +423,7 @@ background-repeat:no-repeat;background-image:url(../images/icon_spite.png);backg
 
 
 /*新闻详情*/
-.shownews-title,.showffile-title,.showevent-title,.showsuggest-title{float:left;}
+.shownews-title,.showffile-title,.showevent-title,.showsuggest-title{float:left;color:#666;}
 .shownews-detail-bar,.shownews-content,.lastmodifytime,
 .showevent-detail-bar,.showevent-content{margin-left:0px;}
 .shownews-detail-bar,.showevent-detail-bar{padding:5px;background-color:#f1f1f1;}
@@ -603,6 +610,12 @@ border-color:#ccc;border-radius:5px;-moz-border-radius:5px;-webkit-border-radius
 .addacademy-title{}
 .academyname{width:200px;}
 .add-academy{}
+
+
+/* =================制度====================== */
+.addofficerule-title{}
+.add-officerule{}
+.officerule-title{}
 
 /* =================角色====================== */
 .addrole-title{}

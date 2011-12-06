@@ -39,7 +39,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<div id="content">
 		<div class="main">
 			<div class="banner">
-				<a href="#nogo"></a>
+				<span></span>
 			</div>
 			<div class="news">
 				<h2><a href="action/global/anonymous_news_list" title="查看所有动态">所有动态</a></h2>
@@ -70,7 +70,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</div>
 			<a href="#nogo" class="recently"></a>
 			<div class="login">
-				<h2>登录</h2>
+				<h2><span>登录</span></h2>
 				<div class="panel">
 					<c:if test="${not empty requestScope.tip }">
 						<div class="loginTip">提示：<span class="msg">${requestScope.tip}</span></div>
@@ -78,7 +78,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<form action="action/global/anonymous_login" method="post">
 						<div class="fi">
 							<label class="lb" for="uid">学　号</label>
-							<input type="text" tabindex="1" id="uid" name="uid" class="ipt" value="${requestScope.model.uid }"  />
+							<input type="text" tabindex="1" id="uid" name="uid" class="ipt" autocomplete="off" value="${requestScope.model.uid }"  />
 						</div>
 						<div class="fi">
 							<label class="lb" for="password">密　码</label>

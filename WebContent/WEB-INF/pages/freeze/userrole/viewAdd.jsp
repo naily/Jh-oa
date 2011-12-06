@@ -60,8 +60,20 @@
 					</c:choose>
 				</c:forEach>
 			</c:otherwise>
-		</c:choose>		
+		</c:choose>
 	</select>
+	<style>
+	.fastname{width:200px;}
+	#fastname{color:#ccc;}
+	#fastname.focus{color:#333;font-weight:bold;font-family:"宋体";}
+	#userList{display:none;position:absolute;top:25px;left:0px;width:200px;border:1px #ddd solid;}
+	#userList .item{height:20px;line-height:20px;color:#666;}
+	#userList .itemOn{background-color:#666;color:#fff;font-weight:bold;cursor:pointer;}
+	</style>
+	<span style="position:relative;">
+	<input type="text" name="fastname" id="fastname" class="fastname" autocomplete="off" value="请输入需要查找的用户名" onfocus="if($('#fastname').val()=='请输入需要查找的用户名'){ $('#fastname').val('');$(this).addClass('focus');} " onblur="if($('#fastname').val()==''){ $('#fastname').val('请输入需要查找的用户名');$(this).removeClass('focus');}"/>
+	<div id="userList"></div>
+	</span>
 </div>
 <div class="formItem">
 	<label for="roleID" class="common-label">角色</label>
@@ -102,6 +114,53 @@ $(function(){
 	else{
 		$('#userID').select();
 	}
+	
+	$('#userList .item').live('mouseover',function(){
+		$(this).addClass('itemOn');
+	});
+	
+	$('#userList .item').live('mouseout',function(){
+		$(this).removeClass('itemOn');
+	});
+	
+	$('#userList .item').live('click',function(){
+		var cValue=$(this).attr('title');
+		var selectOpts=$('#userID').children();
+		for(var i=0,len=selectOpts.length;i<len;i++){
+			if(cValue==$(selectOpts[i]).attr('value')){
+				$(selectOpts[i]).attr('selected',true);
+				$('#fastname').val('请输入需要查找的用户名');
+				$('#fastname').removeClass('focus');
+				$('roleID').focus();
+				break;
+			}
+		}
+		$('#userList').hide();
+	});
+	
+	//时时响应用户列表
+	$('#fastname').keyup(function(){
+		$('#userList').hide();
+		var fn=$('#fastname').val();
+		if($.trim(fn)!=''){
+			
+			$.ajax({
+				url : 'action/global/ajaxForUserList',
+				data :{
+					'username' : fn
+				},
+				type : 'get',
+				datatype : 'text',
+				success : function(html){
+					$('#userList').html(html);
+					$('#userList').show();
+				},
+				error : function(){
+					alert('请求出现异常,请稍候重试！');
+				}
+			});
+		}
+	});
 });
 </script>
 </body>

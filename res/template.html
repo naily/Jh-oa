@@ -2,12 +2,14 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>忘记密码确认邮件</title>
+<title>找回密码的确认邮件</title>
 </head>
-<body>
-<h1>标题：{0}</h1>
-<hr />
-<img alt="测试用" src="{1}">
-<a href="{2}" title="{3}">{3}</a>
+<body style="font-size:13px;font-family:宋体;color:#333;">
+<p>{0}，您好！</p>
+<p>1. 这是一封密码找回的确认邮件，请点击以下链接完成确认步骤(此链接10分钟内有效)</p>
+<p><a href="{1}" title="点击此链接完成确认">{1}</a></p>
+<p>2. 您可在点击确认链接后，使用由系统生成的新密码登录"精弘OA"</p>
+<p>新密码：<b style="color:red;">{2}</b></p>
+<p>温馨提醒；我们建议您在使用新密码登录"精弘OA"后，再次修改密码以保证安全性！</p>
 </body>
 </html>

@@ -45,7 +45,6 @@ public class User extends Model {
 	private String qq;
 	private String sex;
 
-	
 	public String getBirthday() {
 		return birthday;
 	}
@@ -206,8 +205,6 @@ public class User extends Model {
 		this.introduce = introduce;
 	}
 
-
-
 	@Override
 	public String toString() {
 		return "User [uid=" + uid + ", username=" + username + ", password="
@@ -266,7 +263,7 @@ public class User extends Model {
 
 				setIntroduce(rs.getString("introduce"));
 				setSimpleinfo(rs.getString("simpleinfo"));
-				
+
 				setBirthday(rs.getString("birthday"));
 				setQq(rs.getString("qq"));
 				setSex(rs.getString("sex"));
@@ -377,7 +374,7 @@ public class User extends Model {
 				u.setBirthday(rs.getString(20));
 				u.setQq(rs.getString(21));
 				u.setSex(rs.getString(22));
-				
+
 				Academy a = new Academy();
 				a.setId(rs.getLong(13));
 				a.setAcademyname(rs.getString(9));
@@ -408,8 +405,8 @@ public class User extends Model {
 		}
 		return utList;
 	}
-	
-	public List<UserTogether> exportUserListByCondition(HttpServletRequest req){
+
+	public List<UserTogether> exportUserListByCondition(HttpServletRequest req) {
 		String uid = HttpTool.getInstance().param(req, "uid");
 		String username = HttpTool.getInstance().param(req, "username");
 		String email = HttpTool.getInstance().param(req, "email");
@@ -425,9 +422,9 @@ public class User extends Model {
 		int islock = HttpTool.getInstance().param(req, "islock", 0);
 		String qq = HttpTool.getInstance().param(req, "qq");
 		String sex = HttpTool.getInstance().param(req, "sex");
-		
-		StringBuilder condition=new StringBuilder();
-		
+
+		StringBuilder condition = new StringBuilder();
+
 		if (StringUtils.isNotBlank(uid)) {
 			condition.append(" and u.uid like '%" + uid + "%'");
 		}
@@ -443,13 +440,13 @@ public class User extends Model {
 		if (StringUtils.isNotBlank(telephone)) {
 			condition.append(" and u.telephone like '%" + telephone + "%'");
 		}
-		if(academyID != 0){
+		if (academyID != 0) {
 			condition.append(" and u.academyID = " + academyID);
 		}
-		if(departmentID != 0){
+		if (departmentID != 0) {
 			condition.append(" and u.departmentID = " + departmentID);
 		}
-		if(jobID != 0){
+		if (jobID != 0) {
 			condition.append(" and u.jobID = " + jobID);
 		}
 		if (StringUtils.isNotBlank(major)) {
@@ -464,7 +461,7 @@ public class User extends Model {
 		if (StringUtils.isNotBlank(bbs)) {
 			condition.append(" and u.bbs like '%" + bbs + "%'");
 		}
-		if(islock == 0 || islock== 1){
+		if (islock == 0 || islock == 1) {
 			condition.append(" and u.islock = " + islock);
 		}
 		if (StringUtils.isNotBlank(qq)) {
@@ -548,7 +545,7 @@ public class User extends Model {
 				u.setBirthday(rs.getString(20));
 				u.setQq(rs.getString(21));
 				u.setSex(rs.getString(22));
-				
+
 				Academy a = new Academy();
 				a.setId(rs.getLong(13));
 				a.setAcademyname(rs.getString(9));
@@ -578,5 +575,59 @@ public class User extends Model {
 			sql = null;
 		}
 		return utList;
+	}
+
+	public List<User> top10User(String username) {
+		List<User> uList = new ArrayList<User>();
+		StringBuilder sql = new StringBuilder();
+		sql.append("select * from ");
+		sql.append(tableName());
+		sql.append(" where username like ? limit 0,10 ");
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		try {
+			ps = DBHelper.getConnection().prepareStatement(sql.toString());
+			ps.setObject(1, '%'+username+'%');
+			log.debug("User:top10User, sql: " + sql.toString() + ", Values["
+					+ username + "]");
+			rs = ps.executeQuery();
+			while (rs.next()) {
+				User u=new User();
+				u.setId(rs.getInt("id"));
+				u.setUid(rs.getString("uid"));
+				u.setUsername(rs.getString("username"));
+				u.setEmail(rs.getString("email"));
+				u.setCornet(rs.getString("cornet"));
+				u.setTelephone(rs.getString("telephone"));
+				u.setAcademyID(rs.getInt("academyID"));
+				u.setLocation(rs.getString("location"));
+				u.setDepartmentID(rs.getInt("departmentID"));
+				u.setJobID(rs.getInt("jobID"));
+				u.setDormitory(rs.getString("dormitory"));
+				u.setMajor(rs.getString("major"));
+				u.setIslock(rs.getInt("islock"));
+				u.setBbs(rs.getString("bbs"));
+
+				u.setAddtime(rs.getTimestamp("addtime"));
+				u.setModifytime(rs.getTimestamp("modifytime"));
+
+				u.setIntroduce(rs.getString("introduce"));
+				u.setSimpleinfo(rs.getString("simpleinfo"));
+
+				u.setBirthday(rs.getString("birthday"));
+				u.setQq(rs.getString("qq"));
+				u.setSex(rs.getString("sex"));
+
+				uList.add(u);
+				
+			}
+		} catch (Exception e) {
+			log.error(e, e.getCause());
+		} finally {
+			DbUtils.closeQuietly(rs);
+			DbUtils.closeQuietly(ps);
+			sql = null;
+		}
+		return uList;
 	}
 }

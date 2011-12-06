@@ -41,10 +41,10 @@
 </c:if>
 <form name="modifyrolepermissionForm" id="modifyrolepermissionForm" action="action/rolepermission/modify" method="post">
 <div class="formItem">
-	<label for="roleID" class="common-label">角色:</label>
+	角色:  
 	<c:forEach var="role" items="${roleList }">
 		<c:if test="${model.roleID == role.id || requestScope.roleID == role.id}">
-			${role.rolename }
+			<b>${role.rolename }</b>
 		</c:if>
 	</c:forEach>
 	<input type="hidden" name="roleID" value="${requestScope.roleID }" />

@@ -49,7 +49,7 @@ label{font-size:13px;font-weight:bold;color:#666;}
 						<div class="optTip">提示：<span class="msg">${tip}</span></div>
 					</c:if>
 					<label for="uid">学号</label>
-					<input type="text" id="uid" name="uid" class="uid" value="请输入需要找回密码的学号" onfocus="if($('#uid').val()=='请输入需要找回密码的学号'){ $('#uid').val('');$(this).addClass('focus');} " onblur="if($('#uid').val()==''){ $('#uid').val('请输入需要找回密码的学号');$(this).removeClass('focus');}"/> 
+					<input type="text" id="uid" name="uid" class="uid" autocomplete="off" value="请输入需要找回密码的学号" onfocus="if($('#uid').val()=='请输入需要找回密码的学号'){ $('#uid').val('');$(this).addClass('focus');} " onblur="if($('#uid').val()==''){ $('#uid').val('请输入需要找回密码的学号');$(this).removeClass('focus');}"/> 
 					<input type="submit" value="下一步" /> 
 				</form>
 			</div>
@@ -57,10 +57,11 @@ label{font-size:13px;font-weight:bold;color:#666;}
 		<div class="getpassword_info">
 			<h2>找回密码流程介绍</h2>
 			<ol>
-				<li class="current">输入需要"找回密码"的学号</li>
-				<li>如果您的个人资料已填写有效的邮箱地址，将收到一封系统发出的确认邮件</li>
-				<li>点击邮件中的地址，进行密码的重置</li>
-				<li style="border-bottom:none;">建议用户用重置密码登录系统后立即修改密码，以保证安全性与可记忆性</li>
+				<li class="current"><b>第一步：</b>输入您的学号</li>
+				<li><b>第二步：</b>如果您的个人资料中填写的有效邮箱地址，以便系统发送一封确认邮件给您</li>
+				<li><b>第三步：</b>点击确认邮件中的链接，系统将为您重置密码</li>
+				<li><b>第四步：</b>使用邮件中的新密码，您便可正常登录</li>
+				<li style="border-bottom:none;"><b>温馨提醒：</b>建议您用新密码登录后立即修改密码，以保证密码安全性与可记性</li>
 			</ol>
 		</div>
 		<div class="clear"></div>

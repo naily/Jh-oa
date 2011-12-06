@@ -47,10 +47,12 @@ import com.zjut.oa.mvc.domain.strengthen.EventTogether;
 import com.zjut.oa.mvc.domain.strengthen.RolePermissionTogether;
 import com.zjut.oa.mvc.domain.strengthen.TeamTogether;
 import com.zjut.oa.tool.CalendarTool;
+import com.zjut.oa.tool.ConfigTool;
 import com.zjut.oa.tool.HttpTool;
 import com.zjut.oa.tool.MD5;
 import com.zjut.oa.tool.Mail;
 import com.zjut.oa.tool.MailTool;
+import com.zjut.oa.tool.PswTool;
 import com.zjut.oa.tool.UploadTool;
 
 public class GlobalAction extends ActionAdapter {
@@ -74,6 +76,32 @@ public class GlobalAction extends ActionAdapter {
 			HttpServletResponse resp) {
 
 		return INPUT;
+	}
+
+	@Success(path = "/WEB-INF/pages/anonymous/anonymous_resetPsw.jsp")
+	@Fail(path = "/WEB-INF/pages/anonymous/anonymous_view_getpassword.jsp")
+	public String anonymous_resetPsw(HttpServletRequest req,
+			HttpServletResponse resp) {
+		String s = param(req, "s");
+		String p = param(req, "p");
+		int id = param(req, "id", 0);
+
+		long e = System.currentTimeMillis();
+		if (e - Long.parseLong(s) > 10 * 60 * 1000) {
+			setAttr(req, TIP_NAME_KEY, "链接已过期，请重新尝试发送确认邮件");
+			return FAIL;
+		}
+		User user = new User();
+		user = user.get(id);
+		// 新密码
+		user.setPassword(p);
+		if (user.save() > 0) {
+			setAttr(req, TIP_NAME_KEY, "恭喜您，密码已重置成功！");
+			return SUCCESS;
+		} else {
+			setAttr(req, TIP_NAME_KEY, "对不起，系统数据处理失败。可能是由网络异常所致，请稍候重试！");
+			return FAIL;
+		}
 	}
 
 	@SuppressWarnings("unchecked")
@@ -101,30 +129,39 @@ public class GlobalAction extends ActionAdapter {
 			} else {
 				log.info("User[uid=" + uid + "] getpassword by email address["
 						+ email + "]");
-				try{
-//					Mail mail = new Mail();
-//					mail.setSubject("通过邮件发送工具类设置的主题");
-//					mail.setFrom(MailTool.getInstance().getUsername());
-//					mail.setTo(new String[] { "549652838@qq.com" });
-//
-//					String htmlStr = MailTool.getInstance().loadMailTemplate("template.html");
-//
-//					Object[] obj = new Object[] { "这是HTML的标题",
-//							"http://www.google.com.hk/intl/zh-CN/images/logo_cn.png",
-//							"http://www.google.com", "谷歌" };
-//					htmlStr = MessageFormat.format(htmlStr, obj);
-//
-//					mail.setContent(htmlStr);
-//					MailTool.getInstance().sendHtml(mail);
-					
+				try {
+					Mail mail = new Mail();
+					mail.setSubject("\"精弘OA 3.0\" - 找回密码的确认邮件");
+					mail.setFrom(MailTool.getInstance().getUsername());
+					mail.setTo(new String[] { email });
+
+					String htmlStr = MailTool.getInstance().loadMailTemplate(
+							"template.html");
+					// 新密码，确认URL
+					String newpsw = PswTool.randomPsw();
+					StringBuilder url = new StringBuilder();
+					url.append(ConfigTool.getDomain() + ConfigTool.getPath()
+							+ "action/global/anonymous_resetPsw");
+					url.append("?s=");
+					url.append(new Date().getTime());
+					url.append("&p=");
+					url.append(MD5.compute(newpsw));
+					url.append("&id=" + oneUser.getId());
+					Object[] obj = new Object[] { oneUser.getUsername(),
+							url.toString(), newpsw };
+					htmlStr = MessageFormat.format(htmlStr, obj);
+
+					mail.setContent(htmlStr);
+					MailTool.getInstance().sendHtml(mail);
+
 					setAttr(req, PAGE_GETPASSWORD_EMAIL, email);
 					return SUCCESS;
-				}catch(Exception e){
-					log.error(e,e.getCause());
-					setAttr(req, TIP_NAME_KEY, "发送邮件失败");
+				} catch (Exception e) {
+					log.error(e, e.getCause());
+					setAttr(req, TIP_NAME_KEY, "发送邮件过程遇到异常");
 					return FAIL;
 				}
-				
+
 			}
 		}
 	}
@@ -624,6 +661,18 @@ public class GlobalAction extends ActionAdapter {
 		out.close();
 
 		return NONE;
+	}
+
+	@Result("/WEB-INF/pages/freeze/user/ajaxForUserList.jsp")
+	public String ajaxForUserList(HttpServletRequest req,
+			HttpServletResponse resp) {
+		String username = param(req, "username");
+
+		User model = new User();
+		List<User> uList = (List<User>) model.top10User(username);
+
+		setAttr(req, DATA_LIST, uList);
+		return INPUT;
 	}
 
 	@SuppressWarnings({ "rawtypes", "unchecked" })
