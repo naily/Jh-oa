@@ -21,7 +21,7 @@
 <html>
 <head>
 <base href="<%=basePath%>"></base>
-<title> 所有用户 </title>
+<title> 找精弘人 </title>
 </head>
 <body>
 <c:set var="currentPage" value="${requestScope.currentPage}"></c:set>
@@ -72,14 +72,9 @@
 <c:set var="condition" value="?uid=${model.uid }&username=${model.username }&email=${model.email }&cornet=${model.cornet }&telephone=${model.telephone }&academyID=${model.academyID }&major=${model.major }&location=${model.location }&dormitory=${model.dormitory }&islock=${model.islock }&departmentID=${model.departmentID }&bbs=${model.bbs }&jobID=${model.jobID }&qq=${model.qq }&sex=${model.sex }"></c:set>
 
 <div class="crumb">
-	<div class="adduser-title">用户</div>
+	<div class="adduser-title">精弘人</div>
 	<div class="backNav"><a href="action/global/manager">返回管理首页</a></div>
 	<div class="clear"></div>
-</div>
-<div class="quick-action">
-	<a href="action/user/viewAdd" class="button-like"><span class="add-user">发布新用户</span></a>
-	<a href="action/user/viewExportUser" class="button-like"><span class="export-user">按条件导出用户基本信息</span></a>
-	<a href="action/user/exportUserOfIncompleteInfo" class="button-like"><span class="export-user">导出基本信息不完整用户</span></a>
 </div>
 <div class="box">
 	<c:if test="${ not empty tip}">
@@ -90,81 +85,78 @@
 			<h2>
 				搜索
 				<span class="quick-action-link-bar">
-					<a href="action/user/exportUserOfCurrentCondition${condition }" class="button-like">
-						<span class="export-user">导出当前条件用户列表</span>
-					</a>
-					<a href="action/user/filter?islock=1" class="button-like">已锁定列表</a>
-					<a href="action/user/filter?islock=0" class="button-like">在职列表</a>
+					<a href="action/user/filterForUser?islock=1" class="button-like">已锁定列表</a>
+					<a href="action/user/filterForUser?islock=0" class="button-like">在职列表</a>
 				</span>
 			</h2>
 			<c:if test="${not empty model }">
 				<div class="searchItemContainer">
 					<c:if test="${not empty model.uid }">
 					<div class="searchItem">
-						<span class="searchItem-label">学号包含</span><span class="searchItem-value">${model.uid }</span><a href="action/user/filter?by=${by }&order=${order }&page=${pager.currentPage}&countPerPage=${pager.countPerPage}&username=${model.username}&email=${model.email}&cornet=${model.cornet}&telephone=${model.telephone}&academyID=${model.academyID}&major=${model.major }&location=${model.location }&dormitory=${model.dormitory }&islock=${model.islock}&departmentID=${model.departmentID}&jobID=${model.jobID}&bbs=${model.bbs}&qq=${model.qq}&sex=${model.sex}" class="sclose" title="去掉这个筛选条件"><span>关闭</span></a></div>
+						<span class="searchItem-label">学号包含</span><span class="searchItem-value">${model.uid }</span><a href="action/user/filterForUser?by=${by }&order=${order }&page=${pager.currentPage}&countPerPage=${pager.countPerPage}&username=${model.username}&email=${model.email}&cornet=${model.cornet}&telephone=${model.telephone}&academyID=${model.academyID}&major=${model.major }&location=${model.location }&dormitory=${model.dormitory }&islock=${model.islock}&departmentID=${model.departmentID}&jobID=${model.jobID}&bbs=${model.bbs}&qq=${model.qq}&sex=${model.sex}" class="sclose" title="去掉这个筛选条件"><span>关闭</span></a></div>
 					</c:if>
 					<c:if test="${not empty model.username }">
 					<div class="searchItem">
-						<span class="searchItem-label">姓名包含</span><span class="searchItem-value">${model.username }</span><a href="action/user/filter?by=${by }&order=${order }&page=${pager.currentPage}&countPerPage=${pager.countPerPage}&uid=${model.uid}&email=${model.email}&cornet=${model.cornet}&telephone=${model.telephone}&academyID=${model.academyID}&major=${model.major }&location=${model.location }&dormitory=${model.dormitory }&islock=${model.islock}&departmentID=${model.departmentID}&jobID=${model.jobID}&bbs=${model.bbs}&qq=${model.qq}&sex=${model.sex}" class="sclose" title="去掉这个筛选条件"><span>关闭</span></a></div>
+						<span class="searchItem-label">姓名包含</span><span class="searchItem-value">${model.username }</span><a href="action/user/filterForUser?by=${by }&order=${order }&page=${pager.currentPage}&countPerPage=${pager.countPerPage}&uid=${model.uid}&email=${model.email}&cornet=${model.cornet}&telephone=${model.telephone}&academyID=${model.academyID}&major=${model.major }&location=${model.location }&dormitory=${model.dormitory }&islock=${model.islock}&departmentID=${model.departmentID}&jobID=${model.jobID}&bbs=${model.bbs}&qq=${model.qq}&sex=${model.sex}" class="sclose" title="去掉这个筛选条件"><span>关闭</span></a></div>
 					</c:if>
 					<c:if test="${not empty model.email }">
 					<div class="searchItem">
-						<span class="searchItem-label">邮箱包含</span><span class="searchItem-value">${model.email }</span><a href="action/user/filter?by=${by }&order=${order }&page=${pager.currentPage}&countPerPage=${pager.countPerPage}&uid=${model.uid}&username=${model.username}&cornet=${model.cornet}&telephone=${model.telephone}&academyID=${model.academyID}&major=${model.major }&location=${model.location }&dormitory=${model.dormitory }&islock=${model.islock}&departmentID=${model.departmentID}&jobID=${model.jobID}&bbs=${model.bbs}&qq=${model.qq}&sex=${model.sex}" class="sclose" title="去掉这个筛选条件"><span>关闭</span></a></div>
+						<span class="searchItem-label">邮箱包含</span><span class="searchItem-value">${model.email }</span><a href="action/user/filterForUser?by=${by }&order=${order }&page=${pager.currentPage}&countPerPage=${pager.countPerPage}&uid=${model.uid}&username=${model.username}&cornet=${model.cornet}&telephone=${model.telephone}&academyID=${model.academyID}&major=${model.major }&location=${model.location }&dormitory=${model.dormitory }&islock=${model.islock}&departmentID=${model.departmentID}&jobID=${model.jobID}&bbs=${model.bbs}&qq=${model.qq}&sex=${model.sex}" class="sclose" title="去掉这个筛选条件"><span>关闭</span></a></div>
 					</c:if>
 					<c:if test="${not empty model.cornet }">
 					<div class="searchItem">
-						<span class="searchItem-label">短号包含</span><span class="searchItem-value">${model.cornet }</span><a href="action/user/filter?by=${by }&order=${order }&page=${pager.currentPage}&countPerPage=${pager.countPerPage}&uid=${model.uid}&username=${model.username}&email=${model.email}&telephone=${model.telephone}&academyID=${model.academyID}&major=${model.major }&location=${model.location }&dormitory=${model.dormitory }&islock=${model.islock}&departmentID=${model.departmentID}&jobID=${model.jobID}&bbs=${model.bbs}&qq=${model.qq}&sex=${model.sex}" class="sclose" title="去掉这个筛选条件"><span>关闭</span></a></div>
+						<span class="searchItem-label">短号包含</span><span class="searchItem-value">${model.cornet }</span><a href="action/user/filterForUser?by=${by }&order=${order }&page=${pager.currentPage}&countPerPage=${pager.countPerPage}&uid=${model.uid}&username=${model.username}&email=${model.email}&telephone=${model.telephone}&academyID=${model.academyID}&major=${model.major }&location=${model.location }&dormitory=${model.dormitory }&islock=${model.islock}&departmentID=${model.departmentID}&jobID=${model.jobID}&bbs=${model.bbs}&qq=${model.qq}&sex=${model.sex}" class="sclose" title="去掉这个筛选条件"><span>关闭</span></a></div>
 					</c:if>
 					<c:if test="${not empty model.telephone }">
 					<div class="searchItem">
-						<span class="searchItem-label">长号包含</span><span class="searchItem-value">${model.telephone }</span><a href="action/user/filter?by=${by }&order=${order }&page=${pager.currentPage}&countPerPage=${pager.countPerPage}&uid=${model.uid}&username=${model.username}&email=${model.email}&cornet=${model.cornet}&academyID=${model.academyID}&major=${model.major }&location=${model.location }&dormitory=${model.dormitory }&islock=${model.islock}&departmentID=${model.departmentID}&jobID=${model.jobID}&bbs=${model.bbs}&qq=${model.qq}&sex=${model.sex}" class="sclose" title="去掉这个筛选条件"><span>关闭</span></a></div>
+						<span class="searchItem-label">长号包含</span><span class="searchItem-value">${model.telephone }</span><a href="action/user/filterForUser?by=${by }&order=${order }&page=${pager.currentPage}&countPerPage=${pager.countPerPage}&uid=${model.uid}&username=${model.username}&email=${model.email}&cornet=${model.cornet}&academyID=${model.academyID}&major=${model.major }&location=${model.location }&dormitory=${model.dormitory }&islock=${model.islock}&departmentID=${model.departmentID}&jobID=${model.jobID}&bbs=${model.bbs}&qq=${model.qq}&sex=${model.sex}" class="sclose" title="去掉这个筛选条件"><span>关闭</span></a></div>
 					</c:if>
 					<c:if test="${not empty model.academyID && model.academyID != 0 }">
 					<div class="searchItem">
-						<span class="searchItem-label">学院</span><span class="searchItem-value">${currentAcademyName }</span><a href="action/user/filter?by=${by }&order=${order }&page=${pager.currentPage}&countPerPage=${pager.countPerPage}&uid=${model.uid}&username=${model.username}&email=${model.email}&cornet=${model.cornet}&telephone=${model.telephone}&major=${model.major }&location=${model.location }&dormitory=${model.dormitory }&islock=${model.islock}&departmentID=${model.departmentID}&jobID=${model.jobID}&bbs=${model.bbs}&qq=${model.qq}&sex=${model.sex}" class="sclose" title="去掉这个筛选条件"><span>关闭</span></a></div>
+						<span class="searchItem-label">学院</span><span class="searchItem-value">${currentAcademyName }</span><a href="action/user/filterForUser?by=${by }&order=${order }&page=${pager.currentPage}&countPerPage=${pager.countPerPage}&uid=${model.uid}&username=${model.username}&email=${model.email}&cornet=${model.cornet}&telephone=${model.telephone}&major=${model.major }&location=${model.location }&dormitory=${model.dormitory }&islock=${model.islock}&departmentID=${model.departmentID}&jobID=${model.jobID}&bbs=${model.bbs}&qq=${model.qq}&sex=${model.sex}" class="sclose" title="去掉这个筛选条件"><span>关闭</span></a></div>
 					</c:if>
 					<c:if test="${not empty model.major }">
 					<div class="searchItem">
-						<span class="searchItem-label">专业班级包含</span><span class="searchItem-value">${model.major }</span><a href="action/user/filter?by=${by }&order=${order }&page=${pager.currentPage}&countPerPage=${pager.countPerPage}&uid=${model.uid}&username=${model.username}&email=${model.email}&cornet=${model.cornet}&telephone=${model.telephone}&academyID=${model.academyID}&location=${model.location }&dormitory=${model.dormitory }&islock=${model.islock}&departmentID=${model.departmentID}&jobID=${model.jobID}&bbs=${model.bbs}&qq=${model.qq}&sex=${model.sex}" class="sclose" title="去掉这个筛选条件"><span>关闭</span></a></div>
+						<span class="searchItem-label">专业班级包含</span><span class="searchItem-value">${model.major }</span><a href="action/user/filterForUser?by=${by }&order=${order }&page=${pager.currentPage}&countPerPage=${pager.countPerPage}&uid=${model.uid}&username=${model.username}&email=${model.email}&cornet=${model.cornet}&telephone=${model.telephone}&academyID=${model.academyID}&location=${model.location }&dormitory=${model.dormitory }&islock=${model.islock}&departmentID=${model.departmentID}&jobID=${model.jobID}&bbs=${model.bbs}&qq=${model.qq}&sex=${model.sex}" class="sclose" title="去掉这个筛选条件"><span>关闭</span></a></div>
 					</c:if>
 					<c:if test="${not empty model.location && model.location != 0}">
 					<div class="searchItem">
-						<span class="searchItem-label">所在校区</span><span class="searchItem-value">${model.location }</span><a href="action/user/filter?by=${by }&order=${order }&page=${pager.currentPage}&countPerPage=${pager.countPerPage}&uid=${model.uid}&username=${model.username}&email=${model.email}&cornet=${model.cornet}&telephone=${model.telephone}&academyID=${model.academyID}&major=${model.major }&dormitory=${model.dormitory }&islock=${model.islock}&departmentID=${model.departmentID}&jobID=${model.jobID}&bbs=${model.bbs}&qq=${model.qq}&sex=${model.sex}" class="sclose" title="去掉这个筛选条件"><span>关闭</span></a></div>
+						<span class="searchItem-label">所在校区</span><span class="searchItem-value">${model.location }</span><a href="action/user/filterForUser?by=${by }&order=${order }&page=${pager.currentPage}&countPerPage=${pager.countPerPage}&uid=${model.uid}&username=${model.username}&email=${model.email}&cornet=${model.cornet}&telephone=${model.telephone}&academyID=${model.academyID}&major=${model.major }&dormitory=${model.dormitory }&islock=${model.islock}&departmentID=${model.departmentID}&jobID=${model.jobID}&bbs=${model.bbs}&qq=${model.qq}&sex=${model.sex}" class="sclose" title="去掉这个筛选条件"><span>关闭</span></a></div>
 					</c:if>
 					<c:if test="${not empty model.dormitory }">
 					<div class="searchItem">
-						<span class="searchItem-label">宿舍包含</span><span class="searchItem-value">${model.dormitory }</span><a href="action/user/filter?by=${by }&order=${order }&page=${pager.currentPage}&countPerPage=${pager.countPerPage}&uid=${model.uid}&username=${model.username}&email=${model.email}&cornet=${model.cornet}&telephone=${model.telephone}&academyID=${model.academyID}&major=${model.major }&location=${model.location }&islock=${model.islock}&departmentID=${model.departmentID}&jobID=${model.jobID}&bbs=${model.bbs}&qq=${model.qq}&sex=${model.sex}" class="sclose" title="去掉这个筛选条件"><span>关闭</span></a></div>
+						<span class="searchItem-label">宿舍包含</span><span class="searchItem-value">${model.dormitory }</span><a href="action/user/filterForUser?by=${by }&order=${order }&page=${pager.currentPage}&countPerPage=${pager.countPerPage}&uid=${model.uid}&username=${model.username}&email=${model.email}&cornet=${model.cornet}&telephone=${model.telephone}&academyID=${model.academyID}&major=${model.major }&location=${model.location }&islock=${model.islock}&departmentID=${model.departmentID}&jobID=${model.jobID}&bbs=${model.bbs}&qq=${model.qq}&sex=${model.sex}" class="sclose" title="去掉这个筛选条件"><span>关闭</span></a></div>
 					</c:if>
 					<c:if test="${not empty model.islock }">
 					<div class="searchItem">
-						<span class="searchItem-label">状态</span><span class="searchItem-value">${model.islock == 0 ? "可用" : "锁定" }</span><a href="action/user/filter?by=${by }&order=${order }&page=${pager.currentPage}&countPerPage=${pager.countPerPage}&uid=${model.uid}&username=${model.username}&email=${model.email}&cornet=${model.cornet}&telephone=${model.telephone}&academyID=${model.academyID}&major=${model.major }&location=${model.location }&dormitory=${model.dormitory }&departmentID=${model.departmentID}&jobID=${model.jobID}&bbs=${model.bbs}&qq=${model.qq}&sex=${model.sex}" class="sclose" title="去掉这个筛选条件"><span>关闭</span></a></div>
+						<span class="searchItem-label">状态</span><span class="searchItem-value">${model.islock == 0 ? "可用" : "锁定" }</span><a href="action/user/filterForUser?by=${by }&order=${order }&page=${pager.currentPage}&countPerPage=${pager.countPerPage}&uid=${model.uid}&username=${model.username}&email=${model.email}&cornet=${model.cornet}&telephone=${model.telephone}&academyID=${model.academyID}&major=${model.major }&location=${model.location }&dormitory=${model.dormitory }&departmentID=${model.departmentID}&jobID=${model.jobID}&bbs=${model.bbs}&qq=${model.qq}&sex=${model.sex}" class="sclose" title="去掉这个筛选条件"><span>关闭</span></a></div>
 					</c:if>
 					<c:if test="${not empty model.departmentID && model.departmentID != 0  }">
 					<div class="searchItem">
-						<span class="searchItem-label">所属部门</span><span class="searchItem-value">${currentDepartmentName}</span><a href="action/user/filter?by=${by }&order=${order }&page=${pager.currentPage}&countPerPage=${pager.countPerPage}&uid=${model.uid}&username=${model.username}&email=${model.email}&cornet=${model.cornet}&telephone=${model.telephone}&academyID=${model.academyID}&major=${model.major }&location=${model.location }&dormitory=${model.dormitory }&islock=${model.islock}&jobID=${model.jobID}&bbs=${model.bbs}&qq=${model.qq}&sex=${model.sex}" class="sclose" title="去掉这个筛选条件"><span>关闭</span></a></div>
+						<span class="searchItem-label">所属部门</span><span class="searchItem-value">${currentDepartmentName}</span><a href="action/user/filterForUser?by=${by }&order=${order }&page=${pager.currentPage}&countPerPage=${pager.countPerPage}&uid=${model.uid}&username=${model.username}&email=${model.email}&cornet=${model.cornet}&telephone=${model.telephone}&academyID=${model.academyID}&major=${model.major }&location=${model.location }&dormitory=${model.dormitory }&islock=${model.islock}&jobID=${model.jobID}&bbs=${model.bbs}&qq=${model.qq}&sex=${model.sex}" class="sclose" title="去掉这个筛选条件"><span>关闭</span></a></div>
 					</c:if>
 					<c:if test="${not empty model.jobID && model.jobID!=0 }">
 					<div class="searchItem">
-						<span class="searchItem-label">职务包含</span><span class="searchItem-value">${currentJobName}</span><a href="action/user/filter?by=${by }&order=${order }&page=${pager.currentPage}&countPerPage=${pager.countPerPage}&uid=${model.uid}&username=${model.username}&email=${model.email}&cornet=${model.cornet}&telephone=${model.telephone}&academyID=${model.academyID}&major=${model.major }&location=${model.location }&dormitory=${model.dormitory }&islock=${model.islock}&departmentID=${model.departmentID}&bbs=${model.bbs}&qq=${model.qq}&sex=${model.sex}" class="sclose" title="去掉这个筛选条件"><span>关闭</span></a></div>
+						<span class="searchItem-label">职务包含</span><span class="searchItem-value">${currentJobName}</span><a href="action/user/filterForUser?by=${by }&order=${order }&page=${pager.currentPage}&countPerPage=${pager.countPerPage}&uid=${model.uid}&username=${model.username}&email=${model.email}&cornet=${model.cornet}&telephone=${model.telephone}&academyID=${model.academyID}&major=${model.major }&location=${model.location }&dormitory=${model.dormitory }&islock=${model.islock}&departmentID=${model.departmentID}&bbs=${model.bbs}&qq=${model.qq}&sex=${model.sex}" class="sclose" title="去掉这个筛选条件"><span>关闭</span></a></div>
 					</c:if>
 					<c:if test="${not empty model.bbs }">
 					<div class="searchItem">
-						<span class="searchItem-label">论坛ID包含</span><span class="searchItem-value">${model.bbs}</span><a href="action/user/filter?by=${by }&order=${order }&page=${pager.currentPage}&countPerPage=${pager.countPerPage}&uid=${model.uid}&username=${model.username}&email=${model.email}&cornet=${model.cornet}&telephone=${model.telephone}&academyID=${model.academyID}&major=${model.major }&location=${model.location }&dormitory=${model.dormitory }&islock=${model.islock}&departmentID=${model.departmentID}&jobID=${model.jobID}&qq=${model.qq}&sex=${model.sex}" class="sclose" title="去掉这个筛选条件"><span>关闭</span></a></div>
+						<span class="searchItem-label">论坛ID包含</span><span class="searchItem-value">${model.bbs}</span><a href="action/user/filterForUser?by=${by }&order=${order }&page=${pager.currentPage}&countPerPage=${pager.countPerPage}&uid=${model.uid}&username=${model.username}&email=${model.email}&cornet=${model.cornet}&telephone=${model.telephone}&academyID=${model.academyID}&major=${model.major }&location=${model.location }&dormitory=${model.dormitory }&islock=${model.islock}&departmentID=${model.departmentID}&jobID=${model.jobID}&qq=${model.qq}&sex=${model.sex}" class="sclose" title="去掉这个筛选条件"><span>关闭</span></a></div>
 					</c:if>
 					<c:if test="${not empty model.qq }">
 					<div class="searchItem">
-						<span class="searchItem-label">qq包含</span><span class="searchItem-value">${model.qq}</span><a href="action/user/filter?by=${by }&order=${order }&page=${pager.currentPage}&countPerPage=${pager.countPerPage}&uid=${model.uid}&username=${model.username}&email=${model.email}&cornet=${model.cornet}&telephone=${model.telephone}&academyID=${model.academyID}&major=${model.major }&location=${model.location }&dormitory=${model.dormitory }&islock=${model.islock}&departmentID=${model.departmentID}&jobID=${model.jobID}&bbs=${model.bbs}&sex=${model.sex}" class="sclose" title="去掉这个筛选条件"><span>关闭</span></a></div>
+						<span class="searchItem-label">qq包含</span><span class="searchItem-value">${model.qq}</span><a href="action/user/filterForUser?by=${by }&order=${order }&page=${pager.currentPage}&countPerPage=${pager.countPerPage}&uid=${model.uid}&username=${model.username}&email=${model.email}&cornet=${model.cornet}&telephone=${model.telephone}&academyID=${model.academyID}&major=${model.major }&location=${model.location }&dormitory=${model.dormitory }&islock=${model.islock}&departmentID=${model.departmentID}&jobID=${model.jobID}&bbs=${model.bbs}&sex=${model.sex}" class="sclose" title="去掉这个筛选条件"><span>关闭</span></a></div>
 					</c:if>
 					<c:if test="${not empty model.sex }">
 					<div class="searchItem">
-						<span class="searchItem-label">性别</span><span class="searchItem-value">${model.sex}</span><a href="action/user/filter?by=${by }&order=${order }&page=${pager.currentPage}&countPerPage=${pager.countPerPage}&uid=${model.uid}&username=${model.username}&email=${model.email}&cornet=${model.cornet}&telephone=${model.telephone}&academyID=${model.academyID}&major=${model.major }&location=${model.location }&dormitory=${model.dormitory }&islock=${model.islock}&departmentID=${model.departmentID}&jobID=${model.jobID}&bbs=${model.bbs}&qq=${model.qq}" class="sclose" title="去掉这个筛选条件"><span>关闭</span></a></div>
+						<span class="searchItem-label">性别</span><span class="searchItem-value">${model.sex}</span><a href="action/user/filterForUser?by=${by }&order=${order }&page=${pager.currentPage}&countPerPage=${pager.countPerPage}&uid=${model.uid}&username=${model.username}&email=${model.email}&cornet=${model.cornet}&telephone=${model.telephone}&academyID=${model.academyID}&major=${model.major }&location=${model.location }&dormitory=${model.dormitory }&islock=${model.islock}&departmentID=${model.departmentID}&jobID=${model.jobID}&bbs=${model.bbs}&qq=${model.qq}" class="sclose" title="去掉这个筛选条件"><span>关闭</span></a></div>
 					</c:if>
 					
 				</div>
 			</c:if>
 		</div>
 		<div class="searchInner">
-		<form action="action/user/filter">
+		<form action="action/user/filterForUser">
 			<input type="hidden" name="by" value="${by}" />
 			<input type="hidden" name="order" value="${order}" />
 			<p class="formItem">
@@ -283,28 +275,6 @@
 			<div class="no-data">无任何数据</div>
 		</c:when>
 		<c:otherwise>
-			<form action="action/user/batchDelete">
-				<!-- 批量删除 -->
-				<input type="hidden" name="by" value="${by }" />
-				<input type="hidden" name="order" value="${order }" />
-				<input type="hidden" name="page" value="${page }" />
-				<input type="hidden" name="countPerPage" value="${pager.countPerPage }" />
-				
-				<input type="hidden" name="uid" value="${model.uid }" />
-				<input type="hidden" name="username" value="${model.username }" />
-				<input type="hidden" name="email" value="${model.email }" />
-				<input type="hidden" name="cornet" value="${model.cornet }" />
-				<input type="hidden" name="telephone" value="${model.telephone }" />
-				<input type="hidden" name="academyID" value="${model.academyID }" />
-				<input type="hidden" name="major" value="${model.major }" />
-				<input type="hidden" name="location" value="${model.location }" />
-				<input type="hidden" name="dormitory" value="${model.dormitory }" />
-				<input type="hidden" name="islock" value="${model.islock }" />
-				<input type="hidden" name="departmentID" value="${model.departmentID }" />
-				<input type="hidden" name="jobID" value="${model.jobID }" />
-				<input type="hidden" name="bbs" value="${model.bbs }" />
-				<input type="hidden" name="qq" value="${model.qq }" />
-				<input type="hidden" name="sex" value="${model.sex }" />
 				<!-- 分页条 start -->
 				<div id="pageBar">
 					<div id="barL" class="l">
@@ -312,7 +282,7 @@
 						<!-- 首页 -->
 						<c:choose>
 							<c:when test="${pager.currentPage > 1 }">
-							<a href="action/user/filter?by=${by }&order=${order }&page=1&countPerPage=${pager.countPerPage}${queryCondition}"
+							<a href="action/user/filterForUser?by=${by }&order=${order }&page=1&countPerPage=${pager.countPerPage}${queryCondition}"
 								class="page-slice first" title="首页">&lt;&lt;</a>
 							</c:when>
 							<c:otherwise>
@@ -322,7 +292,7 @@
 						<!-- 上一页 -->
 						<c:choose>
 							<c:when test="${pager.currentPage > 1 }">
-								<a href="action/user/filter?by=${by }&order=${order }&page=${pager.currentPage - 1 }&countPerPage=${pager.countPerPage}${queryCondition}"
+								<a href="action/user/filterForUser?by=${by }&order=${order }&page=${pager.currentPage - 1 }&countPerPage=${pager.countPerPage}${queryCondition}"
 									class="page-slice prevent" title="上一页">&lt;</a>
 							</c:when>
 							<c:otherwise>
@@ -342,7 +312,7 @@
 											<span class="currentPage">${p }</span>
 										</c:when>
 										<c:otherwise>
-											<a href="action/user/filter?by=${by }&order=${order }&page=${p }&countPerPage=${pager.countPerPage}${queryCondition}"
+											<a href="action/user/filterForUser?by=${by }&order=${order }&page=${p }&countPerPage=${pager.countPerPage}${queryCondition}"
 												class="page-slice" title="第${p }页">${p }</a>
 										</c:otherwise>
 									</c:choose>
@@ -357,7 +327,7 @@
 											<span class="currentPage">${p }</span>
 										</c:when>
 										<c:otherwise>
-											<a href="action/user/filter?by=${by }&order=${order }&page=${p }&countPerPage=${pager.countPerPage}${queryCondition}"
+											<a href="action/user/filterForUser?by=${by }&order=${order }&page=${p }&countPerPage=${pager.countPerPage}${queryCondition}"
 												class="page-slice" title="第${p }页">${p }</a>
 										</c:otherwise>
 									</c:choose>
@@ -372,7 +342,7 @@
 											<span class="currentPage">${p }</span>
 										</c:when>
 										<c:otherwise>
-											<a href="action/user/filter?by=${by }&order=${order }&page=${p }&countPerPage=${pager.countPerPage}${queryCondition}"
+											<a href="action/user/filterForUser?by=${by }&order=${order }&page=${p }&countPerPage=${pager.countPerPage}${queryCondition}"
 												class="page-slice" title="第${p }页">${p }</a>
 										</c:otherwise>
 									</c:choose>
@@ -385,7 +355,7 @@
 											<span class="currentPage">${p }</span>
 										</c:when>
 										<c:otherwise>
-											<a href="action/user/filter?by=${by }&order=${order }&page=${p }&countPerPage=${pager.countPerPage}${queryCondition}"
+											<a href="action/user/filterForUser?by=${by }&order=${order }&page=${p }&countPerPage=${pager.countPerPage}${queryCondition}"
 												class="page-slice" title="第${p }页">${p }</a>
 										</c:otherwise>
 									</c:choose>
@@ -395,7 +365,7 @@
 						<!-- 下一页 -->
 						<c:choose>
 							<c:when test="${pager.currentPage < pager.totalPage }">
-								<a href="action/user/filter?by=${by }&order=${order }&page=${pager.currentPage + 1}&countPerPage=${pager.countPerPage}${queryCondition}"
+								<a href="action/user/filterForUser?by=${by }&order=${order }&page=${pager.currentPage + 1}&countPerPage=${pager.countPerPage}${queryCondition}"
 									 class="page-slice next" title="下一页">&gt;</a>
 							</c:when>
 							<c:otherwise>
@@ -405,7 +375,7 @@
 						<!-- 尾页 -->
 						<c:choose>
 							<c:when test="${pager.currentPage < pager.totalPage }">
-								<a href="action/user/filter?by=${by }&order=${order }&page=${pager.totalPage}&countPerPage=${pager.countPerPage}${queryCondition}"
+								<a href="action/user/filterForUser?by=${by }&order=${order }&page=${pager.totalPage}&countPerPage=${pager.countPerPage}${queryCondition}"
 									 class="page-slice last" title="尾页">&gt;&gt;</a>
 							</c:when>
 							<c:otherwise>
@@ -427,14 +397,13 @@
 							</c:choose>
 							</c:forEach>
 						</select>
-						<input type="button" value="GO" class="go-bt" id="action/user/filter?by=${by }&order=${order }&page=${pager.currentPage}${queryCondition}"/>
+						<input type="button" value="GO" class="go-bt" id="action/user/filterForUser?by=${by }&order=${order }&page=${pager.currentPage}${queryCondition}"/>
 					</div>
 					<div class="clear"></div>
 				</div>
 				<!-- 分页 end -->
 				<table class="dataTable">
 					<colgroup>
-						<col width="5%" />
 						<col width="20%" />
 						<col width="10%" />
 						<col width="25%" />
@@ -442,7 +411,6 @@
 						<col width="10%" />
 					</colgroup>
 					<tr>
-						<th>删?</th>
 						<th>学号</th>
 						<th>姓名</th>
 						<th>部门(职务)</th>
@@ -455,9 +423,6 @@
 					<c:set var="job" value="${usertogether.job }"></c:set>
 					<tr>
 						<td>
-							<input type="checkbox" name="deleteId" value="${user.id }" class="common-checkbox"/>
-						</td>
-						<td>
 							<a href="action/user/show?id=${user.id }" title="${user.uid }" class="detail-user">${user.uid }</a>
 						</td>
 						<td>
@@ -466,17 +431,11 @@
 						<td>${department.departmentname } (${job.jobname })</td>
 						<td>${user.telephone } (${user.cornet })</td>
 						<td>
-							<a href="action/user/viewModify?id=${user.id }" class="modify">编辑</a>
+							<a href="action/user/detail?id=${user.id }" class="view">详细</a>
 						</td>
 					</tr>
 					</c:forEach>
 				</table>
-				<div class="data-operator-bar top-border">
-					<a href="javascript:void(0);" class="selectAll" title="全选">全选</a>
-					<a href="javascript:void(0);" class="selectNone" title="全不选">全不选</a>
-					<a href="javascript:void(0);" class="selectReverse" title="反选">反选</a>
-					<input type="submit" value="删除" class="bt" />
-				</div>
 				<!-- 分页条 start -->
 				<div id="pageBar">
 					<div id="barL" class="l">
@@ -484,7 +443,7 @@
 						<!-- 首页 -->
 						<c:choose>
 							<c:when test="${pager.currentPage > 1 }">
-							<a href="action/user/filter?by=${by }&order=${order }&page=1&countPerPage=${pager.countPerPage}${queryCondition}"
+							<a href="action/user/filterForUser?by=${by }&order=${order }&page=1&countPerPage=${pager.countPerPage}${queryCondition}"
 								class="page-slice first" title="首页">&lt;&lt;</a>
 							</c:when>
 							<c:otherwise>
@@ -494,7 +453,7 @@
 						<!-- 上一页 -->
 						<c:choose>
 							<c:when test="${pager.currentPage > 1 }">
-								<a href="action/user/filter?by=${by }&order=${order }&page=${pager.currentPage - 1 }&countPerPage=${pager.countPerPage}${queryCondition}"
+								<a href="action/user/filterForUser?by=${by }&order=${order }&page=${pager.currentPage - 1 }&countPerPage=${pager.countPerPage}${queryCondition}"
 									class="page-slice prevent" title="上一页">&lt;</a>
 							</c:when>
 							<c:otherwise>
@@ -514,7 +473,7 @@
 											<span class="currentPage">${p }</span>
 										</c:when>
 										<c:otherwise>
-											<a href="action/user/filter?by=${by }&order=${order }&page=${p }&countPerPage=${pager.countPerPage}${queryCondition}"
+											<a href="action/user/filterForUser?by=${by }&order=${order }&page=${p }&countPerPage=${pager.countPerPage}${queryCondition}"
 												class="page-slice" title="第${p }页">${p }</a>
 										</c:otherwise>
 									</c:choose>
@@ -529,7 +488,7 @@
 											<span class="currentPage">${p }</span>
 										</c:when>
 										<c:otherwise>
-											<a href="action/user/filter?by=${by }&order=${order }&page=${p }&countPerPage=${pager.countPerPage}${queryCondition}"
+											<a href="action/user/filterForUser?by=${by }&order=${order }&page=${p }&countPerPage=${pager.countPerPage}${queryCondition}"
 												class="page-slice" title="第${p }页">${p }</a>
 										</c:otherwise>
 									</c:choose>
@@ -544,7 +503,7 @@
 											<span class="currentPage">${p }</span>
 										</c:when>
 										<c:otherwise>
-											<a href="action/user/filter?by=${by }&order=${order }&page=${p }&countPerPage=${pager.countPerPage}${queryCondition}"
+											<a href="action/user/filterForUser?by=${by }&order=${order }&page=${p }&countPerPage=${pager.countPerPage}${queryCondition}"
 												class="page-slice" title="第${p }页">${p }</a>
 										</c:otherwise>
 									</c:choose>
@@ -557,7 +516,7 @@
 											<span class="currentPage">${p }</span>
 										</c:when>
 										<c:otherwise>
-											<a href="action/user/filter?by=${by }&order=${order }&page=${p }&countPerPage=${pager.countPerPage}${queryCondition}"
+											<a href="action/user/filterForUser?by=${by }&order=${order }&page=${p }&countPerPage=${pager.countPerPage}${queryCondition}"
 												class="page-slice" title="第${p }页">${p }</a>
 										</c:otherwise>
 									</c:choose>
@@ -567,7 +526,7 @@
 						<!-- 下一页 -->
 						<c:choose>
 							<c:when test="${pager.currentPage < pager.totalPage }">
-								<a href="action/user/filter?by=${by }&order=${order }&page=${pager.currentPage + 1}&countPerPage=${pager.countPerPage}${queryCondition}"
+								<a href="action/user/filterForUser?by=${by }&order=${order }&page=${pager.currentPage + 1}&countPerPage=${pager.countPerPage}${queryCondition}"
 									 class="page-slice next" title="下一页">&gt;</a>
 							</c:when>
 							<c:otherwise>
@@ -577,7 +536,7 @@
 						<!-- 尾页 -->
 						<c:choose>
 							<c:when test="${pager.currentPage < pager.totalPage }">
-								<a href="action/user/filter?by=${by }&order=${order }&page=${pager.totalPage}&countPerPage=${pager.countPerPage}${queryCondition}"
+								<a href="action/user/filterForUser?by=${by }&order=${order }&page=${pager.totalPage}&countPerPage=${pager.countPerPage}${queryCondition}"
 									 class="page-slice last" title="尾页">&gt;&gt;</a>
 							</c:when>
 							<c:otherwise>
@@ -599,12 +558,11 @@
 							</c:choose>
 							</c:forEach>
 						</select>
-						<input type="button" value="GO" class="go-bt" id="action/user/filter?by=${by }&order=${order }&page=${pager.currentPage}${queryCondition}"/>
+						<input type="button" value="GO" class="go-bt" id="action/user/filterForUser?by=${by }&order=${order }&page=${pager.currentPage}${queryCondition}"/>
 					</div>
 					<div class="clear"></div>
 				</div>
 				<!-- 分页 end -->
-			</form>
 		</c:otherwise>
 	</c:choose>
 </div>

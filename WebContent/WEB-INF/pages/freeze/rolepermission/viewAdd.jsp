@@ -87,7 +87,7 @@
 	</c:forEach>
 	</div>
 </div>
-<div class="formItem">
+<div class="formItem"  style="margin-bottom:50px;">
 	<input type="submit" value="分配" class="bt bt-addrolepermission" />
 </div>
 </form>

@@ -73,7 +73,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<h3><a href="action/user/showMyself">我的详细资料</a><span class="notblock">[<a href="action/user/viewModifyMyself">修改</a>]</span></h3> 
 				<h3><a href="action/ke/showMyself">我的课表</a><span class="notblock">[<a href="action/ke/viewModifyMyself">修改</a>]</span></h3> 
 				<h3><a href="action/ffile/filterMyself">我的文件</a></h3> 
-				<h3><a href="action/suggest/filterMyself">我的反馈</a></h3> 
+				<h3><a href="action/suggest/filterMyself">我的反馈</a></h3>
+				<h3><a href="action/user/filterForUser">找精弘人</a></h3>  
 			</div>
 			
 			<h2>其他功能</h2>
@@ -92,13 +93,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<c:when test="${menuCache !=menu.menuname }">
 							<c:set var="menuCache" value="${menu.menuname }"></c:set>
 							
-							<c:if test="${operator.optvalue =='list' || operator.optvalue == 'filter' }">
+							<c:if test="${resource.resourcevalue != 'rolepermission' && (operator.optvalue =='list' || operator.optvalue == 'filter') }">
 								<h3><a href="action/${resource.resourcevalue }/${operator.optvalue}" >${menu.menuname }</a></h3>					
 								<c:set var="hasMenu" value="true"></c:set>
 							</c:if>
 						</c:when>
 						<c:otherwise>
-							<c:if test="${operator.optvalue =='list' || operator.optvalue == 'filter' }">
+							<c:if test="${resource.resourcevalue != 'rolepermission' && (operator.optvalue =='list' || operator.optvalue == 'filter') }">
 								<h3><a href="action/${resource.resourcevalue }/${operator.optvalue}" >${menu.menuname }</a></h3>					
 								<c:set var="hasMenu" value="true"></c:set>
 							</c:if>

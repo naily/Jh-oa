@@ -45,7 +45,7 @@ public class TeamAction extends ActionAdapter {
 	public String viewAdd(HttpServletRequest req, HttpServletResponse resp) {
 
 		User user = new User();
-		setAttr(req, PAGE_TEAM_USER_LIST_KEY, user.listAll());
+		setAttr(req, PAGE_TEAM_USER_LIST_KEY, user.listAll(" order by username desc"));
 
 		return INPUT;
 	}
@@ -144,7 +144,7 @@ public class TeamAction extends ActionAdapter {
 		model.setHeadimage(headimage);
 
 		User user = new User();
-		setAttr(req, PAGE_TEAM_USER_LIST_KEY, user.listAll());
+		setAttr(req, PAGE_TEAM_USER_LIST_KEY, user.listAll(" order by username desc"));
 
 		setAttr(req, MODEL, model);
 
@@ -212,7 +212,7 @@ public class TeamAction extends ActionAdapter {
 		User user = new User();
 
 		setAttr(req, MODEL, model);
-		setAttr(req, PAGE_TEAM_USER_LIST_KEY, user.listAll());
+		setAttr(req, PAGE_TEAM_USER_LIST_KEY, user.listAll(" order by username desc"));
 
 		return INPUT;
 	}

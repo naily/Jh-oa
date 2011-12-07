@@ -101,9 +101,33 @@
 <div class="formItem">
 	<input type="submit" value="分配" class="bt bt-adduserrole" />
 </div>
+<div class="clear"></div>
 </form>
 </div>
 <script type="text/javascript">
+function isForbidden(value){
+	var flag=false;
+	if(value.length==0)
+		return false;
+	for(var i=0,len=value.length;i<len;i++){
+		if(isWordOrNum(value.charAt(i))){
+			flag=true;
+			break;
+		}
+	}
+	return flag;
+}
+function isWordOrNum(c){
+	var words='abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+	var flag=false;
+	for(var i=0,len=words.length;i<len;i++){
+		if(c==words.charAt(i)){
+			flag=true;
+			break;
+		}
+	}
+	return flag;
+}
 $(function(){
 	if($('#userID').val()=='-1'){
 		$('#userID').focus();
@@ -137,28 +161,28 @@ $(function(){
 		}
 		$('#userList').hide();
 	});
-	
+	var cache='';
 	//时时响应用户列表
 	$('#fastname').keyup(function(){
 		$('#userList').hide();
-		var fn=$('#fastname').val();
-		if($.trim(fn)!=''){
-			
-			$.ajax({
-				url : 'action/global/ajaxForUserList',
-				data :{
-					'username' : fn
-				},
-				type : 'get',
-				datatype : 'text',
-				success : function(html){
-					$('#userList').html(html);
-					$('#userList').show();
-				},
-				error : function(){
-					alert('请求出现异常,请稍候重试！');
-				}
-			});
+		var fn=$.trim($('#fastname').val());
+		if(fn!='' && fn!=cache && !isForbidden(fn)){
+				cache=fn;
+				$.ajax({
+					url : 'action/global/ajaxForUserList',
+					data :{
+						'username' : fn
+					},
+					type : 'get',
+					datatype : 'text',
+					success : function(html){
+						$('#userList').html(html);
+						$('#userList').show();
+					},
+					error : function(){
+						alert('请求出现异常,请稍候重试！');
+					}
+				});
 		}
 	});
 });

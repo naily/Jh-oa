@@ -55,7 +55,29 @@ public class UserAction extends ActionAdapter {
 		return INPUT;
 
 	}
+	@Result("/WEB-INF/pages/freeze/user/detail.jsp")
+	public String detail(HttpServletRequest req, HttpServletResponse resp) {
+		int id = param(req, "id", 0);
 
+		User model = new User();
+		if (id != 0) {
+			model = model.get(id);
+		}
+
+		Academy academy = new Academy();
+		setAttr(req, PAGE_USER_ACADEMYLIST_KEY, academy.listAll());
+
+		Department department = new Department();
+		setAttr(req, PAGE_USER_DEPARTMENTLIST_KEY, department.listAll());
+
+		Job job = new Job();
+		setAttr(req, PAGE_USER_JOBLIST_KEY, job.listAll());
+
+		setAttr(req, MODEL, model);
+
+		return INPUT;
+
+	}
 	@Result("/WEB-INF/pages/freeze/user/showMyself.jsp")
 	public String showMyself(HttpServletRequest req, HttpServletResponse resp) {
 		// 设置会话状态
@@ -1394,7 +1416,344 @@ public class UserAction extends ActionAdapter {
 
 		return INPUT;
 	}
+	@SuppressWarnings("unchecked")
+	@Result("/WEB-INF/pages/freeze/user/filterForUser.jsp")
+	public String filterForUser(HttpServletRequest req, HttpServletResponse resp) {
+		String uid = param(req, "uid");
+		String username = param(req, "username");
+		String email = param(req, "email");
+		String cornet = param(req, "cornet");
+		String telephone = param(req, "telephone");
+		int academyID = param(req, "academyID", 0);
+		int departmentID = param(req, "departmentID", 0);
+		int jobID = param(req, "jobID", 0);
+		String major = param(req, "major");
+		String location = param(req, "location");
+		String dormitory = param(req, "dormitory");
+		String bbs = param(req, "bbs");
+		int islock = param(req, "islock", 0);
+		String qq = param(req, "qq");
+		String sex = param(req, "sex");
 
+		String by = param(req, "by");
+		String order = param(req, "order");
+
+		User model = new User();
+		model.setUid(uid);
+		model.setUsername(username);
+		model.setEmail(email);
+		model.setCornet(cornet);
+		model.setTelephone(telephone);
+		if (academyID != 0)
+			model.setAcademyID(academyID);
+		if (departmentID != 0)
+			model.setDepartmentID(departmentID);
+		if (jobID != 0)
+			model.setJobID(jobID);
+		model.setMajor(major);
+		model.setLocation(location);
+		model.setDormitory(dormitory);
+		model.setBbs(bbs);
+		model.setIslock(islock);
+		model.setQq(qq);
+		model.setSex(sex);
+
+		setAttr(req, MODEL, model);
+
+		Academy academy = new Academy();
+		setAttr(req, PAGE_USER_ACADEMYLIST_KEY, academy.listAll());
+
+		Department department = new Department();
+		setAttr(req, PAGE_USER_DEPARTMENTLIST_KEY, department.listAll());
+
+		Job job = new Job();
+		setAttr(req, PAGE_USER_JOBLIST_KEY, job.listAll());
+
+		StringBuilder filter = new StringBuilder();
+		if (StringUtils.isNotBlank(uid)) {
+			filter.append(" where uid like '%" + uid + "%'");
+		}
+
+		if (StringUtils.isNotBlank(uid) && StringUtils.isNotBlank(username)) {
+			filter.append(" and username like '%" + username + "%'");
+		} else if (StringUtils.isBlank(uid) && StringUtils.isNotBlank(username)) {
+			filter.append(" where username like '%" + username + "%'");
+		}
+
+		if ((StringUtils.isNotBlank(uid) || StringUtils.isNotBlank(username))
+				&& StringUtils.isNotBlank(email)) {
+			filter.append(" and email like '%" + email + "%'");
+		} else if (StringUtils.isBlank(uid) && StringUtils.isBlank(username)
+				&& StringUtils.isNotBlank(email)) {
+			filter.append(" where email like '%" + email + "%'");
+		}
+
+		if ((StringUtils.isNotBlank(uid) || StringUtils.isNotBlank(username) || StringUtils
+				.isNotBlank(email)) && StringUtils.isNotBlank(cornet)) {
+			filter.append(" and cornet like '%" + cornet + "%'");
+		} else if (StringUtils.isBlank(uid) && StringUtils.isBlank(username)
+				&& StringUtils.isBlank(email) && StringUtils.isNotBlank(cornet)) {
+			filter.append(" where cornet like '%" + cornet + "%'");
+		}
+
+		if ((StringUtils.isNotBlank(uid) || StringUtils.isNotBlank(username)
+				|| StringUtils.isNotBlank(email) || StringUtils
+				.isNotBlank(cornet)) && StringUtils.isNotBlank(telephone)) {
+			filter.append(" and telephone like '%" + telephone + "%'");
+		} else if (StringUtils.isBlank(uid) && StringUtils.isBlank(username)
+				&& StringUtils.isBlank(email) && StringUtils.isBlank(cornet)
+				&& StringUtils.isNotBlank(telephone)) {
+			filter.append(" where telephone like '%" + telephone + "%'");
+		}
+
+		// 学院
+		if ((StringUtils.isNotBlank(uid) || StringUtils.isNotBlank(username)
+				|| StringUtils.isNotBlank(email)
+				|| StringUtils.isNotBlank(cornet) || StringUtils
+				.isNotBlank(telephone)) && academyID != 0) {
+			filter.append(" and academyID = " + academyID);
+		} else if (StringUtils.isBlank(uid) && StringUtils.isBlank(username)
+				&& StringUtils.isBlank(email) && StringUtils.isBlank(cornet)
+				&& StringUtils.isBlank(telephone) && academyID != 0) {
+			filter.append(" where academyID = " + academyID);
+		}
+
+		if ((StringUtils.isNotBlank(uid) || StringUtils.isNotBlank(username)
+				|| StringUtils.isNotBlank(email)
+				|| StringUtils.isNotBlank(cornet)
+				|| StringUtils.isNotBlank(telephone) || academyID != 0)
+				&& StringUtils.isNotBlank(major)) {
+			filter.append(" and major like '%" + major + "%'");
+		} else if (StringUtils.isBlank(uid) && StringUtils.isBlank(username)
+				&& StringUtils.isBlank(email) && StringUtils.isBlank(cornet)
+				&& StringUtils.isBlank(telephone) && academyID == 0
+				&& StringUtils.isNotBlank(major)) {
+			filter.append(" where major like '%" + major + "%'");
+		}
+
+		if ((StringUtils.isNotBlank(uid) || StringUtils.isNotBlank(username)
+				|| StringUtils.isNotBlank(email)
+				|| StringUtils.isNotBlank(cornet)
+				|| StringUtils.isNotBlank(telephone) || academyID != 0 || StringUtils
+				.isNotBlank(major))
+				&& StringUtils.isNotBlank(location)
+				&& !StringUtils.equals(location, "0")) {
+			filter.append(" and location like '%" + location + "%'");
+		} else if (StringUtils.isBlank(uid) && StringUtils.isBlank(username)
+				&& StringUtils.isBlank(email) && StringUtils.isBlank(cornet)
+				&& StringUtils.isBlank(telephone) && academyID == 0
+				&& StringUtils.isBlank(major)
+				&& StringUtils.isNotBlank(location)
+				&& !StringUtils.equals(location, "0")) {
+			filter.append(" where location like '%" + location + "%'");
+		}
+
+		// 宿舍
+		if ((StringUtils.isNotBlank(uid) || StringUtils.isNotBlank(username)
+				|| StringUtils.isNotBlank(email)
+				|| StringUtils.isNotBlank(cornet)
+				|| StringUtils.isNotBlank(telephone) || academyID != 0
+				|| StringUtils.isNotBlank(major) || StringUtils
+				.isNotBlank(location)) && StringUtils.isNotBlank(dormitory)) {
+			filter.append(" and dormitory like '%" + dormitory + "%'");
+		} else if (StringUtils.isBlank(uid) && StringUtils.isBlank(username)
+				&& StringUtils.isBlank(email) && StringUtils.isBlank(cornet)
+				&& StringUtils.isBlank(telephone) && academyID == 0
+				&& StringUtils.isBlank(major) && StringUtils.isBlank(location)
+				&& StringUtils.isNotBlank(dormitory)) {
+			filter.append(" where dormitory like '%" + dormitory + "%'");
+		}
+
+		// 状态，默认是检索可用
+		if ((StringUtils.isNotBlank(uid) || StringUtils.isNotBlank(username)
+				|| StringUtils.isNotBlank(email)
+				|| StringUtils.isNotBlank(cornet)
+				|| StringUtils.isNotBlank(telephone) || academyID != 0
+				|| StringUtils.isNotBlank(major)
+				|| StringUtils.isNotBlank(location) || StringUtils
+				.isNotBlank(dormitory)) && (islock == 0 || islock == 1)) {
+			filter.append(" and islock = " + islock);
+		} else if (StringUtils.isBlank(uid) && StringUtils.isBlank(username)
+				&& StringUtils.isBlank(email) && StringUtils.isBlank(cornet)
+				&& StringUtils.isBlank(telephone) && academyID == 0
+				&& StringUtils.isBlank(major) && StringUtils.isBlank(location)
+				&& StringUtils.isBlank(dormitory)
+				&& (islock == 0 || islock == 1)) {
+			filter.append(" where islock = " + islock);
+		}
+
+		if ((StringUtils.isNotBlank(uid) || StringUtils.isNotBlank(username)
+				|| StringUtils.isNotBlank(email)
+				|| StringUtils.isNotBlank(cornet)
+				|| StringUtils.isNotBlank(telephone) || academyID != 0
+				|| StringUtils.isNotBlank(major)
+				|| StringUtils.isNotBlank(location)
+				|| StringUtils.isNotBlank(dormitory) || (islock == 0 || islock == 1))
+				&& departmentID != 0) {
+			filter.append(" and departmentID = " + departmentID);
+		} else if (StringUtils.isBlank(uid) && StringUtils.isBlank(username)
+				&& StringUtils.isBlank(email) && StringUtils.isBlank(cornet)
+				&& StringUtils.isBlank(telephone) && academyID == 0
+				&& StringUtils.isBlank(major) && StringUtils.isBlank(location)
+				&& StringUtils.isBlank(dormitory)
+				&& (islock != 0 && islock != 1) && departmentID != 0) {
+			filter.append(" where departmentID = " + departmentID);
+		}
+
+		if ((StringUtils.isNotBlank(uid) || StringUtils.isNotBlank(username)
+				|| StringUtils.isNotBlank(email)
+				|| StringUtils.isNotBlank(cornet)
+				|| StringUtils.isNotBlank(telephone) || academyID != 0
+				|| StringUtils.isNotBlank(major)
+				|| StringUtils.isNotBlank(location)
+				|| StringUtils.isNotBlank(dormitory)
+				|| (islock == 0 || islock == 1) || departmentID == 0)
+				&& StringUtils.isNotBlank(bbs)) {
+			filter.append(" and bbs like '%" + bbs + "%'");
+		} else if (StringUtils.isBlank(uid) && StringUtils.isBlank(username)
+				&& StringUtils.isBlank(email) && StringUtils.isBlank(cornet)
+				&& StringUtils.isBlank(telephone) && academyID == 0
+				&& StringUtils.isBlank(major) && StringUtils.isBlank(location)
+				&& StringUtils.isBlank(dormitory)
+				&& (islock != 0 && islock != 1) && departmentID == 0
+				&& StringUtils.isNotBlank(bbs)) {
+			filter.append(" where bbs like '%" + bbs + "%'");
+		}
+
+		if ((StringUtils.isNotBlank(uid) || StringUtils.isNotBlank(username)
+				|| StringUtils.isNotBlank(email)
+				|| StringUtils.isNotBlank(cornet)
+				|| StringUtils.isNotBlank(telephone) || academyID != 0
+				|| StringUtils.isNotBlank(major)
+				|| StringUtils.isNotBlank(location)
+				|| StringUtils.isNotBlank(dormitory)
+				|| (islock == 0 || islock == 1) || departmentID == 0 || StringUtils
+				.isNotBlank(bbs)) && jobID != 0) {
+			filter.append(" and jobID = " + jobID);
+		} else if (StringUtils.isBlank(uid) && StringUtils.isBlank(username)
+				&& StringUtils.isBlank(email) && StringUtils.isBlank(cornet)
+				&& StringUtils.isBlank(telephone) && academyID == 0
+				&& StringUtils.isBlank(major) && StringUtils.isBlank(location)
+				&& StringUtils.isBlank(dormitory)
+				&& (islock != 0 && islock != 1) && departmentID == 0
+				&& StringUtils.isBlank(bbs) && jobID != 0) {
+			filter.append(" where jobID = " + jobID);
+		}
+		if ((StringUtils.isNotBlank(uid) || StringUtils.isNotBlank(username)
+				|| StringUtils.isNotBlank(email)
+				|| StringUtils.isNotBlank(cornet)
+				|| StringUtils.isNotBlank(telephone) || academyID != 0
+				|| StringUtils.isNotBlank(major)
+				|| StringUtils.isNotBlank(location)
+				|| StringUtils.isNotBlank(dormitory)
+				|| (islock == 0 || islock == 1) || departmentID == 0 || StringUtils
+				.isNotBlank(bbs)) && jobID != 0 && StringUtils.isNotBlank(qq)) {
+			filter.append(" and qq = '" + qq + "'");
+		} else if (StringUtils.isBlank(uid) && StringUtils.isBlank(username)
+				&& StringUtils.isBlank(email) && StringUtils.isBlank(cornet)
+				&& StringUtils.isBlank(telephone) && academyID == 0
+				&& StringUtils.isBlank(major) && StringUtils.isBlank(location)
+				&& StringUtils.isBlank(dormitory)
+				&& (islock != 0 && islock != 1) && departmentID == 0
+				&& StringUtils.isBlank(bbs) && jobID == 0
+				&& StringUtils.isNotBlank(qq)) {
+			filter.append(" where qq = '" + qq + "'");
+		}
+
+		if ((StringUtils.isNotBlank(uid) || StringUtils.isNotBlank(username)
+				|| StringUtils.isNotBlank(email)
+				|| StringUtils.isNotBlank(cornet)
+				|| StringUtils.isNotBlank(telephone) || academyID != 0
+				|| StringUtils.isNotBlank(major)
+				|| StringUtils.isNotBlank(location)
+				|| StringUtils.isNotBlank(dormitory)
+				|| (islock == 0 || islock == 1) || departmentID == 0 || StringUtils
+				.isNotBlank(bbs))
+				&& jobID != 0
+				&& StringUtils.isNotBlank(qq)
+				&& StringUtils.isNotBlank(sex)) {
+			filter.append(" and sex = '" + sex + "'");
+		} else if (StringUtils.isBlank(uid) && StringUtils.isBlank(username)
+				&& StringUtils.isBlank(email) && StringUtils.isBlank(cornet)
+				&& StringUtils.isBlank(telephone) && academyID == 0
+				&& StringUtils.isBlank(major) && StringUtils.isBlank(location)
+				&& StringUtils.isBlank(dormitory)
+				&& (islock != 0 && islock != 1) && departmentID == 0
+				&& StringUtils.isBlank(bbs) && jobID == 0
+				&& StringUtils.isBlank(qq) && StringUtils.isNotBlank(sex)) {
+			filter.append(" where sex = '" + sex + "'");
+		}
+
+		if (StringUtils.isNotBlank(by)
+				&& (by.equals("id") || by.equals("uid")
+						|| by.equals("username") || by.equals("email")
+						|| by.equals("addtime") || by.equals("modifytime"))) {
+			if (StringUtils.isNotBlank(order)
+					&& (order.equals("asc") || order.equals("desc"))) {
+				filter.append(" order by " + by + " " + order);
+			} else {
+				filter.append(" order by " + by + " asc");
+			}
+		} else {
+			filter.append(" order by id asc");
+		}
+
+		// 前台分页
+		int p = Constant.DEFAULT_CURRENT_PAGE;
+		int countPerPage = Constant.DEFAULT_COUNT_PER_PAGE;
+		try {
+			p = param(req, "page", Constant.DEFAULT_CURRENT_PAGE);
+			if (p < 1)
+				p = Constant.DEFAULT_CURRENT_PAGE;
+		} catch (NumberFormatException e) {
+			p = Constant.DEFAULT_CURRENT_PAGE;
+		}
+		try {
+			countPerPage = param(req, "countPerPage",
+					Constant.DEFAULT_COUNT_PER_PAGE);
+		} catch (NumberFormatException e) {
+			countPerPage = Constant.DEFAULT_COUNT_PER_PAGE;
+		}
+		int currentPage = p;
+		int totalCount = model.totalCount(filter.toString());
+		Pager pager = new Pager(currentPage, countPerPage, totalCount);
+		// 针对可能的原访问页数大于实际总页数，此处重置下
+		if (currentPage > pager.getTotalPage())
+			currentPage = p = pager.getTotalPage();
+		// 读取部分数据
+		List<User> dataList = (List<User>) model.filterByPage(
+				filter.toString(), p, pager.getCountPerPage());
+
+		List<UserTogether> utList = new ArrayList<UserTogether>();
+		for (User u : dataList) {
+
+			Academy a=new Academy();
+			a=a.get(u.getAcademyID());
+			
+			Department d = new Department();
+			d = d.get(u.getDepartmentID());
+
+			Job j = new Job();
+			j = j.get(u.getJobID());
+
+			UserTogether ut = new UserTogether();
+			ut.setId(u.getId());
+			ut.setUser(u);
+			ut.setAcademy(a);
+			ut.setDepartment(d);
+			ut.setJob(j);
+
+			utList.add(ut);
+		}
+		setAttr(req, CURRENT_PAGE_KEY, currentPage);
+		setAttr(req, CURRENT_COUNT_PER_PAGE_KEY, countPerPage);
+		setAttr(req, PAGER_KEY, pager);
+		setAttr(req, MAX_PAGERSHOW_LENGTH_KEY, DEFAULT_MAX_PAGERSHOW_LENGTH);
+
+		setAttr(req, DATA_LIST, utList);
+
+		return INPUT;
+	}
 	@Result("/WEB-INF/pages/freeze/user/filter.jsp")
 	public String batchDelete(HttpServletRequest req, HttpServletResponse resp) {
 		String[] deleteId = params(req, "deleteId");
@@ -1508,6 +1867,21 @@ public class UserAction extends ActionAdapter {
 
 		List<UserTogether> utList = (List<UserTogether>) model
 				.exportUserListByCondition(req);
+		// 响应生成excel文件
+		JExcelTool.exportUserToOutputStream(savefilename, utList, resp);
+
+		return NONE;
+	}
+
+	@None
+	public String exportUserOfIncompleteInfo(HttpServletRequest req,
+			HttpServletResponse resp) {
+		String savefilename = "精弘OA3.0信息填写不完整的用户.xls";
+
+		User model = new User();
+
+		List<UserTogether> utList = (List<UserTogether>) model
+				.exportUserOfIncompleteInfo();
 		// 响应生成excel文件
 		JExcelTool.exportUserToOutputStream(savefilename, utList, resp);
 

@@ -77,7 +77,16 @@
 			<th>宿舍：</th>
 			<td>${model.dormitory}</td>
 			<th>状态：</th>
-			<td>${model.islock==0 ? "可用" : "锁定" }</td>
+			<td>
+			<c:choose>
+				<c:when test="${model.islock == 0}">
+				<img src="common/images/ok.jpg" width="20" height="20" alt="可用"/>可用
+				</c:when>
+				<c:otherwise>
+				<img src="common/images/lock.jpg" alt="已被锁定"/>锁定
+				</c:otherwise>
+			</c:choose>
+			</td>
 		</tr>
 		<tr>
 			<th>所属部门：</th>

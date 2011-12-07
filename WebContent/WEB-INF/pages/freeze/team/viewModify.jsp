@@ -52,7 +52,7 @@
 
 	<form name="modifyteamForm" id="modifyteamForm" action="action/team/modify" method="post">
 		<div class="formItem">
-			<label for="userID" class="common-label">用户</label>
+			用户
 			<select id="userID" name="userID">
 				<option value="-1">== 请选择用户 ==</option>
 				<c:choose>

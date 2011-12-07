@@ -60,14 +60,16 @@
 				<table class="dataTable">
 					<colgroup>
 						<col width="5%" />
-						<col width="40%" />
+						<col width="20%" />
+						<col width="20%" />
 						<col width="40%" />
 						<col width="15%" />
 					</colgroup>
 					<tr>
 						<th>删?</th>
-						<th>学号</th>
 						<th>用户名</th>
+						<th>学号</th>
+						<th>联系方式（短号）</th>
 						<th>操作</th>
 					</tr>
 					<c:forEach var="ketogether" items="${dataList }">
@@ -82,6 +84,9 @@
 						</td>
 						<td>
 							${user.uid }
+						</td>
+						<td>
+							${user.telephone }(${user.cornet })
 						</td>
 						<td>
 							<a href="action/ke/viewModify?id=${ke.id }" class="modify">编辑</a>

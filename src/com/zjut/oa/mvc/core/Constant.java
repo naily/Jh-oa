@@ -35,6 +35,9 @@ public interface Constant {
 	/** 登录页面 */
 	String PAGE_LOGIN_AUTOLOGIN_KEY="autologin";
 	
+	/** 管理主页 */
+	String PAGE_MANAGER_KE_MODEL_KEY="ke";
+	String PAGE_MANAGER_FILETOGETHER_LIST_KEY="ffiletogetherList";
 	
 	/** 找加密码 */
 	String PAGE_GETPASSWORD_EMAIL="email";

@@ -42,7 +42,6 @@
 <form name="modifyuserroleForm" id="modifyuserroleForm" action="action/userrole/modify" method="post">
 <div class="formItem">
 	<label for="userID" class="common-label">用户</label>
-	
 	<select id="userID" name="userID" >
 		<option value="-1">== 请选择用户 ==</option>
 		<c:choose>
@@ -63,17 +62,18 @@
 			</c:otherwise>
 		</c:choose>		
 	</select>
-	
-	 <%-- 			
-	 			<c:forEach var="user" items="${userList }">
-					<c:choose>
-						<c:when test="${model.userID== user.id }">
-							${user.uid } -- ${user.username }
-						</c:when>
-					</c:choose>
-				</c:forEach>
-	<input type="hidden" name="userID" value="${model.userID }" />
-	--%>
+	<style>
+	.fastname{width:200px;}
+	#fastname{color:#ccc;}
+	#fastname.focus{color:#333;font-weight:bold;font-family:"宋体";}
+	#userList{display:none;position:absolute;top:25px;left:0px;width:200px;border:1px #ddd solid;}
+	#userList .item{height:20px;line-height:20px;color:#666;}
+	#userList .itemOn{background-color:#666;color:#fff;font-weight:bold;cursor:pointer;}
+	</style>
+	<span style="position:relative;">
+	<input type="text" name="fastname" id="fastname" class="fastname" autocomplete="off" value="请输入需要查找的用户名" onfocus="if($('#fastname').val()=='请输入需要查找的用户名'){ $('#fastname').val('');$(this).addClass('focus');} " onblur="if($('#fastname').val()==''){ $('#fastname').val('请输入需要查找的用户名');$(this).removeClass('focus');}"/>
+	<div id="userList"></div>
+	</span>
 </div>
 <div class="formItem">
 	<label for="roleID" class="common-label">角色</label>
@@ -105,6 +105,29 @@
 </form>
 </div>
 <script type="text/javascript">
+function isForbidden(value){
+	var flag=false;
+	if(value.length==0)
+		return false;
+	for(var i=0,len=value.length;i<len;i++){
+		if(isWordOrNum(value.charAt(i))){
+			flag=true;
+			break;
+		}
+	}
+	return flag;
+}
+function isWordOrNum(c){
+	var words='abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+	var flag=false;
+	for(var i=0,len=words.length;i<len;i++){
+		if(c==words.charAt(i)){
+			flag=true;
+			break;
+		}
+	}
+	return flag;
+}
 $(function(){
 	if($('#userID').val()=='-1'){
 		$('#userID').focus();
@@ -115,6 +138,53 @@ $(function(){
 	else{
 		$('#userID').select();
 	}
+	
+	$('#userList .item').live('mouseover',function(){
+		$(this).addClass('itemOn');
+	});
+	
+	$('#userList .item').live('mouseout',function(){
+		$(this).removeClass('itemOn');
+	});
+	
+	$('#userList .item').live('click',function(){
+		var cValue=$(this).attr('title');
+		var selectOpts=$('#userID').children();
+		for(var i=0,len=selectOpts.length;i<len;i++){
+			if(cValue==$(selectOpts[i]).attr('value')){
+				$(selectOpts[i]).attr('selected',true);
+				$('#fastname').val('请输入需要查找的用户名');
+				$('#fastname').removeClass('focus');
+				$('roleID').focus();
+				break;
+			}
+		}
+		$('#userList').hide();
+	});
+	var cache='';
+	//时时响应用户列表
+	$('#fastname').keyup(function(){
+		$('#userList').hide();
+		var fn=$.trim($('#fastname').val());
+		if(fn!='' && fn!=cache && !isForbidden(fn)){
+				cache=fn;
+				$.ajax({
+					url : 'action/global/ajaxForUserList',
+					data :{
+						'username' : fn
+					},
+					type : 'get',
+					datatype : 'text',
+					success : function(html){
+						$('#userList').html(html);
+						$('#userList').show();
+					},
+					error : function(){
+						alert('请求出现异常,请稍候重试！');
+					}
+				});
+		}
+	});
 });
 </script>
 </body>

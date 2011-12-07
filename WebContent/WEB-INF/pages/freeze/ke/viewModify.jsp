@@ -46,7 +46,6 @@
 		<c:otherwise>
 		<form name="modifykeForm" id="modifykeForm" action="action/ke/modify" method="post">
 		<div class="formItem">
-			<label for="userID" class="common-label">用户</label>
 			<select name="userID" id="userID" class="userID" disabled="disabled">
 				<option value="-1">==== 请选择用户 ====</option>
 				<c:forEach var="user" items="${userList }">

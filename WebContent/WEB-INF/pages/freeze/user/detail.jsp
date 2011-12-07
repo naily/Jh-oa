@@ -21,7 +21,7 @@
 <html>
 <head>
 <base href="<%=basePath%>"></base>
-<title> 个人资料查看 </title>
+<title> 用户详细 </title>
 </head>
 <body>
 <c:set var="tip" value="${requestScope.tip}"></c:set>
@@ -31,8 +31,8 @@
 <c:set var="jobList" value="${requestScope.jobList }"></c:set>
 
 <div class="crumb">
-	<div class="adduser-title">个人资料查看</div>
-	<div class="backNav"><a href="action/global/manager">返回管理后台</a></div>
+	<div class="adduser-title">用户详细资料</div>
+	<div class="backNav"><a href="action/user/filterForUser">返回用户列表</a></div>
 	<div class="clear"></div>
 </div>
 <div class="box">
@@ -132,7 +132,7 @@
 		</tr>
 	</table>
 	<div class="data-operator-bar top-border">
-		<input type="button" value="编辑" class="bt bt-adduser" onclick="javascript:goUrl('action/user/viewModifyMyself');"/>
+		<input type="button" value="返回列表" class="bt bt-adduser" onclick="javascript:history.go(-1);"/>
 		<div class="clear"></div>
 	</div>
 </div>

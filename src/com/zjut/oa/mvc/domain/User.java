@@ -577,6 +577,131 @@ public class User extends Model {
 		return utList;
 	}
 
+	public List<UserTogether> exportUserOfIncompleteInfo() {
+		StringBuilder condition = new StringBuilder();
+
+		condition.append(" and (u.email is null");
+		condition.append(" or u.cornet is null");
+		condition.append(" or u.telephone is null");
+		condition.append(" or u.academyID is null");
+		condition.append(" or u.departmentID is null");
+		condition.append(" or u.jobID is null");
+		condition.append(" or u.major is null");
+		condition.append(" or u.location is null");
+		condition.append(" or u.dormitory is null");
+		condition.append(" or u.bbs is null");
+		condition.append(" or u.qq is null");
+		condition.append(" or u.sex is null)");
+
+		//排除锁定的用户
+		condition.append(" and islock = 0");
+		
+		List<UserTogether> utList = new ArrayList<UserTogether>();
+
+		Academy academy = new Academy();
+		Department department = new Department();
+		Job job = new Job();
+
+		StringBuilder sql = new StringBuilder();
+
+		sql.append("select ");
+
+		sql.append(" u.id, ");
+
+		sql.append(" u.uid, ");
+		sql.append(" u.username, ");
+		sql.append(" d.departmentname, ");
+		sql.append(" u.email, ");
+		sql.append(" u.cornet, ");
+		sql.append(" u.telephone, ");
+		sql.append(" u.location, ");
+		sql.append(" a.academyname, ");
+		sql.append(" u.major, ");
+		sql.append(" u.dormitory, ");
+		sql.append(" u.islock, ");
+		sql.append(" u.academyID, ");
+		sql.append(" u.departmentID, ");
+		sql.append(" u.addtime, ");
+		sql.append(" u.modifytime, ");
+		sql.append(" u.bbs, ");
+		sql.append(" u.jobID, ");
+		sql.append(" j.jobname, ");
+		sql.append(" u.birthday, ");
+		sql.append(" u.qq, ");
+		sql.append(" u.sex ");
+
+		sql.append(" from ");
+		sql.append(tableName() + " as u, ");
+		sql.append(academy.tableName() + " as a, ");
+		sql.append(department.tableName() + " as d, ");
+		sql.append(job.tableName() + " as j ");
+		sql.append(" where ");
+		sql.append(" u.academyID=a.id ");
+		sql.append(" and u.departmentID = d.id  ");
+		sql.append(" and u.jobID = j.id  ");
+
+		sql.append(condition.toString());
+
+		sql.append(" order by u.departmentID asc, u.jobID asc, u.location asc, u.addtime asc");
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		try {
+			ps = DBHelper.getConnection().prepareStatement(sql.toString());
+			log.debug("User:exportUserOfIncompleteInfo, sql: " + sql.toString()
+					+ ", Values[]");
+			rs = ps.executeQuery();
+
+			while (rs.next()) {
+
+				User u = new User();
+				u.setId(rs.getLong(1));
+				u.setUid(rs.getString(2));
+				u.setUsername(rs.getString(3));
+				u.setEmail(rs.getString(5));
+				u.setCornet(rs.getString(6));
+				u.setTelephone(rs.getString(7));
+				u.setLocation(rs.getString(8));
+				u.setMajor(rs.getString(10));
+				u.setDormitory(rs.getString(11));
+				u.setIslock(rs.getInt(12));
+				u.setAddtime(rs.getTimestamp(15));
+				u.setModifytime(rs.getTimestamp(16));
+				u.setBbs(rs.getString(17));
+				u.setBirthday(rs.getString(20));
+				u.setQq(rs.getString(21));
+				u.setSex(rs.getString(22));
+
+				Academy a = new Academy();
+				a.setId(rs.getLong(13));
+				a.setAcademyname(rs.getString(9));
+
+				Department d = new Department();
+				d.setId(rs.getLong(14));
+				d.setDepartmentname(rs.getString(4));
+
+				Job j = new Job();
+				j.setId(rs.getLong(18));
+				j.setJobname(rs.getString(19));
+
+				UserTogether ut = new UserTogether();
+				ut.setId(rs.getLong(1));
+				ut.setAcademy(a);
+				ut.setDepartment(d);
+				ut.setUser(u);
+				ut.setJob(j);
+
+				utList.add(ut);
+			}
+		} catch (Exception e) {
+			log.error(e, e.getCause());
+		} finally {
+			DbUtils.closeQuietly(rs);
+			DbUtils.closeQuietly(ps);
+			sql = null;
+		}
+		return utList;
+	}
+
 	public List<User> top10User(String username) {
 		List<User> uList = new ArrayList<User>();
 		StringBuilder sql = new StringBuilder();
@@ -587,12 +712,12 @@ public class User extends Model {
 		ResultSet rs = null;
 		try {
 			ps = DBHelper.getConnection().prepareStatement(sql.toString());
-			ps.setObject(1, '%'+username+'%');
+			ps.setObject(1, '%' + username + '%');
 			log.debug("User:top10User, sql: " + sql.toString() + ", Values["
 					+ username + "]");
 			rs = ps.executeQuery();
 			while (rs.next()) {
-				User u=new User();
+				User u = new User();
 				u.setId(rs.getInt("id"));
 				u.setUid(rs.getString("uid"));
 				u.setUsername(rs.getString("username"));
@@ -619,7 +744,7 @@ public class User extends Model {
 				u.setSex(rs.getString("sex"));
 
 				uList.add(u);
-				
+
 			}
 		} catch (Exception e) {
 			log.error(e, e.getCause());
@@ -630,4 +755,5 @@ public class User extends Model {
 		}
 		return uList;
 	}
+
 }

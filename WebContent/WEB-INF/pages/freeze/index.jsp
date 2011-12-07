@@ -24,6 +24,117 @@
 <title> 管理后台-首页 </title>
 </head>
 <body>
-登录成功 -后台首页
+<c:set var="loginUser" value="${sessionScope.loginUser }" ></c:set>
+<c:set var="username" value="${fn:split(loginUser,'&')[2] }" ></c:set>
+<c:set var="uid" value="${fn:split(loginUser,'&')[1] }" ></c:set>
+<c:set var="userID" value="${fn:split(loginUser,'&')[0] }" ></c:set>
+
+<c:set var="ke" value="${requestScope.ke }"></c:set>
+<c:set var="ffiletogetherList" value="${requestScope.ffiletogetherList }"></c:set>
+
+<div class="crumb">
+	<div class="index-title">管理后台主页</div>
+	<div class="backNav"><a href="index.jsp">返回登录页</a></div>
+	<div class="clear"></div>
+</div>
+<div class="box">
+	<div class="welcome-bar">
+		<b>${username }</b>，欢迎您登录精弘OA3.0系统!
+	</div>
+	<div class="ffile-ke">
+		<div class="welcome-ke">
+			<h2>当前课表情况<span><a href="action/ke/viewModifyMyself?id=${ke.id }">编辑课表</a></span></h2>
+			<table class="dataTableDisplay" style="margin-top:5px;margin-left:0px;width:100%;">
+				<colgroup>
+					<col width="13%" />
+					<col width="11%" />
+					<col width="11%" />
+					<col width="11%" />
+					<col width="11%" />
+					<col width="11%" />
+					<col width="10%" />
+					<col width="11%" />
+					<col width="11%" />
+				</colgroup>
+				<tr>
+					<th></th>
+					<th class="center">一</th>
+					<th class="center">二</th>
+					<th class="center">三</th>
+					<th class="center">四</th>
+					<th class="center">五</th>
+					<th></th>
+					<th class="center">六</th>
+					<th class="center">日</th>
+				</tr>
+				<c:set var="kevalue" value="${ke.kevalue }"></c:set>
+				<c:set var="index" value="-1"></c:set>
+				<c:forEach var="i" begin="1" end="11" step="1">
+					<tr>
+						<c:forEach var="j" begin="0" end="7" step="1">
+						<c:set var="current_ke" value="${fn:substring(kevalue, index, index+1) }"></c:set>
+						<c:choose>
+							<c:when test="${j == 0 }">
+							<th class="center">${i >= 5 ? i+1 : i }</th>
+							</c:when>
+							<c:when test="${j == 5 }">
+								<c:choose>
+									<c:when test="${current_ke == '0' }">
+									<td class="center">-</td>
+									</c:when>
+									<c:otherwise>
+									<td class="center itemOutShow">有</td>
+									</c:otherwise>
+								</c:choose>
+							<th></th>
+							</c:when>
+							<c:otherwise>
+								<c:choose>
+									<c:when test="${current_ke == '0' }">
+									<td class="center">-</td>
+									</c:when>
+									<c:otherwise>
+									<td class="center itemOutShow">有</td>
+									</c:otherwise>
+								</c:choose>
+							</c:otherwise>
+						</c:choose>
+						<c:set var="index" value="${index+1 }"></c:set>
+						</c:forEach>
+						<c:set var="index" value="${index-1 }"></c:set>
+					</tr>	
+					<c:if test="${i==4 || i==8 }">
+					<tr>
+						<th></th>
+						
+						<th></th>
+						<th></th>
+						<th></th>
+						<th></th>
+						<th></th>
+	
+						<th></th>
+	
+						<th></th>
+						<th></th>
+					</tr>
+					</c:if>
+				</c:forEach>
+			</table>
+		</div>
+		<div class="welcome-ffile">
+			<h2>最新共享文件</h2>
+			<ul>
+			<c:forEach var="ffiletogether" items="${ffiletogetherList }">
+			<c:set var="file" value="${ffiletogether.file }"></c:set>
+			<c:set var="user" value="${ffiletogether.user }"></c:set>
+				<li>${user.username }在 <fmt:formatDate type="both" value="${file.addtime }" pattern="yyyy-MM-dd"></fmt:formatDate>上传了<a href="action/global/shareFileShow?id=${file.id}" title="查看文件详细">${file.showname }</a></li>
+			</c:forEach>
+			</ul>
+		</div>
+		<div class="clear"></div>
+	</div>
+	
+</div>
 </body>
 </html>

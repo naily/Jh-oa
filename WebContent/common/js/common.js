@@ -99,7 +99,8 @@ function switchToFormal() {
 
 	// 内容容器
 	bodyContainer_pre = $('.bodyContainer').width()+'px';
-	var new_bodyContainer_now = '814px';
+//	var new_bodyContainer_now = '814px';
+	var new_bodyContainer_now = '823px';
 	$('.bodyContainer').css("width", new_bodyContainer_now);
 	bodyContainer_now = new_bodyContainer_now;
 

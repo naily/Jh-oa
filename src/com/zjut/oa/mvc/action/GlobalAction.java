@@ -37,6 +37,7 @@ import com.zjut.oa.mvc.domain.Comment;
 import com.zjut.oa.mvc.domain.Department;
 import com.zjut.oa.mvc.domain.Event;
 import com.zjut.oa.mvc.domain.Ffile;
+import com.zjut.oa.mvc.domain.Ke;
 import com.zjut.oa.mvc.domain.News;
 import com.zjut.oa.mvc.domain.Product;
 import com.zjut.oa.mvc.domain.Team;
@@ -44,6 +45,7 @@ import com.zjut.oa.mvc.domain.User;
 import com.zjut.oa.mvc.domain.Userrole;
 import com.zjut.oa.mvc.domain.strengthen.CommentTogether;
 import com.zjut.oa.mvc.domain.strengthen.EventTogether;
+import com.zjut.oa.mvc.domain.strengthen.FfileTogether;
 import com.zjut.oa.mvc.domain.strengthen.RolePermissionTogether;
 import com.zjut.oa.mvc.domain.strengthen.TeamTogether;
 import com.zjut.oa.tool.CalendarTool;
@@ -220,7 +222,7 @@ public class GlobalAction extends ActionAdapter {
 				List<RolePermissionTogether> rptList = userrole
 						.getRolePermissionTogetherByRoleID(
 								Integer.toString(current_userrole.getRoleID()),
-								null);
+								" order by p.menuID asc,p.resourceID asc,p.optID asc");
 				if (rptList.size() == 0) {
 					setAttr(req, TIP_NAME_KEY, "您所属角色尚未分配权限!登录失败");
 					return FAIL;
@@ -537,9 +539,68 @@ public class GlobalAction extends ActionAdapter {
 		return INPUT;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Result("/WEB-INF/pages/freeze/index.jsp")
 	public String manager(HttpServletRequest req, HttpServletResponse resp) {
+		// 课表
+		String[] loginUser = ((String) getAttr(req.getSession(), LOGIN_USER_KEY))
+				.split("&");
+		String s_id = loginUser[0];
 
+		Ke ke = new Ke();
+		ke.setUserID(Integer.parseInt(s_id));
+
+		List<Ke> hasKeOfUserID = (List<Ke>) ke.filter(" where userID=" + s_id);
+		if (hasKeOfUserID.size() == 1) {
+			ke = hasKeOfUserID.get(0);
+		}
+
+		// 共享文件
+		// 前台分页
+		StringBuilder filter = new StringBuilder(" order by addtime desc");
+		Ffile ffile = new Ffile();
+		int p = 1;
+		int currentPage = p;
+		int countPerPage = 10;
+		int totalCount = ffile.totalCount(filter.toString());
+		Pager pager = new Pager(currentPage, countPerPage, totalCount);
+		// 读取部分数据
+		List<Ffile> fList = (List<Ffile>) ffile.filterByPage(
+				filter.toString(), p, pager.getCountPerPage());
+
+		List<FfileTogether> ftList=new ArrayList<FfileTogether>();
+		for(Ffile f : fList){
+			FfileTogether ft=new FfileTogether();
+			
+			Ffile ff=new Ffile();
+			ff.setId(f.getId());
+			ff.setAddtime(f.getAddtime());
+			ff.setFilename(f.getFilename());
+			ff.setShowname(f.getShowname());
+			ff.setUserID(f.getUserID());
+			ff.setSize(f.getSize());
+			ff.setSuffix(f.getSuffix());
+			
+			User user =new User();
+			user=user.get(f.getUserID());
+			
+			ft.setId(ff.getId());
+			ft.setFile(ff);
+			ft.setUser(user);
+			
+			ftList.add(ft);
+		}
+		
+		setAttr(req, CURRENT_PAGE_KEY, currentPage);
+		setAttr(req, CURRENT_COUNT_PER_PAGE_KEY, countPerPage);
+		setAttr(req, PAGER_KEY, pager);
+		setAttr(req, MAX_PAGERSHOW_LENGTH_KEY, DEFAULT_MAX_PAGERSHOW_LENGTH);
+
+		//返回课，前10个共享文件
+		setAttr(req, PAGE_MANAGER_KE_MODEL_KEY, ke);
+		setAttr(req, PAGE_MANAGER_FILETOGETHER_LIST_KEY, ftList);
+
+		log.info(ftList.size());
 		return INPUT;
 	}
 
