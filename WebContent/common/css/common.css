@@ -314,7 +314,7 @@ right:-33px;background-color:#f3f3f3;border:1px #aaa solid;}
 .menuItem h3{position:relative;padding:0px;font-size:13px;}
 .menuItem h3 a,.nomenu{display:block;padding:5px 5px 5px 10px;color:#666;text-decoration:none;}
 .menuItem h3 a:hover{color:#000;background-color:#eee;}
-.menuItem h3 .notblock{position:absolute;top:5px;left:85px;display:inline;}
+.menuItem h3 .notblock{position:absolute;top:5px;left:87px;display:inline;}
 .menuItem h3 .notblock a,.menuItem h3 .notblock a:visited,.menuItem h3 .notblock a:hover,.menuItem h3 .notblock a:active{display:inline;padding:0px;}
 .menuItem ul{}
 
@@ -453,6 +453,7 @@ background-repeat:no-repeat;background-image:url(../images/icon_spite.png);backg
 .shownews-detail-bar,.showevent-detail-bar{padding:5px;background-color:#f1f1f1;}
 .news-username,.event-username{margin-right:10px;}
 .news-addtime{}
+.showffile-title{margin-left:30px;}
 .shownews-content,.showevent-content{margin:10px 10px 10px 20px;overflow:hidden;padding-right:20px;width:753px;
 background:url(../images/sep-line.png) right 0px repeat-y;}
 
@@ -598,11 +599,11 @@ a:hover.closeTable{background-color:#f2f2f2;color:#333;}
 
 
 /*评论*/
-.commentContainer{width:90%;border:1px #ccc solid;border-radius:5px;-moz-border-radius:5px;-webkit-border-radius:5px;}
-.commentContainer h2{padding:5px;font-weight:bold;font-size:14px;background-color:#ccc;}
+.commentContainer{margin-left:30px;width:90%;border:1px #ccc solid;border-radius:5px;-moz-border-radius:5px;-webkit-border-radius:5px;}
+.commentContainer h2{padding:5px;font-weight:bold;font-size:14px;background-color:#eee;}
 .commentListContainer{margin:5px;}
 .addCommentContainer{margin:15px 0px 0px;border-top:1px #ccc solid;}
-.addCommentContainer h2{padding:5px;font-weight:bold;font-size:14px;background-color:#ccc;}
+.addCommentContainer h2{padding:5px;font-weight:bold;font-size:14px;background-color:#eee;}
 #comment-content{margin:5px 5px;padding:5px;width:400px;height:60px;resize:none;
 border-color:#ccc;border-radius:5px;-moz-border-radius:5px;-webkit-border-radius:5px;}
 .bt-comment{}

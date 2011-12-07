@@ -61,7 +61,19 @@
 		</tr>
 		<tr>
 			<th>大小</th>
-			<td>${model.size}</td>
+			<td>
+			<c:choose>
+							<c:when test="${model.size < 1024 }">
+								<fmt:formatNumber value="${model.size }" pattern="#0.00"></fmt:formatNumber>B
+							</c:when>
+							<c:when test="${model.size >= 1024 && model.size < 1024 * 1024 }">
+								<fmt:formatNumber value="${model.size / 1024 }" pattern="#0.00"></fmt:formatNumber>KB
+							</c:when>
+							<c:when test="${model.size >= 1024 * 1024 && model.size < 1024 * 1024 * 1024 }">
+								<fmt:formatNumber value="${model.size /1024 /1024 }" pattern="#0.00"></fmt:formatNumber>MB
+							</c:when>
+						</c:choose>
+			</td>
 		</tr>
 		<tr>
 			<th>后缀</th>

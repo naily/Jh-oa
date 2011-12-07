@@ -84,7 +84,17 @@
 							</a>
 						</td>
 						<td>
-							${ffile.size }
+						<c:choose>
+							<c:when test="${ffile.size < 1024 }">
+								<fmt:formatNumber value="${ffile.size }" pattern="#0.00"></fmt:formatNumber>B
+							</c:when>
+							<c:when test="${ffile.size >= 1024 && ffile.size < 1024 * 1024 }">
+								<fmt:formatNumber value="${ffile.size / 1024 }" pattern="#0.00"></fmt:formatNumber>KB
+							</c:when>
+							<c:when test="${ffile.size >= 1024 * 1024 && ffile.size < 1024 * 1024 * 1024 }">
+								<fmt:formatNumber value="${ffile.size /1024 /1024 }" pattern="#0.00"></fmt:formatNumber>MB
+							</c:when>
+						</c:choose>
 						</td>
 						<td>${ffile.suffix }</td>
 						<td><fmt:formatDate value="${ffile.addtime }" type="both"/></td>

@@ -43,7 +43,7 @@
 	</div>
 	<div class="ffile-ke">
 		<div class="welcome-ke">
-			<h2>当前课表情况<span><a href="action/ke/viewModifyMyself?id=${ke.id }">编辑课表</a></span></h2>
+			<h2>当前课表情况<span><a href="action/ke/viewModifyMyself">编辑课表</a></span></h2>
 			<table class="dataTableDisplay" style="margin-top:5px;margin-left:0px;width:100%;">
 				<colgroup>
 					<col width="13%" />
@@ -123,7 +123,7 @@
 			</table>
 		</div>
 		<div class="welcome-ffile">
-			<h2>最新共享文件</h2>
+			<h2>最新共享文件<span><a href="action/global/shareFile">全部</a></span></h2>
 			<ul>
 			<c:forEach var="ffiletogether" items="${ffiletogetherList }">
 			<c:set var="file" value="${ffiletogether.file }"></c:set>
