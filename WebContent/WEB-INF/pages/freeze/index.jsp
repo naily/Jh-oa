@@ -31,6 +31,7 @@
 
 <c:set var="ke" value="${requestScope.ke }"></c:set>
 <c:set var="ffiletogetherList" value="${requestScope.ffiletogetherList }"></c:set>
+<c:set var="user" value="${requestScope.user }"></c:set>
 
 <div class="crumb">
 	<div class="index-title">管理后台主页</div>
@@ -41,6 +42,47 @@
 	<div class="welcome-bar">
 		<b>${username }</b>，欢迎您登录精弘OA3.0系统!
 	</div>
+	<c:set var="info" value=""></c:set>
+	<c:if test="${empty user.email  }">
+		<c:set var="info" value="${info}${'邮箱、'}"></c:set>		
+	</c:if>
+	<c:if test="${empty user.telephone }">
+		<c:set var="info" value="${info}${'联系方式、' }"></c:set>
+	</c:if>
+	<c:if test="${empty user.cornet }">
+		<c:set var="info" value="${info}${'短号、' }"></c:set>
+	</c:if>
+	<c:if test="${empty user.academyID }">
+		<c:set var="info" value="${info}${'学院、' }"></c:set>
+	</c:if>
+	<c:if test="${empty user.major }">
+		<c:set var="info" value="${info}${'专业、' }"></c:set>
+	</c:if>
+	<c:if test="${empty user.location }">
+		<c:set var="info" value="${info}${'校区、' }"></c:set>
+	</c:if>
+	<c:if test="${empty user.dormitory }">
+		<c:set var="info" value="${info}${'宿舍、' }"></c:set>
+	</c:if>
+	<c:if test="${empty user.bbs }">
+		<c:set var="info" value="${info}${'论坛ID、' }"></c:set>
+	</c:if>
+	<c:if test="${empty user.birthday }">
+		<c:set var="info" value="${info}${'生日、' }"></c:set>
+	</c:if>
+	<c:if test="${empty user.qq }">
+		<c:set var="info" value="${info}${'QQ、' }"></c:set>
+	</c:if>
+	<c:if test="${empty user.sex }">
+		<c:set var="info" value="${info}${'性别、' }"></c:set>
+	</c:if>
+	<c:choose>
+		<c:when test="${not empty info }">
+		<div class="user-info-container">
+			您的个人资料尚未填写完整,请尽快完善~(<span>${info }</span>) <a href="action/user/viewModifyMyself">现在去完善</a>
+		</div>
+		</c:when>
+	</c:choose>
 	<div class="ffile-ke">
 		<div class="welcome-ke">
 			<h2>当前课表情况<span><a href="action/ke/viewModifyMyself">编辑课表</a></span></h2>

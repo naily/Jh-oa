@@ -49,6 +49,134 @@
 			<div class="no-data">无任何数据</div>
 		</c:when>
 		<c:otherwise>
+			<div class="actionTip">温馨提醒：<span class="tip-words">以下为所有精弘人员共享的文件！</span></div>
+				<!-- 分页条 start -->
+				<div id="pageBar">
+					<div id="barL" class="l">
+						<!-- 搜索式分页 -->
+						<!-- 首页 -->
+						<c:choose>
+							<c:when test="${pager.currentPage > 1 }">
+							<a href="action/global/shareFile?by=${by }&order=${order }&page=1&countPerPage=${pager.countPerPage}"
+								class="page-slice first" title="首页">&lt;&lt;</a>
+							</c:when>
+							<c:otherwise>
+								<span class="page-slice-disabled first">&lt;&lt;</span>
+							</c:otherwise>
+						</c:choose> 
+						<!-- 上一页 -->
+						<c:choose>
+							<c:when test="${pager.currentPage > 1 }">
+								<a href="action/global/shareFile?by=${by }&order=${order }&page=${pager.currentPage - 1 }&countPerPage=${pager.countPerPage}"
+									class="page-slice prevent" title="上一页">&lt;</a>
+							</c:when>
+							<c:otherwise>
+								<span class="page-slice-disabled prevent">&lt;</span>
+							</c:otherwise>
+						</c:choose> 
+						<c:choose>
+							<c:when test="${pager.totalPage == 1}">
+								<span class="page-slice-disabled">${1 }</span>
+							</c:when>
+							<c:when
+								test="${(pager.totalPage > maxPagerShowLength) && (pager.currentPage + maxPagerShowLength-1 <= pager.totalPage) && pager.currentPage <= maxPagerShowLength}">
+								<c:forEach var="p" begin="1"
+									end="${maxPagerShowLength }" step="1">
+									<c:choose>
+										<c:when test="${p==pager.currentPage }">
+											<span class="currentPage">${p }</span>
+										</c:when>
+										<c:otherwise>
+											<a href="action/global/shareFile?by=${by }&order=${order }&page=${p }&countPerPage=${pager.countPerPage}"
+												class="page-slice" title="第${p }页">${p }</a>
+										</c:otherwise>
+									</c:choose>
+								</c:forEach>
+							</c:when>
+							<c:when
+								test="${(pager.totalPage > maxPagerShowLength) && (pager.currentPage + maxPagerShowLength-1 <= pager.totalPage)}">
+								<c:forEach var="p" begin="${pager.currentPage}"
+									end="${pager.currentPage + maxPagerShowLength-1}" step="1">
+									<c:choose>
+										<c:when test="${p==pager.currentPage }">
+											<span class="currentPage">${p }</span>
+										</c:when>
+										<c:otherwise>
+											<a href="action/global/shareFile?by=${by }&order=${order }&page=${p }&countPerPage=${pager.countPerPage}"
+												class="page-slice" title="第${p }页">${p }</a>
+										</c:otherwise>
+									</c:choose>
+								</c:forEach>
+							</c:when>
+							<c:when
+								test="${(pager.totalPage > maxPagerShowLength) && (pager.currentPage + maxPagerShowLength-1 > pager.totalPage)}">
+								<c:forEach var="p" begin="${pager.totalPage-maxPagerShowLength + 1}"
+									end="${ pager.totalPage}" step="1">
+									<c:choose>
+										<c:when test="${p==pager.currentPage }">
+											<span class="currentPage">${p }</span>
+										</c:when>
+										<c:otherwise>
+											<a href="action/global/shareFile?by=${by }&order=${order }&page=${p }&countPerPage=${pager.countPerPage}"
+												class="page-slice" title="第${p }页">${p }</a>
+										</c:otherwise>
+									</c:choose>
+								</c:forEach>
+							</c:when>
+							<c:otherwise>
+								<c:forEach var="p" begin="1" end="${pager.totalPage }" step="1">
+									<c:choose>
+										<c:when test="${p==pager.currentPage }">
+											<span class="currentPage">${p }</span>
+										</c:when>
+										<c:otherwise>
+											<a href="action/global/shareFile?by=${by }&order=${order }&page=${p }&countPerPage=${pager.countPerPage}"
+												class="page-slice" title="第${p }页">${p }</a>
+										</c:otherwise>
+									</c:choose>
+								</c:forEach>
+							</c:otherwise>
+						</c:choose> 
+						<!-- 下一页 -->
+						<c:choose>
+							<c:when test="${pager.currentPage < pager.totalPage }">
+								<a href="action/global/shareFile?by=${by }&order=${order }&page=${pager.currentPage + 1}&countPerPage=${pager.countPerPage}"
+									 class="page-slice next" title="下一页">&gt;</a>
+							</c:when>
+							<c:otherwise>
+								<span class="page-slice-disabled next">&gt;</span>
+							</c:otherwise>
+						</c:choose>
+						<!-- 尾页 -->
+						<c:choose>
+							<c:when test="${pager.currentPage < pager.totalPage }">
+								<a href="action/global/shareFile?by=${by }&order=${order }&page=${pager.totalPage}&countPerPage=${pager.countPerPage}"
+									 class="page-slice last" title="尾页">&gt;&gt;</a>
+							</c:when>
+							<c:otherwise>
+								<span class="page-slice-disabled last">&gt;&gt;</span>
+							</c:otherwise>
+						</c:choose>
+					</div>
+					<div id="barR" class="r">
+						${pager.currentPage }/${pager.totalPage }页，共${pager.totalCount}条
+						<select id="countPerPage" name="countPerPage">
+							<c:forEach var="cpp" items="${countPerPageList }">
+							<c:choose>
+								<c:when test="${cpp==countPerPage }">
+									<option value="${cpp }" selected="selected">${cpp }</option>
+								</c:when>
+								<c:otherwise>
+									<option value="${cpp }">${cpp }</option>
+								</c:otherwise>
+							</c:choose>
+							</c:forEach>
+						</select>
+						<input type="button" value="GO" class="go-bt" id="action/global/shareFile?by=${by }&order=${order }&page=${pager.currentPage}${queryCondition}"/>
+					</div>
+					<div class="clear"></div>
+				</div>
+				<!-- 分页 end -->
 				<table class="dataTable">
 					<colgroup>
 						<col width="30%" />

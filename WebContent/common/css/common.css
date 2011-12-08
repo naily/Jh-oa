@@ -65,14 +65,14 @@ font-size:14px;color:#2B2B2B;background:url(../images/bg-bt.png) no-repeat 0px 0
 .bt-active{background:url(../images/bg-bt.png) no-repeat 0px -58px;}
 
 /*数据列表表格*/
-.dataTable{margin:5px 0px 10px 30px;border-spacing:1px;border-collapse:collapse;}
+.dataTable{margin:5px 0px 10px 30px;width:95%;border-spacing:1px;border-collapse:collapse;}
 .dataTable td,.dataTable th{padding:5px 10px;border:1px #ccc solid;}
 .dataTable .even{background-color:#f3f3f3;}
 .dataTable .on{background-color:#FdFdd2;}
 .dataTable .onselect{background-color:#FdFdd2;}
 
 /*数据显示表格*/
-.dataTableDisplay{margin:0px 0px 10px 30px;border-spacing:1px;border-collapse:collapse;}
+.dataTableDisplay{margin:0px 0px 10px 30px;width:95%;border-spacing:1px;border-collapse:collapse;}
 .dataTableDisplay td,.dataTableDisplay th{padding:5px 10px;border:1px #ccc solid;}
 .dataTableDisplay th{background-color:#f3f3f3;}
 .dataTableDisplay .even{background-color:#f3f3f3;}
@@ -82,6 +82,10 @@ font-size:14px;color:#2B2B2B;background:url(../images/bg-bt.png) no-repeat 0px 0
 .itemselect{background-color:#FdFdd2;/*FdFdd2*/}
 .itemnoselect{background-color:#fff;}
 .kelabel{display:block;height:100%;}
+
+/*编辑表格*/
+.modifyTable{margin:5px 0px 10px 30px;width:95%;}
+.modifyTable th,.modifyTable td{padding:5px 0px;}
 
 /*数据显示表格,无行交互变色效果*/
 .dataTableDisplay-nohover{margin:0px 0px 10px;border-spacing:1px;width:100%;border-collapse:collapse;}
@@ -334,7 +338,11 @@ min-height:600px;height:auto !important;height:600px;}
 .tip-words{font-weight:100;color:#333;}
 
 /*管理首页*/
-.welcome-bar,.welcome-ffile,.welcome-ke{margin-left:30px;}
+.m30{margin-left:30px;}
+.welcome-bar,.user-info-container,.welcome-ffile,.welcome-ke{margin-left:30px;}
+.user-info-container{margin-bottom:20px;line-height:30px;height:30px;color:#666;background-color:#f3f3f3;}
+.user-info-container span{font-weight:bold;}
+.user-info-container a,.user-info-container a:visited,.user-info-container a:hover,.user-info-container a:active{color:blue;}
 .welcome-ffile,.welcome-ke{height:500px;overflow:hidden;}
 .welcome-ffile h2,.welcome-ke h2{position:relative;padding-left:25px;padding-bottom:3px;line-height:20px;height:20px;
 	background-color:#f3f3f3;color:#666;font-weight:bold;border-bottom:1px #ddd solid;}
@@ -434,7 +442,7 @@ background-repeat:no-repeat;background-image:url(../images/icon_spite.png);backg
 .backNav a:hover{color:#333;}
 .news-title{padding:3px;font-size:14px;border:1px #ccc solid;width:574px;height:26px;line-height:26px;
 -moz-border-radius:3px;-webkit-border-radius:3px;}
-.formItem{margin-bottom:14px;}
+.formItem{margin-bottom:14px;margin-left:30px;}
 .editor{width:753px;height:280px;}
 
 .bt-addmenu{}
@@ -449,12 +457,12 @@ background-repeat:no-repeat;background-image:url(../images/icon_spite.png);backg
 /*新闻详情*/
 .shownews-title,.showffile-title,.showevent-title,.showsuggest-title{float:left;color:#666;}
 .shownews-detail-bar,.shownews-content,.lastmodifytime,
-.showevent-detail-bar,.showevent-content{margin-left:0px;}
+.showevent-detail-bar,.showevent-content{margin-left:30px;}
 .shownews-detail-bar,.showevent-detail-bar{padding:5px;background-color:#f1f1f1;}
 .news-username,.event-username{margin-right:10px;}
 .news-addtime{}
 .showffile-title{margin-left:30px;}
-.shownews-content,.showevent-content{margin:10px 10px 10px 20px;overflow:hidden;padding-right:20px;width:753px;
+.shownews-content,.showevent-content{margin:10px 10px 10px 30px;overflow:hidden;padding-right:20px;width:753px;
 background:url(../images/sep-line.png) right 0px repeat-y;}
 
 

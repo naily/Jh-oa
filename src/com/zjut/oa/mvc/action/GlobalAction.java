@@ -596,10 +596,15 @@ public class GlobalAction extends ActionAdapter {
 		setAttr(req, PAGER_KEY, pager);
 		setAttr(req, MAX_PAGERSHOW_LENGTH_KEY, DEFAULT_MAX_PAGERSHOW_LENGTH);
 
+		//用户信息完整性
+		User user=new User();
+		user=user.get(Long.parseLong(s_id));
+		
 		//返回课，前10个共享文件
 		setAttr(req, PAGE_MANAGER_KE_MODEL_KEY, ke);
 		setAttr(req, PAGE_MANAGER_FILETOGETHER_LIST_KEY, ftList);
-
+		setAttr(req, PAGE_MANAGER_USER_MODEL_KEY, user);
+		
 		log.info(ftList.size());
 		return INPUT;
 	}

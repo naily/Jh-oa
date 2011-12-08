@@ -45,6 +45,7 @@
 		</c:when>
 		<c:otherwise>
 		<form name="modifykeForm" id="modifykeForm" action="action/ke/modifyMyself" method="post">
+		<div class="actionTip">温馨提醒：<span class="tip-words">有课的时间请打勾</span></div>
 		<table class="dataTableDisplay">
 			<colgroup>
 				<col width="4%" />

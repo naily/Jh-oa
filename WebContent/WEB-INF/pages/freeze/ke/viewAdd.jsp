@@ -36,7 +36,7 @@
 <div class="box">
 <div class="actionTip">温馨提醒：<span class="tip-words">有课的时间请打勾</span></div>
 <c:if test="${ not empty tip}">
-<div class="optTip">提示：<span class="msg">${tip}</span></div>
+<div class="optTip m30">提示：<span class="msg">${tip}</span></div>
 </c:if>
 <form name="addkeForm" id="addkeForm" action="action/ke/add" method="post">
 <div class="formItem">

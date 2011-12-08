@@ -44,6 +44,7 @@
 		</div>
 		</c:when>
 		<c:otherwise>
+		<div class="actionTip">温馨提醒：<span class="tip-words">有课的时间点将会以黄色表示！</span></div>
 		<table class="dataTableDisplay">
 			<colgroup>
 				<col width="13%" />

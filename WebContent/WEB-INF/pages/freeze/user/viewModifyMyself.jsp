@@ -41,14 +41,16 @@
 <div class="box">
 <div class="actionTip">温馨提醒：<span class="tip-words">如不需要修改密码，请在密码输入框中留空</span></div>
 <c:if test="${ not empty tip}">
-<div class="optTip">提示：<span class="msg">${tip}</span></div>
+<div class="optTip m30">提示：<span class="msg">${tip}</span></div>
 </c:if>
 <form name="modifyuserForm" id="modifyuserForm" action="action/user/modifyMyself" method="post">
-<table width="100%">
+
+<table class="modifyTable">
 	<tr>
 		<td>
 			<label for="uid" class="common-label">学号</label>
-			<input type="text" id="uid" name="uid" class="uid" value="${model.uid }" disabled="disabled"/>
+			${model.uid }
+			<%-- <input type="text" id="uid" name="uid" class="uid" value="${model.uid }" disabled="disabled"/> --%>
 			<input type="hidden" name="uid" value="${model.uid }"/>
 		</td>
 		<td>
@@ -101,6 +103,7 @@
 	<tr>
 		<td>
 			<label for="islock" class="common-label">状态</label>
+			<%-- 
 			<select id="islock" name="islock" class="islock" disabled="disabled">
 				<option value="-1">==== 请选择状态  ====</option>
 				<c:forEach var="islock" items="${islockList }">
@@ -114,7 +117,8 @@
 					</c:choose>
 				</c:forEach>
 			</select>
-			
+			 --%>
+			 ${islock ==0 ? "可用" :"锁定" }
 			<input type="hidden" name="islock" value="${model.islock }" />
 		</td>
 		<td>
@@ -137,6 +141,7 @@
 	<tr>
 		<td>
 			<label for="departmentID" class="common-label">所属部门</label>
+			<%--
 			<select id="departmentID" name="departmentID" class="departmentID" disabled="disabled">
 				<option value="-1">==== 请选择部门  ====</option>
 				<c:forEach var="department" items="${departmentList }">
@@ -150,7 +155,12 @@
 					</c:choose>
 				</c:forEach>
 			</select>
-			
+			 --%>
+			<c:forEach var="department" items="${departmentList }">
+				<c:if test="${department.id==model.departmentID }">
+					${department.departmentname }
+				</c:if>
+			</c:forEach>
 			<input type="hidden" name="departmentID" value="${model.departmentID }" />
 		</td>
 		<td>
@@ -160,16 +170,8 @@
 	</tr>
 	<tr>
 		<td>
-			<label for="bbs" class="common-label">论坛ID</label>
-			<input type="text" id="bbs" name="bbs" class="bbs" value="${model.bbs }" />
-		</td>
-		<td>
-			
-		</td>
-	</tr>
-	<tr>
-		<td>
 			<label for="jobID" class="common-label">职务</label>
+			<%--
 			<select id="jobID" name="jobID" class="jobID" disabled="disabled">
 				<option value="-1">==== 请选择职务  ====</option>
 				<c:forEach var="job" items="${jobList }">
@@ -183,10 +185,18 @@
 					</c:choose>
 				</c:forEach>
 			</select>
-				
+			 --%>	
+			<c:forEach var="job" items="${jobList }">
+				<c:if test="${job.id==model.jobID }">
+					${job.jobname }
+				</c:if>
+			</c:forEach>
 			<input type="hidden" name="jobID" value="${model.jobID }" />
 		</td>
-		<td></td>
+		<td>
+			<label for="bbs" class="common-label">论坛ID</label>
+			<input type="text" id="bbs" name="bbs" class="bbs" value="${model.bbs }" />
+		</td>
 	</tr>
 	<tr>
 		<td>
@@ -220,13 +230,11 @@
 			&nbsp;
 		</td>
 	</tr>
-	<tr>
-		<td colspan="2">
-			<textarea id="kindEditor" name="introduce"  class="editor" style="width:98%;height:200px;">${model.introduce}</textarea>
-			<input type="hidden" id="simpleinfo" name="simpleinfo" value="${model.simpleinfo }"/>
-		</td>
-	</tr>
 </table>
+<p style="margin-left:30px;">
+	<textarea id="kindEditor" name="introduce"  class="editor" style="width:95%;height:200px;">${model.introduce}</textarea>
+	<input type="hidden" id="simpleinfo" name="simpleinfo" value="${model.simpleinfo }"/>
+</p>
 <input type="hidden" name="id" value="${model.id }" />
 <div class="data-operator-bar top-border">
 	<input type="submit" value="完成编辑" class="bt bt-adduser" />

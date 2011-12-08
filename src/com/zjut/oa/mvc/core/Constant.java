@@ -38,6 +38,7 @@ public interface Constant {
 	/** 管理主页 */
 	String PAGE_MANAGER_KE_MODEL_KEY="ke";
 	String PAGE_MANAGER_FILETOGETHER_LIST_KEY="ffiletogetherList";
+	String PAGE_MANAGER_USER_MODEL_KEY="user";
 	
 	/** 找加密码 */
 	String PAGE_GETPASSWORD_EMAIL="email";

@@ -38,7 +38,7 @@
 <div class="box">
 <div class="actionTip">温馨提醒：<span class="tip-words">有空的时间请打勾</span></div>
 <c:if test="${ not empty tip}">
-<div class="optTip">提示：<span class="msg">${tip}</span></div>
+<div class="optTip m30">提示：<span class="msg">${tip}</span></div>
 </c:if>
 <form name="freetimeForm" id="freetimeForm" action="action/ke/findFreeTime" method="get">
 <div class="formItem">

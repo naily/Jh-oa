@@ -41,10 +41,10 @@
 <div class="box">
 <div class="actionTip">温馨提醒：<span class="tip-words">学号、姓名、密码、Email地址、所属部门、短号、论坛ID、学院、职务为必填项</span></div>
 <c:if test="${ not empty tip}">
-<div class="optTip">提示：<span class="msg">${tip}</span></div>
+<div class="optTip m30">提示：<span class="msg">${tip}</span></div>
 </c:if>
 <form name="adduserForm" id="adduserForm" action="action/user/add" method="post">
-<table width="100%">
+<table class="modifyTable">
 	<tr>
 		<td>
 			<label for="uid" class="common-label">学号</label>
@@ -146,10 +146,6 @@
 	</tr>
 	<tr>
 		<td>
-			<label for="bbs" class="common-label">论坛ID</label>
-			<input type="text" id="bbs" name="bbs" class="bbs" value="${model.bbs }" />
-		</td>
-		<td>
 			<label for="jobID" class="common-label">职务</label>
 			<select id="jobID" name="jobID" class="jobID">
 				<option value="-1">==== 请选择职务  ====</option>
@@ -164,6 +160,10 @@
 					</c:choose>
 				</c:forEach>
 			</select>
+		</td>
+		<td>
+			<label for="bbs" class="common-label">论坛ID</label>
+			<input type="text" id="bbs" name="bbs" class="bbs" value="${model.bbs }" />
 		</td>
 	</tr>
 	<tr>
@@ -198,13 +198,11 @@
 			&nbsp;
 		</td>
 	</tr>
-	<tr>
-		<td colspan="2">
-			<textarea id="kindEditor" name="introduce"  class="editor" style="width:98%;height:200px;">${model.introduce}</textarea>
-			<input type="hidden"  id="simpleinfo" name="simpleinfo" value="${model.simpleinfo }"/>
-		</td>
-	</tr>
 </table>
+<p style="margin-left:30px;">
+	<textarea id="kindEditor" name="introduce"  class="editor" style="width:98%;height:200px;">${model.introduce}</textarea>
+	<input type="hidden"  id="simpleinfo" name="simpleinfo" value="${model.simpleinfo }"/>
+</p>		
 <div class="data-operator-bar top-border">
 	<input type="submit" value="添加" class="bt bt-adduser" />
 	<input type="reset" value="取消" class="bt bt-cancle" />

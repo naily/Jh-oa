@@ -41,10 +41,10 @@
 <div class="box">
 <div class="actionTip">温馨提醒：<span class="tip-words">如不需要修改密码，请在密码输入框中留空</span></div>
 <c:if test="${ not empty tip}">
-<div class="optTip">提示：<span class="msg">${tip}</span></div>
+<div class="optTip m30">提示：<span class="msg">${tip}</span></div>
 </c:if>
 <form name="modifyuserForm" id="modifyuserForm" action="action/user/modify" method="post">
-<table width="100%">
+<table class="modifyTable">
 	<tr>
 		<td>
 			<label for="uid" class="common-label">学号</label>
@@ -155,10 +155,6 @@
 	</tr>
 	<tr>
 		<td>
-			<label for="bbs" class="common-label">论坛ID</label>
-			<input type="text" id="bbs" name="bbs" class="bbs" value="${model.bbs }" />
-		</td>
-		<td>
 			<label for="jobID" class="common-label">职务</label>
 			<select id="jobID" name="jobID" class="jobID">
 				<option value="-1">==== 请选择职务  ====</option>
@@ -173,6 +169,10 @@
 					</c:choose>
 				</c:forEach>
 			</select>
+		</td>
+		<td>
+			<label for="bbs" class="common-label">论坛ID</label>
+			<input type="text" id="bbs" name="bbs" class="bbs" value="${model.bbs }" />
 		</td>
 	</tr>
 	<tr>
@@ -207,13 +207,11 @@
 			&nbsp;
 		</td>
 	</tr>
-	<tr>
-		<td colspan="2">
-			<textarea id="kindEditor" name="introduce"  class="editor" style="width:98%;height:200px;">${model.introduce}</textarea>
-			<input type="hidden"  id="simpleinfo"  name="simpleinfo" value="${model.simpleinfo }"/>
-		</td>
-	</tr>
 </table>
+<p style="margin-left:30px;">
+	<textarea id="kindEditor" name="introduce"  class="editor" style="width:98%;height:200px;">${model.introduce}</textarea>
+	<input type="hidden"  id="simpleinfo"  name="simpleinfo" value="${model.simpleinfo }"/>
+</p>
 <input type="hidden" name="id" value="${model.id }" />
 <div class="data-operator-bar top-border">
 	<input type="submit" value="完成编辑" class="bt bt-adduser" />
@@ -250,41 +248,19 @@ $(function(){
 	else if($('#uid').val()!=''&& $('#username').val()==''){
 		$('#username').focus();
 	}
-	else if($('#uid').val()!=''&& $('#username').val()!=''&& $('#password').val()==''){
-		$('#password').focus();
-	}
-	else if($('#uid').val()!=''&& $('#username').val()!=''&& $('#password').val()!=''&& $('#email').val()==''){
+	else if($('#uid').val()!=''&& $('#username').val()!=''&& $('#email').val()==''){
 		$('#email').focus();
 	}
-	else if($('#uid').val()!=''&& $('#username').val()!=''&& $('#password').val()!=''&& $('#email').val()!='' && $('#cornet').val()==''){
+	else if($('#uid').val()!=''&& $('#username').val()!=''&& $('#email').val()!='' && $('#cornet').val()==''){
 		$('#cornet').focus();
 	}
-	else if($('#uid').val()!=''&& $('#username').val()!=''&& $('#password').val()!=''&& $('#email').val()!='' && $('#cornet').val()!='' && $('#departmentID').val() == -1){
+	else if($('#uid').val()!=''&& $('#username').val()!=''&& $('#email').val()!='' && $('#cornet').val()!='' && $('#departmentID').val() == -1){
 		$('#departmentID').focus();
 	}
-	/*
-	else if($('#uid').val()!=''&& $('#username').val()!=''&& $('#email').val()!='' && $('#cornet').val()!='' && $('#telephone').val()==''){
-		$('#telephone').focus();
-	}
-	else if($('#uid').val()!=''&& $('#username').val()!=''&& $('#email').val()!='' && $('#cornet').val()!='' && $('#telephone').val()!='' && $('#academyID').val()==-1){
-		$('#academyID').focus();
-	}
-	else if($('#uid').val()!=''&& $('#username').val()!=''&& $('#email').val()!='' && $('#cornet').val()!='' && $('#telephone').val()!='' && $('#academyID').val()!=-1 && $('#major').val()==''){
-		$('#major').focus();
-	}
-	else if($('#uid').val()!=''&& $('#username').val()!=''&& $('#email').val()!='' && $('#cornet').val()!='' && $('#telephone').val()!='' && $('#academyID').val()!=-1 && $('#major').val()!='' && $('#location').val()==-1 ){
-		$('#location').focus();
-	}
-	else if($('#uid').val()!=''&& $('#username').val()!=''&& $('#email').val()!='' && $('#cornet').val()!='' && $('#telephone').val()!='' && $('#academyID').val()!=-1 && $('#major').val()!='' && $('#location').val()!=-1 && $('#dormitory').val() ==''){
-		$('#dormitory').focus();
-	}
-	*/
-	else if($('#uid').val()!=''&& $('#username').val()!=''&& $('#password').val()!=''&& $('#email').val()!='' && $('#cornet').val()!='' && $('#departmentID').val()!=-1 /*&& $('#telephone').val()!='' && $('#academyID').val()!=-1 && $('#major').val()!='' && $('#location').val()!=-1 && $('#dormitory').val() !=''*/&& $('#islock').val()== -1){
+	else if($('#uid').val()!=''&& $('#username').val()!=''&& $('#email').val()!='' && $('#cornet').val()!='' && $('#departmentID').val()!=-1 && $('#islock').val()== -1){
 		$('#islock').focus();
 	}
-	else{
-		$('#uid').select();
-	}
+	
 });
 </script>
 </body>
