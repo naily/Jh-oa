@@ -86,83 +86,90 @@
 	<div class="ffile-ke">
 		<div class="welcome-ke">
 			<h2>当前课表情况<span><a href="action/ke/viewModifyMyself">编辑课表</a></span></h2>
-			<table class="dataTableDisplay" style="margin-top:5px;margin-left:0px;width:100%;">
-				<colgroup>
-					<col width="13%" />
-					<col width="11%" />
-					<col width="11%" />
-					<col width="11%" />
-					<col width="11%" />
-					<col width="11%" />
-					<col width="10%" />
-					<col width="11%" />
-					<col width="11%" />
-				</colgroup>
-				<tr>
-					<th></th>
-					<th class="center">一</th>
-					<th class="center">二</th>
-					<th class="center">三</th>
-					<th class="center">四</th>
-					<th class="center">五</th>
-					<th></th>
-					<th class="center">六</th>
-					<th class="center">日</th>
-				</tr>
-				<c:set var="kevalue" value="${ke.kevalue }"></c:set>
-				<c:set var="index" value="-1"></c:set>
-				<c:forEach var="i" begin="1" end="11" step="1">
-					<tr>
-						<c:forEach var="j" begin="0" end="7" step="1">
-						<c:set var="current_ke" value="${fn:substring(kevalue, index, index+1) }"></c:set>
-						<c:choose>
-							<c:when test="${j == 0 }">
-							<th class="center">${i >= 5 ? i+1 : i }</th>
-							</c:when>
-							<c:when test="${j == 5 }">
-								<c:choose>
-									<c:when test="${current_ke == '0' }">
-									<td class="center">-</td>
-									</c:when>
-									<c:otherwise>
-									<td class="center itemOutShow">有</td>
-									</c:otherwise>
-								</c:choose>
+			<c:choose>
+				<c:when test="${empty ke }">
+					<div class="optTip" style="margin-top:20px;">提示：<span class="msg">未添加课表</span></div>
+				</c:when>
+				<c:otherwise>
+					<table class="dataTableDisplay" style="margin-top:5px;margin-left:0px;width:100%;">
+						<colgroup>
+							<col width="13%" />
+							<col width="11%" />
+							<col width="11%" />
+							<col width="11%" />
+							<col width="11%" />
+							<col width="11%" />
+							<col width="10%" />
+							<col width="11%" />
+							<col width="11%" />
+						</colgroup>
+						<tr>
 							<th></th>
-							</c:when>
-							<c:otherwise>
+							<th class="center">一</th>
+							<th class="center">二</th>
+							<th class="center">三</th>
+							<th class="center">四</th>
+							<th class="center">五</th>
+							<th></th>
+							<th class="center">六</th>
+							<th class="center">日</th>
+						</tr>
+						<c:set var="kevalue" value="${ke.kevalue }"></c:set>
+						<c:set var="index" value="-1"></c:set>
+						<c:forEach var="i" begin="1" end="11" step="1">
+							<tr>
+								<c:forEach var="j" begin="0" end="7" step="1">
+								<c:set var="current_ke" value="${fn:substring(kevalue, index, index+1) }"></c:set>
 								<c:choose>
-									<c:when test="${current_ke == '0' }">
-									<td class="center">-</td>
+									<c:when test="${j == 0 }">
+									<th class="center">${i >= 5 ? i+1 : i }</th>
+									</c:when>
+									<c:when test="${j == 5 }">
+										<c:choose>
+											<c:when test="${current_ke == '0' }">
+											<td class="center">-</td>
+											</c:when>
+											<c:otherwise>
+											<td class="center itemOutShow">有</td>
+											</c:otherwise>
+										</c:choose>
+									<th></th>
 									</c:when>
 									<c:otherwise>
-									<td class="center itemOutShow">有</td>
+										<c:choose>
+											<c:when test="${current_ke == '0' }">
+											<td class="center">-</td>
+											</c:when>
+											<c:otherwise>
+											<td class="center itemOutShow">有</td>
+											</c:otherwise>
+										</c:choose>
 									</c:otherwise>
 								</c:choose>
-							</c:otherwise>
-						</c:choose>
-						<c:set var="index" value="${index+1 }"></c:set>
+								<c:set var="index" value="${index+1 }"></c:set>
+								</c:forEach>
+								<c:set var="index" value="${index-1 }"></c:set>
+							</tr>	
+							<c:if test="${i==4 || i==8 }">
+							<tr>
+								<th></th>
+								
+								<th></th>
+								<th></th>
+								<th></th>
+								<th></th>
+								<th></th>
+			
+								<th></th>
+			
+								<th></th>
+								<th></th>
+							</tr>
+							</c:if>
 						</c:forEach>
-						<c:set var="index" value="${index-1 }"></c:set>
-					</tr>	
-					<c:if test="${i==4 || i==8 }">
-					<tr>
-						<th></th>
-						
-						<th></th>
-						<th></th>
-						<th></th>
-						<th></th>
-						<th></th>
-	
-						<th></th>
-	
-						<th></th>
-						<th></th>
-					</tr>
-					</c:if>
-				</c:forEach>
-			</table>
+					</table>
+				</c:otherwise>
+			</c:choose>
 		</div>
 		<div class="welcome-ffile">
 			<h2>最新共享文件<span><a href="action/global/shareFile">全部</a></span></h2>

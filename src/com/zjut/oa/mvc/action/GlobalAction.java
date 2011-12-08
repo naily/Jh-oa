@@ -551,8 +551,9 @@ public class GlobalAction extends ActionAdapter {
 		ke.setUserID(Integer.parseInt(s_id));
 
 		List<Ke> hasKeOfUserID = (List<Ke>) ke.filter(" where userID=" + s_id);
+		Ke oneKe=null;
 		if (hasKeOfUserID.size() == 1) {
-			ke = hasKeOfUserID.get(0);
+			oneKe = hasKeOfUserID.get(0);
 		}
 
 		// 共享文件
@@ -601,7 +602,7 @@ public class GlobalAction extends ActionAdapter {
 		user=user.get(Long.parseLong(s_id));
 		
 		//返回课，前10个共享文件
-		setAttr(req, PAGE_MANAGER_KE_MODEL_KEY, ke);
+		setAttr(req, PAGE_MANAGER_KE_MODEL_KEY, oneKe);
 		setAttr(req, PAGE_MANAGER_FILETOGETHER_LIST_KEY, ftList);
 		setAttr(req, PAGE_MANAGER_USER_MODEL_KEY, user);
 		
