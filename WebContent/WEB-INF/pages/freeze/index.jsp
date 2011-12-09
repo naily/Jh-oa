@@ -78,7 +78,7 @@
 	</c:if>
 	<c:choose>
 		<c:when test="${not empty info }">
-		<div class="user-info-container">
+		<div class="user-info-body">
 			您的个人资料尚未填写完整,请尽快完善~(<span>${info }</span>) <a href="action/user/viewModifyMyself">现在去完善</a>
 		</div>
 		</c:when>

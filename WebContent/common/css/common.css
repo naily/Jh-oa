@@ -339,10 +339,10 @@ min-height:600px;height:auto !important;height:600px;}
 
 /*管理首页*/
 .m30{margin-left:30px;}
-.welcome-bar,.user-info-container,.welcome-ffile,.welcome-ke{margin-left:30px;}
+.welcome-bar,.user-info-body,.welcome-ffile,.welcome-ke{margin-left:30px;}
 .user-info-container{margin-bottom:20px;line-height:30px;height:30px;color:#666;background-color:#f3f3f3;}
-.user-info-container span{font-weight:bold;}
-.user-info-container a,.user-info-container a:visited,.user-info-container a:hover,.user-info-container a:active{color:blue;}
+.user-info-body span{font-weight:bold;}
+.user-info-body a,.user-info-body a:visited,.user-info-body a:hover,.user-info-body a:active{color:blue;}
 .welcome-ffile,.welcome-ke{height:500px;overflow:hidden;}
 .welcome-ffile h2,.welcome-ke h2{position:relative;padding-left:25px;padding-bottom:3px;line-height:20px;height:20px;
 	background-color:#f3f3f3;color:#666;font-weight:bold;border-bottom:1px #ddd solid;}
