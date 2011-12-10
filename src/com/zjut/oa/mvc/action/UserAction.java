@@ -1,5 +1,7 @@
 package com.zjut.oa.mvc.action;
 
+import java.io.File;
+import java.io.IOException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
@@ -7,6 +9,11 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
+import jxl.Cell;
+import jxl.Sheet;
+import jxl.Workbook;
+import jxl.read.biff.BiffException;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
@@ -21,6 +28,7 @@ import com.zjut.oa.mvc.core.annotation.Result;
 import com.zjut.oa.mvc.core.annotation.Success;
 import com.zjut.oa.mvc.domain.Academy;
 import com.zjut.oa.mvc.domain.Department;
+import com.zjut.oa.mvc.domain.Ffile;
 import com.zjut.oa.mvc.domain.Job;
 import com.zjut.oa.mvc.domain.User;
 import com.zjut.oa.mvc.domain.strengthen.UserTogether;
@@ -55,6 +63,7 @@ public class UserAction extends ActionAdapter {
 		return INPUT;
 
 	}
+
 	@Result("/WEB-INF/pages/freeze/user/detail.jsp")
 	public String detail(HttpServletRequest req, HttpServletResponse resp) {
 		int id = param(req, "id", 0);
@@ -78,6 +87,7 @@ public class UserAction extends ActionAdapter {
 		return INPUT;
 
 	}
+
 	@Result("/WEB-INF/pages/freeze/user/showMyself.jsp")
 	public String showMyself(HttpServletRequest req, HttpServletResponse resp) {
 		// 设置会话状态
@@ -1361,7 +1371,7 @@ public class UserAction extends ActionAdapter {
 				filter.append(" order by " + by + " asc");
 			}
 		} else {
-			filter.append(" order by id asc");
+			filter.append(" order by addtime desc");
 		}
 
 		// 前台分页
@@ -1416,6 +1426,7 @@ public class UserAction extends ActionAdapter {
 
 		return INPUT;
 	}
+
 	@SuppressWarnings("unchecked")
 	@Result("/WEB-INF/pages/freeze/user/filterForUser.jsp")
 	public String filterForUser(HttpServletRequest req, HttpServletResponse resp) {
@@ -1727,9 +1738,9 @@ public class UserAction extends ActionAdapter {
 		List<UserTogether> utList = new ArrayList<UserTogether>();
 		for (User u : dataList) {
 
-			Academy a=new Academy();
-			a=a.get(u.getAcademyID());
-			
+			Academy a = new Academy();
+			a = a.get(u.getAcademyID());
+
 			Department d = new Department();
 			d = d.get(u.getDepartmentID());
 
@@ -1754,6 +1765,7 @@ public class UserAction extends ActionAdapter {
 
 		return INPUT;
 	}
+
 	@Result("/WEB-INF/pages/freeze/user/filter.jsp")
 	public String batchDelete(HttpServletRequest req, HttpServletResponse resp) {
 		String[] deleteId = params(req, "deleteId");
@@ -1801,6 +1813,90 @@ public class UserAction extends ActionAdapter {
 		setAttr(req, PAGE_USER_JOBLIST_KEY, job.listAll());
 
 		return INPUT;
+	}
+
+	@Result("/WEB-INF/pages/freeze/user/viewImportUser.jsp")
+	public String viewImportUser(HttpServletRequest req,
+			HttpServletResponse resp) {
+		return INPUT;
+	}
+
+	@SuppressWarnings("unchecked")
+	@Success(path = "/WEB-INF/pages/freeze/user/importUserList.jsp")
+	@Fail(path = "/WEB-INF/pages/freeze/user/viewImportUser.jsp")
+	public String importUserList(HttpServletRequest req,
+			HttpServletResponse resp) {
+		String filename = param(req, "filename");
+
+		Ffile model = new Ffile();
+		model.setFilename(filename);
+
+		setAttr(req, MODEL, model);
+
+		if (StringUtils.isBlank(filename)) {
+			setAttr(req, TIP_NAME_KEY, "请上传用户信息的Excel文件");
+			return FAIL;
+		} else {
+			// 解析Excel数据
+			String realpath = req.getRealPath("/");
+			filename = filename.substring(1);
+			int index = filename.indexOf("/");
+			realpath += filename.substring(index + 1);
+			log.info(" Parse Excel filename : " + realpath);
+			File xls = new File(realpath);
+			Workbook book = null;
+			List<User> failList = new ArrayList<User>();
+			try {
+				book = Workbook.getWorkbook(xls);
+				Sheet sheet = book.getSheet(0);
+				// 解析
+				for (int i = 1,len=sheet.getRows();i<len; i++) {
+					Cell cell_uid = sheet.getCell(0, i);
+					Cell cell_username = sheet.getCell(1, i);
+					String uid = cell_uid.getContents();
+					String username = cell_username.getContents();
+
+					if (StringUtils.isNotBlank(uid)
+							&& StringUtils.isNotBlank(username)) {
+						User existUser = new User();
+						User oneUser = null;
+						List<User> uList = (List<User>) existUser
+								.filter(" where uid ='" + uid + "'");
+						if (uList.size() > 0) {
+							oneUser = uList.get(0);
+						}
+						//已存在
+						if(oneUser!=null){
+							User u = new User();
+							u.setUid(uid);
+							u.setUsername(username);
+							failList.add(u);
+						}
+						else{
+							User u = new User();
+							u.setUid(uid);
+							u.setUsername(username);
+							u.setAddtime(CalendarTool.now());
+							u.setModifytime(CalendarTool.now());
+							//保存此用户
+							u.save();
+						}
+					}
+					//为空不处理
+				}
+
+			} catch (BiffException e) {
+				log.error(e, e.getCause());
+			} catch (IOException e) {
+				log.error(e, e.getCause());
+			} finally {
+				if (book != null)
+					book.close();
+			}
+
+			setAttr(req, PAGE_IMPORTUSER_FAILLIST_KEY, failList);
+			return SUCCESS;
+		}
 	}
 
 	@None

@@ -40,7 +40,7 @@
 </c:if>
 <form name="addkeForm" id="addkeForm" action="action/ke/add" method="post">
 <div class="formItem">
-	<label for="userID" class="common-label">用户</label>
+	用户
 	<select name="userID" id="userID" class="userID">
 		<option value="-1">==== 请选择用户 ====</option>
 		<c:forEach var="user" items="${userList }">
@@ -54,6 +54,10 @@
 			</c:choose>
 		</c:forEach>
 	</select>
+	<span style="position:relative;">
+	<input type="text" name="fastname" id="fastname" class="fastname" autocomplete="off" value="请输入需要查找的用户名" onfocus="if($('#fastname').val()=='请输入需要查找的用户名'){ $('#fastname').val('');$(this).addClass('focus');} " onblur="if($('#fastname').val()==''){ $('#fastname').val('请输入需要查找的用户名');$(this).removeClass('focus');}"/>
+	<div id="userList"></div>
+	</span>
 </div>
 <div class="formItem">
 		<table class="dataTableDisplay">

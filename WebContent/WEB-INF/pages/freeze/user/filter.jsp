@@ -78,6 +78,7 @@
 </div>
 <div class="quick-action">
 	<a href="action/user/viewAdd" class="button-like"><span class="add-user">发布新用户</span></a>
+	<a href="action/user/viewImportUser" class="button-like"><span class="export-user">Excel批量导入用户</span></a>
 	<a href="action/user/viewExportUser" class="button-like"><span class="export-user">按条件导出用户基本信息</span></a>
 	<a href="action/user/exportUserOfIncompleteInfo" class="button-like"><span class="export-user">导出基本信息不完整用户</span></a>
 </div>
