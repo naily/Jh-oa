@@ -1,5 +1,6 @@
-#Tue Dec 06 10:56:05 CST 2011
+#Sat Dec 10 14:26:11 CST 2011
 eclipse.preferences.version=1
-encoding//res/config.properties=UTF-8
 encoding//res/domain.properties=UTF-8
 encoding//res/log4j.properties=UTF-8
+encoding//res/page.properties=UTF-8
+encoding//res/upload.properties=UTF-8

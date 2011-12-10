@@ -35,45 +35,21 @@
 	<div class="clear"></div>
 </div>
 <div class="box">
-<c:if test="${ not empty tip}">
-<div class="optTip">提示：<span class="msg">${tip}</span></div>
-</c:if>
-
-<div style="position:relative;">
+	<c:if test="${ not empty tip}">
+	<div class="optTip">提示：<span class="msg">${tip}</span></div>
+	</c:if>
 	<div class="uploadContainer">
-	<iframe name="uploadIframe" id="uploadIframe" style="display:none;"></iframe>
-	<form name="uploadFileForm" id="uploadFileForm" action="action/team/uploadFile" method="post" enctype="multipart/form-data" target="uploadIframe">
-	<div class="formItem clear">
-		成员头像<input type="file" name="selectfile" id="selectfile" />
-		<span id="wait">正在上传文件...</span>
-	</div>
-	</form>
+		<iframe name="uploadIframe" id="uploadIframe" style="display:none;"></iframe>
+		<form name="uploadFileForm" id="uploadFileForm" action="action/team/uploadFile" method="post" enctype="multipart/form-data" target="uploadIframe">
+		<div class="formItem clear">
+			<label for="selectfile" class="common-label">成员头像</label>
+			<input type="file" name="selectfile" id="selectfile" />
+			<span id="wait">正在上传文件...</span>
+		</div>
+		</form>
 	</div>
 
 	<form name="modifyteamForm" id="modifyteamForm" action="action/team/modify" method="post">
-		<div class="formItem">
-			用户
-			<select id="userID" name="userID">
-				<option value="-1">== 请选择用户 ==</option>
-				<c:choose>
-					<c:when test="${ empty userList }">
-						<option value="0">无</option>
-					</c:when>
-					<c:otherwise>
-						<c:forEach var="user" items="${userList }">
-							<c:choose>
-								<c:when test="${model.userID== user.id }">
-									<option value="${user.id }" selected="selected">${user.uid } -- ${user.username }</option>
-								</c:when>
-								<c:otherwise>
-									<option value="${user.id }">${user.uid } -- ${user.username }</option>
-								</c:otherwise>
-							</c:choose>
-						</c:forEach>
-					</c:otherwise>
-				</c:choose>		
-			</select>
-		</div>
 		<c:choose>
 			<c:when test="${not empty model.headimage }">
 				<div class="formItem alreadyUpload">
@@ -88,13 +64,52 @@
 				</div>	
 			</c:otherwise>
 		</c:choose>
+		<div class="formItem">
+			<label for="userID" class="common-label">用户</label>
+			<c:forEach var="user" items="${userList }">
+				<c:choose>
+					<c:when test="${model.userID== user.id }">
+						${user.username }
+					</c:when>
+				</c:choose>
+			</c:forEach>
+		</div>
+		<div class="formItem">
+			<label for="start" class="common-label">任期开始时间</label>
+			<select id="start" name="start" class="start">
+				<option value="0">== 请选择 ==</option>
+				<c:forEach var="s" begin="2011" end="2020" step="1">
+					<c:choose>
+						<c:when test="${model.start == s }">
+							<option value="${s }" selected="selected">${s }</option>
+						</c:when>
+						<c:otherwise>
+							<option value="${s }">${s }</option>
+						</c:otherwise>
+					</c:choose> 
+				</c:forEach>
+			</select>
+			<label for="end" class="common-label">任期结束时间</label>
+			<select id="end" name="end" class="end">
+				<option value="0">== 请选择 ==</option>
+				<c:forEach var="e" begin="2011" end="2020" step="1">
+					<c:choose>
+						<c:when test="${model.end == e }">
+							<option value="${e }" selected="selected">${e }</option>
+						</c:when>
+						<c:otherwise>
+							<option value="${e }">${e }</option>
+						</c:otherwise>
+					</c:choose> 
+				</c:forEach>
+			</select>
+		</div>
 		<input type="hidden" id="headimage" name="headimage" value="${ model.headimage}" />
 		<input type="hidden" name="id" value="${model.id }" />
 		<div class="formItem">
 			<input type="submit" value="编辑" class="bt bt-addteam" />
 		</div>
 	</form>
-	</div>
 </div>
 <script type="text/javascript">
 $(function(){
@@ -145,14 +160,14 @@ $(function(){
 	});
 	
 	
-	if($('#userID').val()=='-1'){
-		$('#userID').focus();
-	}
-	else if($('#userID').val()!='-1' && $('#headimage').val()==''){
+	if($('#headimage').val()==''){
 		$('#headimage').focus();
 	}
-	else{
-		$('#userID').select();
+	else if($('#headimage').val()!='' && start==0){
+		$('#start').focus();
+	}
+	else if($('#headimage').val()!='' && start != 0 && end == 0){
+		$('#end').focus();
 	}
 });
 </script>

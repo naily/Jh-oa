@@ -96,8 +96,8 @@ public class FfileAction extends ActionAdapter {
 				+ UploadTool.FILE_SAVE_DIR_NAME + "/";
 		String saveUrl = req.getContextPath() + "/"
 				+ UploadTool.FILE_SAVE_DIR_NAME + "/";
-		String[] fileTypes = UploadTool.FILE_ALLOW_FILE_SUFFIX;
-		long maxSize = UploadTool.FILE_ALLOW_MAX_FILE_SIZE;
+		String[] fileTypes = UploadTool.FILE_SUFFIXS;
+		long maxSize = UploadTool.FILE_MAX_SIZE;
 
 		String fileExt = "";
 		long size = 0;
@@ -195,19 +195,19 @@ public class FfileAction extends ActionAdapter {
 		model.setSuffix(suffix);
 
 		setAttr(req, MODEL, model);
-
-		if (StringUtils.isBlank(showname)) {
-			setAttr(req, TIP_NAME_KEY, "请输入文件显示名称");
+		if (userID == 0) {
+			setAttr(req, TIP_NAME_KEY, "请先登录");
 			return FAIL;
 		}
 		if (StringUtils.isBlank(filename)) {
 			setAttr(req, TIP_NAME_KEY, "请先选择要发布的文件");
 			return FAIL;
 		}
-		if (userID == 0) {
-			setAttr(req, TIP_NAME_KEY, "请先登录");
+		if (StringUtils.isBlank(showname)) {
+			setAttr(req, TIP_NAME_KEY, "请输入文件显示名称");
 			return FAIL;
 		}
+
 		model.setAddtime(CalendarTool.now());
 
 		if (model.save() > 0) {
@@ -375,19 +375,19 @@ public class FfileAction extends ActionAdapter {
 		model.setSuffix(suffix);
 
 		setAttr(req, MODEL, model);
-
-		if (StringUtils.isBlank(showname)) {
-			setAttr(req, TIP_NAME_KEY, "请输入文件显示名称");
+		if (userID == 0) {
+			setAttr(req, TIP_NAME_KEY, "请先登录");
 			return FAIL;
 		}
 		if (StringUtils.isBlank(filename)) {
 			setAttr(req, TIP_NAME_KEY, "请先选择要发布的文件");
 			return FAIL;
 		}
-		if (userID == 0) {
-			setAttr(req, TIP_NAME_KEY, "请先登录");
+		if (StringUtils.isBlank(showname)) {
+			setAttr(req, TIP_NAME_KEY, "请输入文件显示名称");
 			return FAIL;
 		}
+
 		model.setAddtime(CalendarTool.now());
 
 		if (model.save() > 0) {

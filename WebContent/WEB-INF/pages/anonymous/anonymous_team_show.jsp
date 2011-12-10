@@ -34,6 +34,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <c:set var="model" value="${requestScope.model }"></c:set>
 <c:set var="user" value="${model.user }"></c:set>
 <c:set var="department" value="${requestScope.department }"></c:set>
+<c:set var="job" value="${requestScope.job }"></c:set>
 
 <div id="wrap">
 	<%@ include file="/include/header.jsp" %>
@@ -54,7 +55,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<div class="one-team-content">
 						<div class="headimageContainer">
 							<p><img src="${model.headimage}" alt="headimage" class="logoIcon" /></p>
-							<p>${department.departmentname }</p>
+							<p>${department.departmentname } ( ${job.jobname } )</p>
 							</div>					
 						<div class="simpleinfoContainer">
 							<div class="usernameCt">${user.username }</div>

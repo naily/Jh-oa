@@ -41,18 +41,30 @@
 <c:if test="${ not empty tip}">
 <div class="optTip">提示：<span class="msg">${tip}</span></div>
 </c:if>
-<div style="position:relative;">
 	<div class="uploadContainer">
-	<iframe name="uploadIframe" id="uploadIframe" style="display:none;"></iframe>
-	<form name="uploadFileForm" id="uploadFileForm" action="action/ffile/uploadFile" method="post" enctype="multipart/form-data" target="uploadIframe">
-	<div class="formItem clear">
-		<input type="file" name="selectfile" id="selectfile" />
-		<span id="wait">正在上传文件...</span>
-	</div>
-	</form>
+		<iframe name="uploadIframe" id="uploadIframe" style="display:none;"></iframe>
+		<form name="uploadFileForm" id="uploadFileForm" action="action/ffile/uploadFile" method="post" enctype="multipart/form-data" target="uploadIframe">
+		<div class="formItem clear">
+			<label for="selectfile" class="common-label">文件</label>
+			<input type="file" name="selectfile" id="selectfile" />
+			<span id="wait">正在上传文件...</span>
+		</div>
+		</form>
 	</div>
 
 	<form name="addffileForm" id="addffileForm" action="action/ffile/addMyself" method="post">
+	<c:choose>
+		<c:when test="${not empty model.filename }">
+			<div class="formItem alreadyUpload">
+					<span class="uploadTitle">已上传的文件：</span> <span class="flist">${model.filename }</span><span class="cleanit"><a href="javascript:void(0);" title="丢弃此文件" class="lostit"><span>丢弃</span></a></span>
+			</div>
+		</c:when>
+		<c:otherwise>
+			<div class="formItem alreadyUpload" style="display:none;">
+					<span class="uploadTitle">已上传的文件：</span> <span class="flist">${model.filename }</span><span class="cleanit"><a href="javascript:void(0);" title="丢弃此文件" class="lostit"><span>丢弃</span></a></span>
+			</div>	
+		</c:otherwise>
+	</c:choose>
 	<div class="formItem">
 		<label for="showname" class="common-label">文件名</label>
 		<input type="text" id="showname" name="showname" class="showname" value="${model.showname }"/>
@@ -61,23 +73,10 @@
 	<input type="hidden" id="size" name="size" value="${model.size }" />
 	<input type="hidden" id="suffix" name="suffix" value="${model.suffix }" />
 	<input type="hidden" name="userID" value="${userID }" />
-	<c:choose>
-	<c:when test="${not empty model.filename }">
-	<div class="formItem alreadyUpload">
-			<span class="uploadTitle">已上传的文件：</span> <span class="flist">${model.filename }</span><span class="cleanit"><a href="javascript:void(0);" title="丢弃此文件" class="lostit"><span>丢弃</span></a></span>
-	</div>
-	</c:when>
-	<c:otherwise>
-	<div class="formItem alreadyUpload" style="display:none;">
-			<span class="uploadTitle">已上传的文件：</span> <span class="flist">${model.filename }</span><span class="cleanit"><a href="javascript:void(0);" title="丢弃此文件" class="lostit"><span>丢弃</span></a></span>
-	</div>	
-	</c:otherwise>
-	</c:choose>
 	<div class="formItem">
 		<input type="submit" value="发布" class="bt bt-addffile" />
 	</div>
 	</form>
-	</div>
 </div>
 <script type="text/javascript">
 $(function(){

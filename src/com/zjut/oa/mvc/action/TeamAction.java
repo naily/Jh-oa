@@ -45,7 +45,8 @@ public class TeamAction extends ActionAdapter {
 	public String viewAdd(HttpServletRequest req, HttpServletResponse resp) {
 
 		User user = new User();
-		setAttr(req, PAGE_TEAM_USER_LIST_KEY, user.listAll(" order by username desc"));
+		setAttr(req, PAGE_TEAM_USER_LIST_KEY,
+				user.listAll(" order by username desc"));
 
 		return INPUT;
 	}
@@ -57,8 +58,8 @@ public class TeamAction extends ActionAdapter {
 				+ UploadTool.TEAM_SAVE_DIR_NAME + "/";
 		String saveUrl = req.getContextPath() + "/"
 				+ UploadTool.TEAM_SAVE_DIR_NAME + "/";
-		String[] fileTypes = UploadTool.IMAGE_ALLOW_FILE_SUFFIX;
-		long maxSize = UploadTool.IMAGE_ALLOW_MAX_FILE_SIZE;
+		String[] fileTypes = UploadTool.TEAM_SUFFIXS;
+		long maxSize = UploadTool.TEAM_MAX_SIZE;
 
 		String fileExt = "";
 		resp.setContentType("text/html; charset=UTF-8");
@@ -138,16 +139,25 @@ public class TeamAction extends ActionAdapter {
 	public String add(HttpServletRequest req, HttpServletResponse resp) {
 		int userID = param(req, "userID", -1);
 		String headimage = param(req, "headimage");
+		int start = param(req, "start", 0);
+		int end = param(req, "end", 0);
 
 		Team model = new Team();
 		model.setUserID(userID);
 		model.setHeadimage(headimage);
+		model.setStart(start);
+		model.setEnd(end);
 
 		User user = new User();
-		setAttr(req, PAGE_TEAM_USER_LIST_KEY, user.listAll(" order by username desc"));
+		setAttr(req, PAGE_TEAM_USER_LIST_KEY,
+				user.listAll(" order by username desc"));
 
 		setAttr(req, MODEL, model);
 
+		if (StringUtils.isBlank(headimage)) {
+			setAttr(req, TIP_NAME_KEY, "请上传用户头像");
+			return FAIL;
+		}
 		if (userID == -1) {
 			setAttr(req, TIP_NAME_KEY, "请选择用户");
 			return FAIL;
@@ -156,16 +166,25 @@ public class TeamAction extends ActionAdapter {
 			setAttr(req, TIP_NAME_KEY, "此用户已在管理团队中，如需要更改请选择编辑功能");
 			return FAIL;
 		}
-		if (StringUtils.isBlank(headimage)) {
-			setAttr(req, TIP_NAME_KEY, "请上传用户头像");
+		if (start == 0) {
+			setAttr(req, TIP_NAME_KEY, "请选择任期开始时间");
 			return FAIL;
 		}
-
+		if (end == 0) {
+			setAttr(req, TIP_NAME_KEY, "请选择任期结束时间");
+			return FAIL;
+		}
+		if (start > end) {
+			setAttr(req, TIP_NAME_KEY, "任期开始时间必须小于结束时间");
+			model.setEnd(start);
+			return FAIL;
+		}
 		if (model.save() > 0) {
 			setAttr(req, TIP_NAME_KEY, "添加管理团队成员成功");
 			model.setUserID(-1);
 			model.setHeadimage("");
-
+			model.setStart(0);
+			model.setEnd(0);
 			return SUCCESS;
 		} else {
 			setAttr(req, TIP_NAME_KEY, "添加管理团队成员失败");
@@ -212,7 +231,8 @@ public class TeamAction extends ActionAdapter {
 		User user = new User();
 
 		setAttr(req, MODEL, model);
-		setAttr(req, PAGE_TEAM_USER_LIST_KEY, user.listAll(" order by username desc"));
+		setAttr(req, PAGE_TEAM_USER_LIST_KEY,
+				user.listAll(" order by username desc"));
 
 		return INPUT;
 	}
@@ -223,35 +243,45 @@ public class TeamAction extends ActionAdapter {
 	public String modify(HttpServletRequest req, HttpServletResponse resp) {
 		int id = param(req, "id", 0);
 
-		int userID = param(req, "userID", -1);
 		String headimage = param(req, "headimage");
+		int start = param(req, "start", 0);
+		int end = param(req, "end", 0);
 
 		Team model = new Team();
 		model = model.get(id);
 
 		User user = new User();
-		setAttr(req, PAGE_TEAM_USER_LIST_KEY, user.listAll());
+		setAttr(req, PAGE_TEAM_USER_LIST_KEY,
+				user.listAll(" order by username desc"));
 
-		if (userID == model.getUserID()
-				&& StringUtils.equals(headimage, model.getHeadimage())) {
+		if (StringUtils.equals(headimage, model.getHeadimage())
+				&& start == model.getStart() && end == model.getEnd()) {
 			setAttr(req, TIP_NAME_KEY, "无任何变更");
 			setAttr(req, MODEL, model);
 			return FAIL;
 		}
-		model.setUserID(userID);
 		model.setHeadimage(headimage);
+		model.setStart(start);
+		model.setEnd(end);
 
 		setAttr(req, MODEL, model);
-
-		if (userID == -1) {
-			setAttr(req, TIP_NAME_KEY, "请先选择用户");
-			return FAIL;
-		}
 		if (StringUtils.isBlank(headimage)) {
 			setAttr(req, TIP_NAME_KEY, "请先上传用户头像");
 			return FAIL;
 		}
-
+		if (start == 0) {
+			setAttr(req, TIP_NAME_KEY, "请选择任期开始时间");
+			return FAIL;
+		}
+		if (end == 0) {
+			setAttr(req, TIP_NAME_KEY, "请选择任期结束时间");
+			return FAIL;
+		}
+		if (start > end) {
+			setAttr(req, TIP_NAME_KEY, "任期开始时间必须小于结束时间");
+			model.setEnd(start);
+			return FAIL;
+		}
 		if (model.save() > 0) {
 			setAttr(req, TIP_NAME_KEY, "编辑管理团队成员成功");
 			return SUCCESS;
@@ -264,20 +294,38 @@ public class TeamAction extends ActionAdapter {
 	@SuppressWarnings("unchecked")
 	@Result("/WEB-INF/pages/freeze/team/filter.jsp")
 	public String filter(HttpServletRequest req, HttpServletResponse resp) {
-		int userID = param(req, "userID", 0);
+		int userID = param(req, "userID", -1);
+		int start = param(req, "start", 0);
+		int end = param(req, "end", 0);
 
 		String by = param(req, "by");
 		String order = param(req, "order");
 
 		Team model = new Team();
 		model.setUserID(userID);
+		model.setStart(start);
+		model.setEnd(end);
+
+		User user = new User();
+		setAttr(req, PAGE_TEAM_USER_LIST_KEY,
+				user.listAll(" order by username desc"));
 
 		setAttr(req, MODEL, model);
 
 		StringBuilder filter = new StringBuilder();
 
-		if (userID != 0) {
+		if (userID != -1) {
 			filter.append(" where userID=" + userID);
+		}
+		if (userID == -1 && start != 0) {
+			filter.append(" where start >= " + start);
+		} else if (userID != -1 && start != 0) {
+			filter.append(" and start >= " + start);
+		}
+		if (userID == -1 && start == 0 && end != 0) {
+			filter.append(" where end <= " + end);
+		} else if ((userID != -1 || start != 0) && end != 0) {
+			filter.append(" and end <= " + end);
 		}
 
 		if (StringUtils.isNotBlank(by)
@@ -323,12 +371,14 @@ public class TeamAction extends ActionAdapter {
 		for (Team team : dataList) {
 			TeamTogether tt = new TeamTogether();
 
-			User user = new User();
-			user = user.get(team.getUserID());
+			User u = new User();
+			u = u.get(team.getUserID());
 
 			tt.setId(team.getId());
-			tt.setUser(user);
+			tt.setUser(u);
 			tt.setHeadimage(team.getHeadimage());
+			tt.setStart(team.getStart());
+			tt.setEnd(team.getEnd());
 
 			ttList.add(tt);
 		}

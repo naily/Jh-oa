@@ -28,31 +28,42 @@
 <c:set var="model" value="${requestScope.model }"></c:set>
 <c:set var="userList" value="${requestScope.userList }"></c:set>
 
-
 <div class="crumb">
 	<div class="addteam-title">添加管理团队成员</div>
 	<div class="backNav"><a href="action/team/filter">返回管理团队成员列表</a></div>
 	<div class="clear"></div>
 </div>
 <div class="box">
-<c:if test="${ not empty tip}">
-<div class="optTip">提示：<span class="msg">${tip}</span></div>
-</c:if>
-
-<div style="position:relative;">
+	<c:if test="${ not empty tip}">
+	<div class="optTip">提示：<span class="msg">${tip}</span></div>
+	</c:if>
 	<div class="uploadContainer">
-	<iframe name="uploadIframe" id="uploadIframe" style="display:none;"></iframe>
-	<form name="uploadFileForm" id="uploadFileForm" action="action/team/uploadFile" method="post" enctype="multipart/form-data" target="uploadIframe">
-	<div class="formItem clear">
-		成员头像<input type="file" name="selectfile" id="selectfile" />
-		<span id="wait">正在上传文件...</span>
+		<iframe name="uploadIframe" id="uploadIframe" style="display:none;"></iframe>
+		<form name="uploadFileForm" id="uploadFileForm" action="action/team/uploadFile" method="post" enctype="multipart/form-data" target="uploadIframe">
+		<div class="formItem clear">
+			<label for="selectfile" class="common-label">成员头像</label>
+			<input type="file" name="selectfile" id="selectfile" />
+			<span id="wait">正在上传文件...</span>
+		</div>
+		</form>
 	</div>
-	</form>
-	</div>
-
 	<form name="addteamForm" id="addteamForm" action="action/team/add" method="post">
+		<c:choose>
+			<c:when test="${not empty model.headimage }">
+				<div class="formItem alreadyUpload">
+					<img src="${model.headimage }" alt="headimage" class="headimageIcon" />
+					<span class="uploadTitle">已上传的成员头像：</span> <span class="flist">${model.headimage }</span><span class="cleanit"><a href="javascript:void(0);" title="丢弃此文件" class="lostit"><span>丢弃</span></a></span>
+				</div>
+			</c:when>
+			<c:otherwise>
+				<div class="formItem alreadyUpload" style="display:none;">
+					<img src="common/images/no-headimage.png" alt="headimage" class="headimageIcon" />
+					<span class="uploadTitle">已上传的成员头像：</span> <span class="flist">${model.headimage }</span><span class="cleanit"><a href="javascript:void(0);" title="丢弃此文件" class="lostit"><span>丢弃</span></a></span>
+				</div>	
+			</c:otherwise>
+		</c:choose>
 		<div class="formItem">
-			用户
+			<label for="userID" class="common-label">用户</label>
 			<select id="userID" name="userID">
 				<option value="-1">== 请选择用户 ==</option>
 				<c:choose>
@@ -73,27 +84,47 @@
 					</c:otherwise>
 				</c:choose>		
 			</select>
+			<span style="position:relative;">
+				<input type="text" name="fastname" id="fastname" class="fastname" autocomplete="off" value="请输入需要查找的用户名" onfocus="if($('#fastname').val()=='请输入需要查找的用户名'){ $('#fastname').val('');$(this).addClass('focus');} " onblur="if($('#fastname').val()==''){ $('#fastname').val('请输入需要查找的用户名');$(this).removeClass('focus');}"/>
+				<div id="userList"></div>
+			</span>
 		</div>
-		<c:choose>
-			<c:when test="${not empty model.headimage }">
-				<div class="formItem alreadyUpload">
-					<img src="${model.headimage }" alt="headimage" class="headimageIcon" />
-					<span class="uploadTitle">已上传的成员头像：</span> <span class="flist">${model.headimage }</span><span class="cleanit"><a href="javascript:void(0);" title="丢弃此文件" class="lostit"><span>丢弃</span></a></span>
-				</div>
-			</c:when>
-			<c:otherwise>
-				<div class="formItem alreadyUpload" style="display:none;">
-					<img src="common/images/no-headimage.png" alt="headimage" class="headimageIcon" />
-					<span class="uploadTitle">已上传的成员头像：</span> <span class="flist">${model.headimage }</span><span class="cleanit"><a href="javascript:void(0);" title="丢弃此文件" class="lostit"><span>丢弃</span></a></span>
-				</div>	
-			</c:otherwise>
-		</c:choose>
+		<div class="formItem">
+			<label for="start" class="common-label">任期开始时间</label>
+			<select id="start" name="start" class="start">
+				<option value="0">== 请选择 ==</option>
+				<c:forEach var="s" begin="2011" end="2020" step="1">
+					<c:choose>
+						<c:when test="${model.start == s }">
+							<option value="${s }" selected="selected">${s }</option>
+						</c:when>
+						<c:otherwise>
+							<option value="${s }">${s }</option>
+						</c:otherwise>
+					</c:choose> 
+				</c:forEach>
+			</select>
+			<label for="end" class="common-label">任期结束时间</label>
+			<select id="end" name="end" class="end">
+				<option value="0">== 请选择 ==</option>
+				<c:forEach var="e" begin="2011" end="2020" step="1">
+					<c:choose>
+						<c:when test="${model.end == e }">
+							<option value="${e }" selected="selected">${e }</option>
+						</c:when>
+						<c:otherwise>
+							<option value="${e }">${e }</option>
+						</c:otherwise>
+					</c:choose> 
+				</c:forEach>
+			</select>
+		</div>
+		
 		<input type="hidden" id="headimage" name="headimage" value="${ model.headimage}" />
 		<div class="formItem">
 			<input type="submit" value="添加" class="bt bt-addteam" />
 		</div>
 	</form>
-	</div>
 </div>
 <script type="text/javascript">
 $(function(){
@@ -144,14 +175,17 @@ $(function(){
 	});
 	
 	
-	if($('#userID').val()=='-1'){
-		$('#userID').focus();
-	}
-	else if($('#userID').val()!='-1' && $('#headimage').val()==''){
+	if($('#headimage').val()==''){
 		$('#headimage').focus();
 	}
-	else{
-		$('#userID').select();
+	else if( $('#headimage').val()!='' && $('#userID').val()=='-1'){
+		$('#userID').focus();
+	}
+	else if($('#headimage').val()!='' && $('#userID').val()!='-1' && start==0){
+		$('#start').focus();
+	}
+	else if($('#headimage').val()!='' && $('#userID').val()!='-1' && start != 0 && end == 0){
+		$('#end').focus();
 	}
 });
 </script>

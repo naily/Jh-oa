@@ -80,7 +80,7 @@
 		<c:when test="${not empty info }">
 		<div class="user-info-body">
 			您的个人资料尚未填写完整,请尽快完善~(<span>${info }</span>) <a href="action/user/viewModifyMyself">现在去完善</a>
-		</div>
+		</div> 
 		</c:when>
 	</c:choose>
 	<div class="ffile-ke">
@@ -173,13 +173,20 @@
 		</div>
 		<div class="welcome-ffile">
 			<h2>最新共享文件<span><a href="action/global/shareFile">全部</a></span></h2>
-			<ul>
-			<c:forEach var="ffiletogether" items="${ffiletogetherList }">
-			<c:set var="file" value="${ffiletogether.file }"></c:set>
-			<c:set var="user" value="${ffiletogether.user }"></c:set>
-				<li>${user.username }在 <fmt:formatDate type="both" value="${file.addtime }" pattern="yyyy-MM-dd"></fmt:formatDate>上传了<a href="action/global/shareFileShow?id=${file.id}" title="查看文件详细">${file.showname }</a></li>
-			</c:forEach>
-			</ul>
+			<c:choose>
+				<c:when test="${empty ffiletogetherList }">
+					<div class="optTip" style="margin-top:20px;">提示：<span class="msg">无任何共享文件</span> <a href="action/ffile/viewAddMyself" title="现在就去共享文件">现在就去共享文件</a></div>
+				</c:when>
+				<c:otherwise>
+					<ul>
+						<c:forEach var="ffiletogether" items="${ffiletogetherList }">
+						<c:set var="file" value="${ffiletogether.file }"></c:set>
+						<c:set var="user" value="${ffiletogether.user }"></c:set>
+							<li>${user.username }在 <fmt:formatDate type="both" value="${file.addtime }" pattern="yyyy-MM-dd"></fmt:formatDate>上传了<a href="action/global/shareFileShow?id=${file.id}" title="查看文件详细">${file.showname }</a></li>
+						</c:forEach>
+					</ul>
+				</c:otherwise>
+			</c:choose>
 		</div>
 		<div class="clear"></div>
 	</div>

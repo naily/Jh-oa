@@ -153,7 +153,31 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</div>
 </div>
 <script type="text/javascript">
-	$(function(){
+function isForbidden(value){
+	var flag=false;
+	if(value.length==0)
+		return false;
+	for(var i=0,len=value.length;i<len;i++){
+		if(isWordOrNum(value.charAt(i))){
+			flag=true;
+			break;
+		}
+	}
+	return flag;
+}
+function isWordOrNum(c){
+	var words='abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+	var flag=false;
+	for(var i=0,len=words.length;i<len;i++){
+		if(c==words.charAt(i)){
+			flag=true;
+			break;
+		}
+	}
+	return flag;
+}
+
+$(function(){
 		 $('#dialog').jqm();
 		 $('.delete').click(function(){
 			var self=$(this);
@@ -179,7 +203,54 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	        var dst=$(document).scrollTop();
 	        $('.suggestBox').css("top",dst+hh-400);
 	    }, 50);
-		 
+	    /*用户名自动提示*/
+		$('#userList .item').live('mouseover',function(){
+			$(this).addClass('itemOn');
+		});
+		
+		$('#userList .item').live('mouseout',function(){
+			$(this).removeClass('itemOn');
+		});
+		
+		$('#userList .item').live('click',function(){
+			var cValue=$(this).attr('title');
+			var selectOpts=$('#userID').children();
+			for(var i=0,len=selectOpts.length;i<len;i++){
+				if(cValue==$(selectOpts[i]).attr('value')){
+					$(selectOpts[i]).attr('selected',true);
+					$('#fastname').val('请输入需要查找的用户名');
+					$('#fastname').removeClass('focus');
+					$('roleID').focus();
+					break;
+				}
+			}
+			$('#userList').hide();
+		});
+		var cache='';
+		//时时响应用户列表
+		$('#fastname').keyup(function(){
+			$('#userList').hide();
+			var fn=$.trim($('#fastname').val());
+			if(fn!='' && fn!=cache && !isForbidden(fn)){
+					cache=fn;
+					$.ajax({
+						url : 'action/global/ajaxForUserList',
+						data :{
+							'username' : fn
+						},
+						type : 'get',
+						datatype : 'text',
+						success : function(html){
+							$('#userList').html(html);
+							$('#userList').show();
+						},
+						error : function(){
+							alert('请求出现异常,请稍候重试！');
+						}
+					});
+			}
+		});
+		
 	});
 </script>
 </body>

@@ -1,5 +1,7 @@
 package com.zjut.oa.mvc.core;
 
+import com.zjut.oa.tool.ConfigTool;
+
 public interface Constant {
 	
 	String GOTO_PAGE = "gotoPage";
@@ -19,13 +21,14 @@ public interface Constant {
 	String MODEL="model";
 	String DATA_LIST="dataList";
 	
-	int DEFAULT_CURRENT_PAGE=1;									/** 分页时默认当前页码 =1 */
-	int DEFAULT_COUNT_PER_PAGE=20;								/** 分页时默认分页大小 =20 */
-	int DEFAULT_MAX_PAGERSHOW_LENGTH=10;						/** 分页时左右分页区间大小 */
-	String PAGER_KEY="pager";									/** 分页时分页键 */
-	String MAX_PAGERSHOW_LENGTH_KEY="maxPagerShowLength";		/** 分页时左右分页区间键 */
-	String CURRENT_PAGE_KEY="currentPage";						/** 分页时当前页键 */
-	String CURRENT_COUNT_PER_PAGE_KEY="countPerPage";			/** 分页时当前分页大小键 */
+	int DEFAULT_CURRENT_PAGE=ConfigTool.DEFAULT_PAGE;							/** 分页时默认当前页码 =1 */
+	int DEFAULT_COUNT_PER_PAGE=ConfigTool.COUNT_PER_PAGE;						/** 分页时默认分页大小 =20 */
+	int DEFAULT_MAX_PAGERSHOW_LENGTH=ConfigTool.DEFAULT_LENGTH_PER_PAGE_SHOW; 	/** 分页时左右分页区间大小 */
+	
+	String PAGER_KEY="pager";													/** 分页时分页键 */
+	String MAX_PAGERSHOW_LENGTH_KEY="maxPagerShowLength";						/** 分页时左右分页区间键 */
+	String CURRENT_PAGE_KEY="currentPage";										/** 分页时当前页键 */
+	String CURRENT_COUNT_PER_PAGE_KEY="countPerPage";							/** 分页时当前分页大小键 */
 	
 	
 	/**
@@ -93,4 +96,5 @@ public interface Constant {
 	/** 管理团队 */
 	String PAGE_TEAM_USER_LIST_KEY="userList";
 	String PAGE_TEAM_DEPARTMENT_KEY="department";
+	String PAGE_TEAM_JOB_KEY="job";
 }

@@ -116,9 +116,10 @@ public class MailTool {
 		username = prop.getProperty("mail.host.username");
 		password = prop.getProperty("mail.host.password");
 
-		log.info("Param [host]:[" + host + "]");
-		log.info("Param [username]:[" + username + "]");
-		log.info("Param [password]:[" + password + "]");
+		log.info("Load Param from mail.properties ");
+		log.info("Param [mail.host]:[" + host + "]");
+		log.info("Param [mail.host.username]:[" + username + "]");
+		log.info("Param [mail.host.password]:[" + password + "]");
 	}
 
 	private void configurate() {

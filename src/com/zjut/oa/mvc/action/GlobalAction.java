@@ -37,6 +37,7 @@ import com.zjut.oa.mvc.domain.Comment;
 import com.zjut.oa.mvc.domain.Department;
 import com.zjut.oa.mvc.domain.Event;
 import com.zjut.oa.mvc.domain.Ffile;
+import com.zjut.oa.mvc.domain.Job;
 import com.zjut.oa.mvc.domain.Ke;
 import com.zjut.oa.mvc.domain.News;
 import com.zjut.oa.mvc.domain.Product;
@@ -298,7 +299,8 @@ public class GlobalAction extends ActionAdapter {
 			HttpServletResponse resp) {
 		Team model = new Team();
 
-		List<Team> dataList = (List<Team>) model.listAll();
+		List<Team> dataList = (List<Team>) model.filter(" where start >= "
+				+ CalendarTool.getCurrentYear());
 
 		List<TeamTogether> ttList = new ArrayList<TeamTogether>();
 		for (Team team : dataList) {
@@ -425,10 +427,11 @@ public class GlobalAction extends ActionAdapter {
 
 		Department department = new Department();
 		department = department.get(user.getDepartmentID());
-		// Job job=new Job();
-		// job=job.get(user.get)
+		Job job = new Job();
+		job = job.get(user.getJobID());
 
 		setAttr(req, PAGE_TEAM_DEPARTMENT_KEY, department);
+		setAttr(req, PAGE_TEAM_JOB_KEY, job);
 
 		setAttr(req, MODEL, tt);
 
@@ -551,7 +554,7 @@ public class GlobalAction extends ActionAdapter {
 		ke.setUserID(Integer.parseInt(s_id));
 
 		List<Ke> hasKeOfUserID = (List<Ke>) ke.filter(" where userID=" + s_id);
-		Ke oneKe=null;
+		Ke oneKe = null;
 		if (hasKeOfUserID.size() == 1) {
 			oneKe = hasKeOfUserID.get(0);
 		}
@@ -566,14 +569,14 @@ public class GlobalAction extends ActionAdapter {
 		int totalCount = ffile.totalCount(filter.toString());
 		Pager pager = new Pager(currentPage, countPerPage, totalCount);
 		// 读取部分数据
-		List<Ffile> fList = (List<Ffile>) ffile.filterByPage(
-				filter.toString(), p, pager.getCountPerPage());
+		List<Ffile> fList = (List<Ffile>) ffile.filterByPage(filter.toString(),
+				p, pager.getCountPerPage());
 
-		List<FfileTogether> ftList=new ArrayList<FfileTogether>();
-		for(Ffile f : fList){
-			FfileTogether ft=new FfileTogether();
-			
-			Ffile ff=new Ffile();
+		List<FfileTogether> ftList = new ArrayList<FfileTogether>();
+		for (Ffile f : fList) {
+			FfileTogether ft = new FfileTogether();
+
+			Ffile ff = new Ffile();
 			ff.setId(f.getId());
 			ff.setAddtime(f.getAddtime());
 			ff.setFilename(f.getFilename());
@@ -581,32 +584,31 @@ public class GlobalAction extends ActionAdapter {
 			ff.setUserID(f.getUserID());
 			ff.setSize(f.getSize());
 			ff.setSuffix(f.getSuffix());
-			
-			User user =new User();
-			user=user.get(f.getUserID());
-			
+
+			User user = new User();
+			user = user.get(f.getUserID());
+
 			ft.setId(ff.getId());
 			ft.setFile(ff);
 			ft.setUser(user);
-			
+
 			ftList.add(ft);
 		}
-		
+
 		setAttr(req, CURRENT_PAGE_KEY, currentPage);
 		setAttr(req, CURRENT_COUNT_PER_PAGE_KEY, countPerPage);
 		setAttr(req, PAGER_KEY, pager);
 		setAttr(req, MAX_PAGERSHOW_LENGTH_KEY, DEFAULT_MAX_PAGERSHOW_LENGTH);
 
-		//用户信息完整性
-		User user=new User();
-		user=user.get(Long.parseLong(s_id));
-		
-		//返回课，前10个共享文件
+		// 用户信息完整性
+		User user = new User();
+		user = user.get(Long.parseLong(s_id));
+
+		// 返回课，前10个共享文件
 		setAttr(req, PAGE_MANAGER_KE_MODEL_KEY, oneKe);
 		setAttr(req, PAGE_MANAGER_FILETOGETHER_LIST_KEY, ftList);
 		setAttr(req, PAGE_MANAGER_USER_MODEL_KEY, user);
-		
-		log.info(ftList.size());
+
 		return INPUT;
 	}
 
@@ -746,11 +748,11 @@ public class GlobalAction extends ActionAdapter {
 	@None
 	public String uploadImg(HttpServletRequest req, HttpServletResponse resp) {
 		String savePath = req.getSession().getServletContext().getRealPath("/")
-				+ UploadTool.SAVE_DIR_NAME + "/";
-		String saveUrl = req.getContextPath() + "/" + UploadTool.SAVE_DIR_NAME
+				+ UploadTool.ATTACHED_SAVE_DIR_NAME + "/";
+		String saveUrl = req.getContextPath() + "/" + UploadTool.ATTACHED_SAVE_DIR_NAME
 				+ "/";
-		String[] fileTypes = UploadTool.ALLOW_FILE_SUFFIX;
-		long maxSize = UploadTool.ALLOW_MAX_FILE_SIZE;
+		String[] fileTypes = UploadTool.ATTACHED_SUFFIXS;
+		long maxSize = UploadTool.ATTACHED_MAX_SIZE;
 		resp.setContentType("text/html; charset=UTF-8");
 		PrintWriter out = null;
 		try {

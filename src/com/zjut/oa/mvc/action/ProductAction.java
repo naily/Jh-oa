@@ -49,8 +49,8 @@ public class ProductAction extends ActionAdapter {
 				+ UploadTool.PRODUCT_SAVE_DIR_NAME + "/";
 		String saveUrl = req.getContextPath() + "/"
 				+ UploadTool.PRODUCT_SAVE_DIR_NAME + "/";
-		String[] fileTypes = UploadTool.IMAGE_ALLOW_FILE_SUFFIX;
-		long maxSize = UploadTool.IMAGE_ALLOW_MAX_FILE_SIZE;
+		String[] fileTypes = UploadTool.PRODUCT_SUFFIXS;
+		long maxSize = UploadTool.PRODUCT_MAX_SIZE;
 
 		String fileExt = "";
 		resp.setContentType("text/html; charset=UTF-8");
