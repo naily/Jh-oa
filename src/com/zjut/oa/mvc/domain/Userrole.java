@@ -44,9 +44,9 @@ public class Userrole extends Model {
 	}
 
 	/**
-	 * 根据角色ID来加载相应的角色权限[完全对象映射]
+	 * 根据角色ID来加载相应的角色权限[完全对象映射], 用户相关
 	 */
-	public List<RolePermissionTogether> getRolePermissionTogetherByRoleID(
+	public List<RolePermissionTogether> getUserRolePermissionTogetherByRoleID(
 			String roleID, String orderby) {
 		List<RolePermissionTogether> rptList = new ArrayList<RolePermissionTogether>();
 
@@ -58,9 +58,8 @@ public class Userrole extends Model {
 
 		StringBuilder sql = new StringBuilder();
 		sql.append("select ");
-
+		
 		sql.append(" rp.id, ");
-
 		sql.append(" rp.permissionID, ");
 		sql.append(" p.menuID, ");
 		sql.append(" p.resourceID, ");
@@ -96,7 +95,7 @@ public class Userrole extends Model {
 		try {
 			ps = DBHelper.getConnection().prepareStatement(sql.toString());
 			ps.setObject(1, roleID);
-			log.debug("Userrole:getRolePermissionTogetherByRoleID, sql: "
+			log.debug("Userrole:getUserRolePermissionTogetherByRoleID, sql: "
 					+ sql.toString() + ", Values[" + roleID + "]");
 			rs = ps.executeQuery();
 
@@ -128,6 +127,105 @@ public class Userrole extends Model {
 
 				RolePermissionTogether rpt = new RolePermissionTogether();
 				rpt.setId(rs.getLong(1));
+				rpt.setRole(role);
+				rpt.setPermissiontogether(pt);
+
+				rptList.add(rpt);
+			}
+		} catch (Exception e) {
+			log.error(e, e.getCause());
+		} finally {
+			DbUtils.closeQuietly(rs);
+			DbUtils.closeQuietly(ps);
+			sql = null;
+		}
+		return rptList;
+	}
+	
+	/**
+	 * 根据角色ID来加载相应的角色权限[完全对象映射], 用户相关
+	 */
+	public List<RolePermissionTogether> getRolePermissionTogetherByRoleID(
+			String roleID, String orderby) {
+		List<RolePermissionTogether> rptList = new ArrayList<RolePermissionTogether>();
+
+		Rolepermission rolepermission = new Rolepermission();
+		Permission permission = new Permission();
+		Menu menu = new Menu();
+		Resource resource = new Resource();
+		Operator operator = new Operator();
+
+		StringBuilder sql = new StringBuilder();
+		sql.append("select ");
+
+		//去掉重复行
+		sql.append(" distinct rp.permissionID, ");
+		sql.append(" rp.id, ");
+		sql.append(" p.menuID, ");
+		sql.append(" p.resourceID, ");
+		sql.append(" p.optID, ");
+		sql.append(" p.description, ");
+
+		sql.append(" m.menuname, ");
+
+		sql.append(" r.resourcename, ");
+		sql.append(" r.resourcevalue, ");
+
+		sql.append(" o.optname, ");
+		sql.append(" o.optvalue ");
+
+		sql.append(" from ");
+		sql.append(tableName() + " as ur,");
+		sql.append(rolepermission.tableName() + " as rp,");
+		sql.append(permission.tableName() + " as p,");
+		sql.append(menu.tableName() + " as m,");
+		sql.append(resource.tableName() + " as r,");
+		sql.append(operator.tableName() + " as o");
+		sql.append(" where ");
+		sql.append(" rp.permissionID = p.id  ");
+		sql.append(" and p.menuID = m.id  ");
+		sql.append(" and p.resourceID = r.id  ");
+		sql.append(" and p.optID = o.id ");
+		sql.append(" and rp.roleID = ? ");
+		if(orderby!=null)
+			sql.append(orderby);
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		try {
+			ps = DBHelper.getConnection().prepareStatement(sql.toString());
+			ps.setObject(1, roleID);
+			log.debug("Userrole:getRolePermissionTogetherByRoleID, sql: "
+					+ sql.toString() + ", Values[" + roleID + "]");
+			rs = ps.executeQuery();
+
+			Role role = new Role();
+			role = role.get(Long.parseLong(roleID));
+
+			while (rs.next()) {
+
+				Menu m = new Menu();
+				m.setId(rs.getLong(3));
+				m.setMenuname(rs.getString(7));
+
+				Resource r = new Resource();
+				r.setId(rs.getLong(4));
+				r.setResourcename(rs.getString(8));
+				r.setResourcevalue(rs.getString(9));
+
+				Operator o = new Operator();
+				o.setId(rs.getLong(5));
+				o.setOptname(rs.getString(10));
+				o.setOptvalue(rs.getString(11));
+
+				PermissionTogether pt = new PermissionTogether();
+				pt.setId(rs.getLong(1));
+				pt.setMenu(m);
+				pt.setResource(r);
+				pt.setOperator(o);
+				pt.setDescription(rs.getString(6));
+
+				RolePermissionTogether rpt = new RolePermissionTogether();
+				rpt.setId(rs.getLong(2));
 				rpt.setRole(role);
 				rpt.setPermissiontogether(pt);
 

@@ -53,7 +53,7 @@ public final class HttpTool {
 	}
 
 	public List<News> getTopNewsList() {
-		StringBuilder top6news = new StringBuilder();
+		StringBuilder top6news = new StringBuilder(" order by addtime desc");
 		News news = new News();
 		int currentPage = 1;
 		int countPerPage = 5;

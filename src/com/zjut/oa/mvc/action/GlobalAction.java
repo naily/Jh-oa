@@ -221,7 +221,7 @@ public class GlobalAction extends ActionAdapter {
 			} else {
 				// 加载完整角色权限树
 				List<RolePermissionTogether> rptList = userrole
-						.getRolePermissionTogetherByRoleID(
+						.getUserRolePermissionTogetherByRoleID(
 								Integer.toString(current_userrole.getRoleID()),
 								" order by p.menuID asc,p.resourceID asc,p.optID asc");
 				if (rptList.size() == 0) {
