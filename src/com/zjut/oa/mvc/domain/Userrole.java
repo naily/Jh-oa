@@ -59,8 +59,9 @@ public class Userrole extends Model {
 		StringBuilder sql = new StringBuilder();
 		sql.append("select ");
 		
+		//去掉重复行
+		sql.append(" distinct rp.permissionID, ");
 		sql.append(" rp.id, ");
-		sql.append(" rp.permissionID, ");
 		sql.append(" p.menuID, ");
 		sql.append(" p.resourceID, ");
 		sql.append(" p.optID, ");
@@ -119,14 +120,14 @@ public class Userrole extends Model {
 				o.setOptvalue(rs.getString(11));
 
 				PermissionTogether pt = new PermissionTogether();
-				pt.setId(rs.getLong(2));
+				pt.setId(rs.getLong(1));
 				pt.setMenu(m);
 				pt.setResource(r);
 				pt.setOperator(o);
 				pt.setDescription(rs.getString(6));
 
 				RolePermissionTogether rpt = new RolePermissionTogether();
-				rpt.setId(rs.getLong(1));
+				rpt.setId(rs.getLong(2));
 				rpt.setRole(role);
 				rpt.setPermissiontogether(pt);
 
